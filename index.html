@@ -11,14 +11,10 @@ body {
   background: black;
   color: white;
   font-family: Arial;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Background particles */
+/* ✅ FIXED CANVAS (background only) */
 canvas {
   position: fixed;
   top: 0;
@@ -26,44 +22,29 @@ canvas {
   z-index: 0;
 }
 
-/* Glass container */
+/* ✅ CONTENT ABOVE CANVAS */
 .container {
   position: relative;
   z-index: 2;
   text-align: center;
+  margin-top: 100px;
 
-  padding: 40px 60px;
-
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
+  padding: 40px;
   border-radius: 20px;
+  display: inline-block;
+
+  box-shadow: 0 0 40px rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.1);
-
-  box-shadow: 0 0 30px rgba(255,255,255,0.1);
-
-  max-width: 600px;
-  width: 90%;
 }
 
-/* Title */
+/* Neon Title */
 h1 {
-  font-size: 2.5rem;
-  text-shadow: 0 0 10px white;
-  margin: 0;
-}
-
-/* Subtitle */
-p {
-  color: #aaa;
-  margin: 10px 0 20px;
-}
-
-/* Button group */
-.btn-group {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  font-size: 3rem;
+  text-shadow: 0 0 10px white, 0 0 20px white;
 }
 
 /* Buttons */
@@ -76,22 +57,33 @@ p {
   color: white;
   transition: 0.2s ease;
 
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
 
 .btn:hover {
+  box-shadow: 0 0 25px white;
+}
+
+.invite { background: #5865f2; }
+.server { background: #22c55e; }
+
+.btn:hover {
+  transform: scale(1.1);
   box-shadow: 0 0 20px white;
 }
 
 /* Status */
 .status {
   margin-top: 15px;
+  font-size: 18px;
 }
 
 /* Commands */
 .commands {
-  margin-top: 60px;
+  position: relative;
+  z-index: 2;
+  margin-top: 80px;
   text-align: center;
 }
 
@@ -100,12 +92,14 @@ p {
 }
 
 .cmd {
-  margin: 8px;
-  transition: 0.2s;
+  margin: 10px;
+  font-size: 18px;
+  transition: 0.3s;
 }
 
 .cmd:hover {
   color: #22c55e;
+  transform: scale(1.05);
 }
 </style>
 </head>
@@ -115,18 +109,17 @@ p {
 <canvas id="bg"></canvas>
 
 <div class="container">
-  <h1>🤖 XD Discord Bot</h1>
-  <p>Moderation • AutoMod • Fast & Fun</p>
+  <h1>🤖 XD Bot</h1>
+  <p style="color: #aaa;">Moderation • AutoMod • Fast & Fun</p>
 
-  <div class="btn-group">
-    <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503601775103046&integration_type=0&scope=bot+applications.commands" target="_blank">
-      ➕ Invite Bot
-    </a>
+  <!-- 🔥 PUT YOUR REAL LINKS HERE -->
+  <a class="btn invite" href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503601775103046&integration_type=0&scope=bot+applications.commands" target="_blank">
+    ➕ Invite Bot
+  </a>
 
-    <a class="btn" href="https://discord.gg/WatHVxXsq5" target="_blank">
-      💬 Support Server
-    </a>
-  </div>
+  <a class="btn server" href="https://discord.gg/WatHVxXsq5" target="_blank">
+    💬 Support Server
+  </a>
 
   <div class="status">
     🟢 Bot Status: Online
@@ -140,12 +133,11 @@ p {
   <div class="cmd">/clear - Clear messages</div>
   <div class="cmd">/warn - Warn user</div>
   <div class="cmd">/ping - Check latency</div>
-  <div class="cmd">/avatar -  Shows avatar</div>
-  <div class="cmd">/userinfo -Shows userinfo</div>
+  <div class="cmd">/avatar - Show avatar</div>
+  <div class="cmd">/userinfo - User info</div>
 </div>
 
 <script>
-// PARTICLES
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
@@ -162,18 +154,18 @@ for (let i = 0; i < 80; i++) {
 }
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
   particles.forEach(p => {
     ctx.fillStyle = "white";
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
     ctx.fill();
 
     particles.forEach(p2 => {
       let dx = p.x - p2.x;
       let dy = p.y - p2.y;
-      let dist = Math.sqrt(dx * dx + dy * dy);
+      let dist = Math.sqrt(dx*dx + dy*dy);
 
       if (dist < 100) {
         ctx.strokeStyle = "rgba(255,255,255,0.1)";
@@ -184,21 +176,13 @@ function draw() {
       }
     });
 
-    p.x += (Math.random() - 0.5) * 0.5;
-    p.y += (Math.random() - 0.5) * 0.5;
+    p.x += (Math.random()-0.5)*0.5;
+    p.y += (Math.random()-0.5)*0.5;
   });
 
   requestAnimationFrame(draw);
 }
 
-draw();
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
-
-// MAGNETIC BUTTONS
 const buttons = document.querySelectorAll(".btn");
 
 buttons.forEach(btn => {
@@ -213,6 +197,13 @@ buttons.forEach(btn => {
   btn.addEventListener("mouseleave", () => {
     btn.style.transform = "translate(0, 0)";
   });
+});
+
+draw();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 });
 </script>
 
