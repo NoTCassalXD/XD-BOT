@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎮 XD Fun Discord BOT</title>
+<title>🎮 XD Fun Discord BOT - Fun Genshin Impact Gacha Experience</title>
 
 <style>
 * {
@@ -20,7 +20,6 @@ body {
   min-height: 100vh;
 }
 
-/* Animated gradient background */
 body::before {
   content: '';
   position: fixed;
@@ -40,7 +39,6 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-/* Particle canvas */
 #particles {
   position: fixed;
   top: 0;
@@ -51,7 +49,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Navigation */
 .nav {
   position: fixed;
   top: 0;
@@ -82,6 +79,7 @@ body::before {
   text-decoration: none;
   transition: 0.3s;
   position: relative;
+  padding: 5px 10px;
 }
 
 .nav-links a::after {
@@ -99,7 +97,6 @@ body::before {
   width: 100%;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   z-index: 10;
@@ -134,7 +131,6 @@ body::before {
   }
 }
 
-/* Buttons */
 .btn-container {
   display: flex;
   justify-content: center;
@@ -156,6 +152,7 @@ body::before {
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+  cursor: pointer;
 }
 
 .btn::before {
@@ -197,7 +194,6 @@ body::before {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Stats */
 .stats {
   position: relative;
   z-index: 10;
@@ -241,7 +237,6 @@ body::before {
   font-size: 1.1rem;
 }
 
-/* Features Section */
 .features {
   position: relative;
   z-index: 10;
@@ -295,7 +290,6 @@ body::before {
   line-height: 1.6;
 }
 
-/* Commands Section */
 .commands {
   position: relative;
   z-index: 10;
@@ -345,7 +339,228 @@ body::before {
   font-size: 0.95rem;
 }
 
-/* Footer */
+/* Support Section */
+.support {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.support h2 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.support-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.support-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.support-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.support-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.support-card p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.support-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.support-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* Report Form Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  padding: 50px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 600px;
+  width: 90%;
+  margin: 20px;
+  animation: slideUp 0.5s ease;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  transition: 0.3s;
+}
+
+.close-modal:hover {
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  transition: 0.3s;
+  font-family: inherit;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group select option {
+  background: #1a1a2e;
+  color: white;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
 .footer {
   position: relative;
   z-index: 10;
@@ -380,7 +595,6 @@ body::before {
   filter: drop-shadow(0 0 10px white);
 }
 
-/* Status Indicator */
 .status {
   display: inline-flex;
   align-items: center;
@@ -405,17 +619,6 @@ body::before {
   50% { opacity: 0.5; transform: scale(1.2); }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero h1 { font-size: 2.5rem; }
-  .hero p { font-size: 1.1rem; }
-  .nav { padding: 15px 20px; }
-  .nav-links { display: none; }
-  .stats { gap: 20px; }
-  .features h2, .commands h2 { font-size: 2rem; }
-}
-
-/* Scroll indicator */
 .scroll-indicator {
   position: fixed;
   bottom: 30px;
@@ -436,27 +639,61 @@ body::before {
   color: white;
   opacity: 0.7;
 }
+
+/* Success Message */
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 40px;
+}
+
+.success-message.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+.success-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+.success-message h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.success-message p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1.1rem; }
+  .nav { padding: 15px 20px; }
+  .nav-links { display: none; }
+  .stats { gap: 20px; }
+  .features h2, .commands h2, .support h2 { font-size: 2rem; }
+  .modal-content { padding: 30px 20px; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- Particle Background -->
 <canvas id="particles"></canvas>
 
-<!-- Navigation -->
 <nav class="nav">
-  <div class="logo">🎮 XD Fun Discord BOT</div>
+  <div class="logo">🎮 XD Fun Bot</div>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#commands">Commands</a>
-    <a href="#stats">Stats</a>
+    <a href="#support">Support</a>
   </div>
 </nav>
 
-<!-- Hero Section -->
 <section class="hero">
-  <h1>🌟 Fun Genshin Impact Gacha Experience</h1>
+  <h1>🌟 Discord's Best Genshin Gacha Bot</h1>
   <p>Pull characters, collect primogems, and compete with friends!</p>
   
   <div class="btn-container">
@@ -466,7 +703,7 @@ body::before {
     <a class="btn btn-secondary" href="https://discord.gg/WatHVxXsq5" target="_blank">
       💬 Support Server
     </a>
-    <a class="btn btn-vote" href="" target="_blank">
+    <a class="btn btn-vote" href="#" target="_blank">
       ⭐ Vote on Top.gg
     </a>
   </div>
@@ -477,7 +714,6 @@ body::before {
   </div>
 </section>
 
-<!-- Stats Section -->
 <section class="stats" id="stats">
   <div class="stat-card">
     <div class="stat-number">100+</div>
@@ -493,7 +729,6 @@ body::before {
   </div>
 </section>
 
-<!-- Features Section -->
 <section class="features" id="features">
   <h2>✨ Features</h2>
   <div class="feature-grid">
@@ -506,7 +741,7 @@ body::before {
     <div class="feature-card">
       <span class="feature-icon">💎</span>
       <h3>Primogem Economy</h3>
-      <p>Earn and buy primogems, gift to friends owner only, and manage your collection with daily limits and tracking.</p>
+      <p>Earn and buy primogems, gift to friends (owner only), and manage your collection with daily limits and tracking.</p>
     </div>
     
     <div class="feature-card">
@@ -535,7 +770,6 @@ body::before {
   </div>
 </section>
 
-<!-- Commands Section -->
 <section class="commands" id="commands">
   <h2>⚙️ Commands</h2>
   <div class="command-grid">
@@ -565,18 +799,13 @@ body::before {
     </div>
     
     <div class="command-item">
-      <div class="command-name">/vote</div>
-      <div class="command-desc">⭐ Vote for the bot on Top.gg</div>
-    </div>
-    
-    <div class="command-item">
       <div class="command-name">/codes</div>
       <div class="command-desc">🎁 Share Genshin redeem codes with buttons</div>
     </div>
     
     <div class="command-item">
       <div class="command-name">/coinflip</div>
-      <div class="command-desc">🪙 Flip a coin </div>
+      <div class="command-desc">🪙 Flip a coin with animation</div>
     </div>
     
     <div class="command-item">
@@ -626,14 +855,88 @@ body::before {
   </div>
 </section>
 
-<!-- Footer -->
+<section class="support" id="support">
+  <h2>💬 Support</h2>
+  <div class="support-grid">
+    <div class="support-card">
+      <div class="support-icon">🐛</div>
+      <h3>Bug Report</h3>
+      <p>Found something broken? Report it and we'll fix it as soon as possible.</p>
+      <button class="support-btn" onclick="openModal('bug')">REPORT BUG</button>
+    </div>
+    
+    <div class="support-card">
+      <div class="support-icon">💡</div>
+      <h3>Feature Request</h3>
+      <p>Have an idea for a new command or feature? We'd love to hear it!</p>
+      <button class="support-btn" onclick="openModal('feature')">SUGGEST FEATURE</button>
+    </div>
+    
+    <div class="support-card">
+      <div class="support-icon">💬</div>
+      <h3>Discord Server</h3>
+      <p>Join our support server for real-time help, updates, and community discussion.</p>
+      <a href="https://discord.gg/WatHVxXsq5" class="support-btn" target="_blank">JOIN SERVER</a>
+    </div>
+  </div>
+</section>
+
+<!-- Report Modal -->
+<div class="modal" id="reportModal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div id="formContainer">
+      <h2 id="modalTitle">📝 Submit Report</h2>
+      <form id="reportForm" onsubmit="submitReport(event)">
+        <div class="form-group">
+          <label for="username">Your Discord Username</label>
+          <input type="text" id="username" placeholder="e.g., username#0000" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="reportType">Report Type</label>
+          <select id="reportType" required>
+            <option value="">Select Type</option>
+            <option value="bug">🐛 Bug Report</option>
+            <option value="feature">💡 Feature Request</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="command">Command / Area Affected</label>
+          <input type="text" id="command" placeholder="e.g., /pull, inventory, etc." required>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Describe the bug or feature request in detail..." required></textarea>
+        </div>
+        
+        <div class="form-group" id="stepsGroup">
+          <label for="steps">Steps to Reproduce (For Bugs)</label>
+          <textarea id="steps" placeholder="1. Used /command with X&#10;2. Expected Y to happen&#10;3. Instead Z happened"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">📤 SUBMIT REPORT</button>
+      </form>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+      <div class="success-icon">✅</div>
+      <h3>Report Submitted!</h3>
+      <p>Thank you for your feedback. We'll review it soon!</p>
+      <button class="support-btn" style="margin-top: 20px;" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
 <footer class="footer">
   <p>Made for Fun Games and Memes</p>
   <p>Not affiliated with HoYoverse or Genshin Impact</p>
   <div class="social-links">
     <a href="https://discord.gg/WatHVxXsq5" target="_blank" title="Discord">💬</a>
-    <a href="" target="_blank" title="Top.gg">⭐</a>
-    <a href="" target="_blank" title="GitHub">🔗</a>
+    <a href="#" target="_blank" title="Top.gg">⭐</a>
+    <a href="#" target="_blank" title="GitHub">🔗</a>
   </div>
   <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.6;">
     For bugs or glitches, try kicking and re-adding the bot using the invite link above.
@@ -689,7 +992,6 @@ function animate() {
     p.draw();
   });
   
-  // Connect nearby particles
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx = particles[i].x - particles[j].x;
@@ -717,6 +1019,101 @@ window.addEventListener('resize', () => {
   canvas.height = window.innerHeight;
 });
 
+// Modal functions
+function openModal(type) {
+  const modal = document.getElementById('reportModal');
+  const reportType = document.getElementById('reportType');
+  const modalTitle = document.getElementById('modalTitle');
+  const stepsGroup = document.getElementById('stepsGroup');
+  
+  if (type === 'bug') {
+    reportType.value = 'bug';
+    modalTitle.textContent = '🐛 Report a Bug';
+    stepsGroup.style.display = 'block';
+  } else if (type === 'feature') {
+    reportType.value = 'feature';
+    modalTitle.textContent = '💡 Suggest a Feature';
+    stepsGroup.style.display = 'none';
+  }
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('reportModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+  
+  // Reset form
+  document.getElementById('reportForm').reset();
+  document.getElementById('formContainer').style.display = 'block';
+  document.getElementById('successMessage').classList.remove('active');
+}
+
+function submitReport(event) {
+  event.preventDefault();
+  
+  // Get form data
+  const username = document.getElementById('username').value;
+  const reportType = document.getElementById('reportType').value;
+  const command = document.getElementById('command').value;
+  const description = document.getElementById('description').value;
+  const steps = document.getElementById('steps').value;
+  
+  // Here you would normally send this to your Discord webhook or backend
+  console.log('Report submitted:', {
+    username,
+    reportType,
+    command,
+    description,
+    steps
+  });
+  
+  // Show success message
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('successMessage').classList.add('active');
+  
+  // Optional: Send to Discord webhook
+  sendToDiscord({
+    username,
+    reportType,
+    command,
+    description,
+    steps
+  });
+}
+
+// Function to send to Discord webhook (optional)
+function sendToDiscord(data) {
+  // Replace with your Discord webhook URL
+  const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL';
+  
+  const embed = {
+    embeds: [{
+      title: data.reportType === 'bug' ? '🐛 Bug Report' : '💡 Feature Request',
+      color: data.reportType === 'bug' ? 0xED4245 : 0xF59E0B,
+      fields: [
+        { name: '👤 User', value: data.username, inline: true },
+        { name: '⚙️ Command', value: data.command, inline: true },
+        { name: '📝 Description', value: data.description },
+      ],
+      timestamp: new Date(),
+      footer: { text: 'Bot Support System' }
+    }]
+  };
+  
+  if (data.reportType === 'bug' && data.steps) {
+    embed.embeds[0].fields.push({ name: '🔍 Steps to Reproduce', value: data.steps });
+  }
+  
+  fetch(webhookURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(embed)
+  }).catch(err => console.error('Webhook error:', err));
+}
+
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -739,7 +1136,7 @@ window.addEventListener('scroll', () => {
 });
 
 // Parallax effect on cards
-document.querySelectorAll('.feature-card, .command-item').forEach(card => {
+document.querySelectorAll('.feature-card, .command-item, .support-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -757,6 +1154,13 @@ document.querySelectorAll('.feature-card, .command-item').forEach(card => {
   card.addEventListener('mouseleave', () => {
     card.style.transform = '';
   });
+});
+
+// Close modal on outside click
+document.getElementById('reportModal').addEventListener('click', (e) => {
+  if (e.target.id === 'reportModal') {
+    closeModal();
+  }
 });
 </script>
 
