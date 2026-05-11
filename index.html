@@ -3,233 +3,759 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XD Bot</title>
+<title>🎮 Genshin Gacha Bot - Discord's Best Gacha Experience</title>
 
 <style>
-body {
+* {
   margin: 0;
-  background: black;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  font-family: Arial;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Canvas background */
-canvas {
+/* Animated gradient background */
+body::before {
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Particle canvas */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
+  pointer-events: none;
 }
 
-/* MAIN GLASS CARD */
-.container {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-
-  margin-top: 80px;
-
-  padding: 40px 60px;
-
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.1);
-
-  box-shadow: 0 0 30px rgba(255,255,255,0.1);
-
-  max-width: 600px;
-  width: 90%;
-}
-
-/* REMOVE ANY INNER BACKGROUND */
-h1, p, .status, .btn {
-  background: transparent !important;
-}
-
-/* Title */
-h1 {
-  font-size: 2.8rem;
-  margin: 0;
-  text-shadow: 0 0 10px white, 0 0 20px white;
-}
-
-/* Subtitle */
-p {
-  color: #aaa;
-  margin: 10px 0 20px;
-}
-
-/* BUTTON GROUP */
-.btn-group {
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 50px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 150px 20px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  animation: fadeInUp 1s ease;
+}
+
+.hero p {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+  animation: fadeInUp 1.2s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Buttons */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  animation: fadeInUp 1.4s ease;
+}
+
 .btn {
-  display: inline-block;
-  padding: 12px 25px;
-  margin: 10px;
-  border-radius: 10px;
+  padding: 18px 40px;
+  border-radius: 50px;
   text-decoration: none;
   color: white;
-  transition: 0.2s ease;
-
-  border: 1px solid rgba(255,255,255,0.2);
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
 }
 
-.invite { background: #5865f2; }
-.server { background: #22c55e; }
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #5865F2, #7289DA);
+  box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+}
+
+.btn-vote {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+}
 
 .btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px white;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Status */
-.status {
-  margin-top: 15px;
-  font-size: 18px;
+/* Stats */
+.stats {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  animation: fadeInUp 1.6s ease;
 }
 
-/* Commands section */
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 30px 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  min-width: 200px;
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+}
+
+/* Features Section */
+.features {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.features h2 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* Commands Section */
 .commands {
   position: relative;
-  z-index: 2;
-  margin-top: 60px;
-  text-align: center;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
 }
 
 .commands h2 {
-  text-shadow: 0 0 10px white;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-.cmd {
-  margin: 8px;
-  font-size: 18px;
-  transition: 0.2s;
+.command-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.cmd:hover {
-  color: #22c55e;
+.command-item {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.command-item:hover {
+  transform: translateX(10px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.command-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.command-desc {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 60px 20px;
+  margin-top: 100px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.social-links a {
+  color: white;
+  font-size: 2rem;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px white);
+}
+
+/* Status Indicator */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(34, 197, 94, 0.2);
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  margin: 20px 0;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1.1rem; }
+  .nav { padding: 15px 20px; }
+  .nav-links { display: none; }
+  .stats { gap: 20px; }
+  .features h2, .commands h2 { font-size: 2rem; }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.scroll-indicator::after {
+  content: '↓';
+  font-size: 2rem;
+  color: white;
+  opacity: 0.7;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
 
-<div class="container">
-  <h1>🤖 XD Bot</h1>
-  <p>Moderation • AutoMod • Fast & Fun</p>
+<!-- Navigation -->
+<nav class="nav">
+  <div class="logo">🎮 Genshin Gacha Bot</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#commands">Commands</a>
+    <a href="#stats">Stats</a>
+  </div>
+</nav>
 
-  <div class="btn-group">
-    <a class="btn invite" href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" target="_blank">
-      ➕ Invite Bot
+<!-- Hero Section -->
+<section class="hero">
+  <h1>🌟 Discord's Best Genshin Gacha Bot</h1>
+  <p>Pull characters, collect primogems, and compete with friends!</p>
+  
+  <div class="btn-container">
+    <a class="btn btn-primary" href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" target="_blank">
+      ➕ Add to Discord
     </a>
-
-    <a class="btn server" href="https://discord.gg/WatHVxXsq5" target="_blank">
+    <a class="btn btn-secondary" href="https://discord.gg/WatHVxXsq5" target="_blank">
       💬 Support Server
+    </a>
+    <a class="btn btn-vote" href="" target="_blank">
+      ⭐ Vote on Top.gg
     </a>
   </div>
 
   <div class="status">
-    🟢 Bot Status: Online
+    <span class="status-dot"></span>
+    <span>Bot Online • 24/7 Uptime</span>
   </div>
-</div>
+</section>
 
-<div class="commands">
-  <h2>⚙️BOT Commands</h2>
-  <div class="cmd">/kick - Kick user</div>
-  <div class="cmd">/ban - Ban user</div>
-  <div class="cmd">/clear - Clear messages</div>
-  <div class="cmd">/warn - Warn user</div>
-  <div class="cmd">/avatar - Show avatar</div>
-  <div class="cmd">/userinfo - User info</div>
-  <div class="cmd">/meme - Random memes</div>
-  <div class="cmd">And more Commands</div>
-   <div class="cmd">For any bug/giltch fix kick and re add the Bot in the Server using Invite Bot ➕ ↑</div>
-</div>
+<!-- Stats Section -->
+<section class="stats" id="stats">
+  <div class="stat-card">
+    <div class="stat-number">100+</div>
+    <div class="stat-label">Genshin Characters</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">15+</div>
+    <div class="stat-label">Commands</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">Online</div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <h2>✨ Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🎲</span>
+      <h3>Gacha System</h3>
+      <p>Pull from 100+ Genshin Impact characters with realistic pity system. 5★ at 0.6% base rate, soft pity at 74, hard pity at 90!</p>
+    </div>
+    
+    <div class="feature-card">
+      <span class="feature-icon">💎</span>
+      <h3>Primogem Economy</h3>
+      <p>Earn and buy primogems, gift to friends owner only, and manage your collection with daily limits and tracking.</p>
+    </div>
+    
+    <div class="feature-card">
+      <span class="feature-icon">📦</span>
+      <h3>Beautiful Inventory</h3>
+      <p>View your character collection with paginated displays, rarity sorting, and duplicate tracking.</p>
+    </div>
+    
+    <div class="feature-card">
+      <span class="feature-icon">🎨</span>
+      <h3>Premium UI</h3>
+      <p>Gorgeous embeds with character art, element emojis, and glassmorphism design throughout.</p>
+    </div>
+    
+    <div class="feature-card">
+      <span class="feature-icon">🎁</span>
+      <h3>Redeem Codes</h3>
+      <p>Share Genshin redeem codes with clickable buttons that link directly to HoYoverse redemption.</p>
+    </div>
+    
+    <div class="feature-card">
+      <span class="feature-icon">🎮</span>
+      <h3>Fun Commands</h3>
+      <p>Coinflip animations, memes, roasts, love calculator, AFK system, and more entertainment!</p>
+    </div>
+  </div>
+</section>
+
+<!-- Commands Section -->
+<section class="commands" id="commands">
+  <h2>⚙️ Commands</h2>
+  <div class="command-grid">
+    <div class="command-item">
+      <div class="command-name">/pull</div>
+      <div class="command-desc">🎲 Pull a random Genshin character (costs 160 💎)</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/inventory</div>
+      <div class="command-desc">📦 View your character collection with stats</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/shop</div>
+      <div class="command-desc">🛒 View the primogem shop and pity info</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/buy</div>
+      <div class="command-desc">💳 Purchase primogems (20k daily limit)</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/gift</div>
+      <div class="command-desc">🎁 Gift primogems to another user (Owner only)</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/vote</div>
+      <div class="command-desc">⭐ Vote for the bot on Top.gg</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/codes</div>
+      <div class="command-desc">🎁 Share Genshin redeem codes with buttons</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/coinflip</div>
+      <div class="command-desc">🪙 Flip a coin </div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/meme</div>
+      <div class="command-desc">😂 Get a random meme from Reddit</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/avatar</div>
+      <div class="command-desc">🖼️ Show user's avatar in high quality</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/userinfo</div>
+      <div class="command-desc">👤 Display detailed user information</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/serverinfo</div>
+      <div class="command-desc">📊 Show server statistics and info</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/roast</div>
+      <div class="command-desc">🔥 Roast a user (friendly banter)</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/love</div>
+      <div class="command-desc">❤️ Calculate love compatibility between 2 users</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">/afk</div>
+      <div class="command-desc">💤 Set yourself as AFK with a reason</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">!coinflip</div>
+      <div class="command-desc">🪙 Special prefix command for coin flip</div>
+    </div>
+    
+    <div class="command-item">
+      <div class="command-name">pls meme</div>
+      <div class="command-desc">😂 Trigger phrase to get instant memes</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>Made for Fun Games and Memes</p>
+  <p>Not affiliated with HoYoverse or Genshin Impact</p>
+  <div class="social-links">
+    <a href="https://discord.gg/WatHVxXsq5" target="_blank" title="Discord">💬</a>
+    <a href="" target="_blank" title="Top.gg">⭐</a>
+    <a href="" target="_blank" title="GitHub">🔗</a>
+  </div>
+  <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.6;">
+    For bugs or glitches, try kicking and re-adding the bot using the invite link above.
+  </p>
+</footer>
+
+<div class="scroll-indicator"></div>
 
 <script>
-// PARTICLES
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
+// Particle system
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particles = [];
-
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height
-  });
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.radius = Math.random() * 2 + 1;
+  }
+  
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+  
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.fill();
+  }
 }
 
-function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+const particles = Array.from({ length: 100 }, () => new Particle());
 
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
   particles.forEach(p => {
-    ctx.fillStyle = "white";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
-    ctx.fill();
-
-    particles.forEach(p2 => {
-      let dx = p.x - p2.x;
-      let dy = p.y - p2.y;
-      let dist = Math.sqrt(dx*dx + dy*dy);
-
-      if (dist < 100) {
-        ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    p.update();
+    p.draw();
+  });
+  
+  // Connect nearby particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      if (dist < 120) {
         ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p2.x, p2.y);
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - dist / 120)})`;
+        ctx.lineWidth = 1;
         ctx.stroke();
       }
-    });
-
-    p.x += (Math.random()-0.5)*0.5;
-    p.y += (Math.random()-0.5)*0.5;
-  });
-
-  requestAnimationFrame(draw);
+    }
+  }
+  
+  requestAnimationFrame(animate);
 }
 
-draw();
+animate();
 
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
-// MAGNETIC BUTTONS
-const buttons = document.querySelectorAll(".btn");
-
-buttons.forEach(btn => {
-  btn.addEventListener("mousemove", (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
+});
 
-  btn.addEventListener("mouseleave", () => {
-    btn.style.transform = "translate(0, 0)";
+// Hide scroll indicator on scroll
+window.addEventListener('scroll', () => {
+  const indicator = document.querySelector('.scroll-indicator');
+  if (window.scrollY > 100) {
+    indicator.style.opacity = '0';
+  } else {
+    indicator.style.opacity = '1';
+  }
+});
+
+// Parallax effect on cards
+document.querySelectorAll('.feature-card, .command-item').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
   });
 });
 </script>
