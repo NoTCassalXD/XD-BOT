@@ -3,1170 +3,857 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XD Bot — Genshin Gacha Discord Bot</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<title>XD Bot — Genshin Gacha for Discord</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   ROOT & RESET
-═══════════════════════════════════════════ */
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
 :root {
-  --void: #01020a;
-  --deep: #060915;
-  --panel: #0b0f20;
-  --panel2: #10152a;
-  --glass: rgba(255,255,255,0.04);
-  --glass2: rgba(255,255,255,0.07);
-  --edge: rgba(255,255,255,0.07);
-  --edge2: rgba(255,255,255,0.12);
-
-  --gold:  #f0c040;
-  --gold2: #ffe080;
-  --gold3: #b8900a;
-  --glow-gold: rgba(240,192,64,0.2);
-
-  --star5: #f0c040;
-  --star4: #b48fff;
-  --star3: #6ab4f5;
-
-  --cyber: #00e5ff;
-  --cyber2: #00b4d8;
-  --glow-cyber: rgba(0,229,255,0.15);
-
-  --purple: #9b72ff;
-  --purple2: #c4a0ff;
-  --glow-purple: rgba(155,114,255,0.2);
-
-  --green: #00ff9d;
-  --red:   #ff4d6d;
-
-  --text:  #dde4f5;
-  --text2: rgba(221,228,245,0.55);
-  --text3: rgba(221,228,245,0.28);
-  --text4: rgba(221,228,245,0.12);
-
-  --font-head: 'Rajdhani', sans-serif;
-  --font-body: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --bg:       #0d0e14;
+  --bg2:      #12141e;
+  --bg3:      #181a27;
+  --card:     #1c1f2e;
+  --card2:    #212436;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.12);
+  --gold:     #f5c542;
+  --gold-dim: rgba(245,197,66,0.12);
+  --gold-bdr: rgba(245,197,66,0.25);
+  --blue:     #5b7fff;
+  --blue-dim: rgba(91,127,255,0.1);
+  --blue-bdr: rgba(91,127,255,0.25);
+  --green:    #3ecf8e;
+  --green-dim:rgba(62,207,142,0.1);
+  --pink:     #f06292;
+  --pink-dim: rgba(240,98,146,0.1);
+  --purple:   #a78bfa;
+  --purple-dim:rgba(167,139,250,0.1);
+  --cyan:     #22d3ee;
+  --cyan-dim: rgba(34,211,238,0.1);
+  --orange:   #fb923c;
+  --orange-dim:rgba(251,146,60,0.1);
+  --text:     #e2e8f0;
+  --text2:    #8892a4;
+  --text3:    #4a5568;
+  --font:     'Plus Jakarta Sans', sans-serif;
+  --mono:     'Fira Code', monospace;
+  --radius:   14px;
+  --radius-sm:8px;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
 body {
-  background: var(--void);
+  background: var(--bg);
   color: var(--text);
-  font-family: var(--font-body);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
 }
 
-/* ═══════════════════════════════════════════
-   CUSTOM CURSOR
-═══════════════════════════════════════════ */
-#cursor {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--gold);
-  position: fixed; z-index: 99999;
-  pointer-events: none;
-  transform: translate(-50%,-50%);
-  transition: transform 0.1s, background 0.2s, width 0.2s, height 0.2s;
-  box-shadow: 0 0 15px var(--gold), 0 0 30px rgba(240,192,64,0.3);
-  mix-blend-mode: screen;
-}
-#cursor-ring {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 1px solid rgba(240,192,64,0.4);
-  position: fixed; z-index: 99998;
-  pointer-events: none;
-  transform: translate(-50%,-50%);
-  transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
-}
-body:hover #cursor { opacity:1; }
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-/* ═══════════════════════════════════════════
-   PROGRESS BAR
-═══════════════════════════════════════════ */
-#pgbar {
-  position: fixed; top:0; left:0; height:2px; width:0%;
-  background: linear-gradient(90deg, var(--purple), var(--cyber), var(--gold));
-  background-size: 200% 100%;
-  animation: pgShift 3s linear infinite;
-  z-index: 9990;
-  box-shadow: 0 0 10px var(--cyber);
-}
-@keyframes pgShift { 0%{background-position:0%} 100%{background-position:200%} }
+/* ── LAYOUT ── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
 
-/* ═══════════════════════════════════════════
-   CANVAS BACKGROUND
-═══════════════════════════════════════════ */
-#bg-canvas {
-  position: fixed; inset:0; z-index: 0;
-  pointer-events: none;
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 64px;
+  display: flex; align-items: center;
+  background: rgba(13,14,20,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
+.topbar .wrap { display: flex; align-items: center; width: 100%; }
+.tb-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 18px; letter-spacing: -0.3px;
+  text-decoration: none; color: var(--text);
+  flex-shrink: 0;
+}
+.tb-logo-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, #3b2fa0, #1e1660);
+  border: 1px solid rgba(91,127,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.tb-logo-name { color: var(--text); }
+.tb-logo-name span { color: var(--gold); }
 
-/* ═══════════════════════════════════════════
-   NAV
-═══════════════════════════════════════════ */
-nav {
-  position: fixed; top:0; left:0; right:0;
-  height: 70px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 50px;
-  background: rgba(1,2,10,0.6);
-  backdrop-filter: blur(30px);
-  border-bottom: 1px solid var(--edge);
-  z-index: 1000;
+.tb-nav { display: flex; align-items: center; gap: 2px; margin-left: 36px; }
+.tb-link {
+  color: var(--text2); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  padding: 6px 14px; border-radius: 7px;
+  transition: color .2s, background .2s;
 }
-nav::after {
-  content:'';
-  position:absolute; bottom:0; left:0; right:0; height:1px;
-  background: linear-gradient(90deg, transparent, var(--cyber), transparent);
-  opacity: 0.3;
-}
-.nav-logo {
-  display: flex; align-items: center; gap: 12px;
-  font-family: var(--font-head); font-size: 22px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-}
-.logo-icon {
-  position:relative;
-  width:38px; height:38px; border-radius:10px;
-  background: linear-gradient(135deg,#1a1060,#0a0030);
-  border: 1px solid rgba(155,114,255,0.4);
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px;
-  box-shadow: 0 0 20px rgba(155,114,255,0.25), inset 0 0 15px rgba(155,114,255,0.1);
-}
-.logo-pulse {
-  position:absolute; inset:-4px; border-radius:14px;
-  border: 1px solid rgba(155,114,255,0.2);
-  animation: logoPulse 2s ease-in-out infinite;
-}
-@keyframes logoPulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.1);opacity:0} }
-.nav-brand-text { color: var(--text); }
-.nav-brand-text span { color: var(--gold); }
+.tb-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 
-.nav-center { display:flex; align-items:center; gap:4px; }
-.nav-link {
-  color: var(--text2); text-decoration:none;
-  font-size:14px; font-weight:500; letter-spacing:0.5px;
-  padding: 8px 16px; border-radius:8px;
-  transition: color 0.2s, background 0.2s;
-  position:relative;
+.tb-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.tb-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--green);
 }
-.nav-link:hover { color:var(--text); }
-.nav-link::after {
-  content:''; position:absolute; bottom:4px; left:50%; right:50%;
-  height:1px; background:var(--cyber);
-  transition: left 0.2s, right 0.2s;
+.tb-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 6px var(--green); animation: pulse 2s ease infinite;
 }
-.nav-link:hover::after { left:16px; right:16px; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-.nav-right { display:flex; align-items:center; gap:12px; }
-.status-pill {
-  display:flex; align-items:center; gap:7px;
-  padding: 6px 14px; border-radius:20px;
-  background: rgba(0,255,157,0.08);
-  border: 1px solid rgba(0,255,157,0.2);
-  font-size:13px; font-weight:600; color:var(--green);
-}
-.status-dot {
-  width:7px; height:7px; border-radius:50%; background:var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: blip 2s ease infinite;
-}
-@keyframes blip { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
-
+/* ── BUTTONS ── */
 .btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 22px; border-radius: 10px;
-  font-size: 14px; font-weight: 600; font-family: var(--font-body);
-  text-decoration: none; border: none; cursor: none;
-  transition: all 0.25s ease; letter-spacing: 0.3px;
-  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 20px; border-radius: 9px;
+  font-size: 14px; font-weight: 600; font-family: var(--font);
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .2s; white-space: nowrap;
 }
-.btn::before {
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-  opacity:0; transition:0.3s;
+.btn-primary {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 4px 16px rgba(91,127,255,.3);
 }
-.btn:hover::before { opacity:1; }
-.btn-cyber {
-  background: linear-gradient(135deg,#003a4a,#001a22);
-  color: var(--cyber); border: 1px solid rgba(0,229,255,0.35);
-  box-shadow: 0 0 20px rgba(0,229,255,0.1), inset 0 0 20px rgba(0,229,255,0.03);
-}
-.btn-cyber:hover { box-shadow: 0 0 30px rgba(0,229,255,0.3), inset 0 0 20px rgba(0,229,255,0.05); transform:translateY(-2px); }
+.btn-primary:hover { background: #4a6cf7; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(91,127,255,.4); }
 .btn-gold {
-  background: linear-gradient(135deg,#9b6e00,#5a3e00);
-  color: var(--gold); border: 1px solid rgba(240,192,64,0.4);
-  box-shadow: 0 0 20px rgba(240,192,64,0.15);
+  background: var(--gold); color: #1a0e00; font-weight: 700;
+  box-shadow: 0 4px 16px rgba(245,197,66,.25);
 }
-.btn-gold:hover { box-shadow: 0 0 35px rgba(240,192,64,0.35); transform:translateY(-2px); }
-.btn-ghost {
-  background: var(--glass); color: var(--text2);
-  border: 1px solid var(--edge2);
+.btn-gold:hover { background: #ffd54f; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; color: var(--text2);
+  border: 1px solid var(--border2);
 }
-.btn-ghost:hover { background:var(--glass2); color:var(--text); transform:translateY(-2px); }
+.btn-outline:hover { background: rgba(255,255,255,.05); color: var(--text); transform: translateY(-1px); }
 .btn-discord {
-  background: linear-gradient(135deg,#3a45b0,#2a3490);
-  color:#fff; border: 1px solid rgba(88,101,242,0.5);
-  box-shadow: 0 0 20px rgba(88,101,242,0.2);
+  background: #5865F2; color: #fff;
+  box-shadow: 0 4px 16px rgba(88,101,242,.3);
 }
-.btn-discord:hover { box-shadow:0 0 35px rgba(88,101,242,0.4); transform:translateY(-2px); }
-.btn-lg { padding:14px 32px; font-size:16px; border-radius:12px; }
-.btn-xl { padding:18px 42px; font-size:18px; border-radius:14px; letter-spacing:1px; }
+.btn-discord:hover { background: #4752c4; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(88,101,242,.4); }
+.btn-sm { padding: 7px 16px; font-size: 13px; border-radius: 7px; }
+.btn-lg { padding: 13px 28px; font-size: 16px; border-radius: 11px; }
+.btn-xl { padding: 16px 36px; font-size: 17px; border-radius: 12px; font-weight: 700; }
 
-/* ═══════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════ */
+/* ── HERO ── */
 .hero {
-  position:relative; z-index:10;
-  min-height: 100vh;
-  display:flex; align-items:center; justify-content:center;
-  padding: 100px 50px 60px;
-  overflow:hidden;
+  padding: 140px 0 80px;
+  text-align: center; position: relative;
 }
-.hero-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:80px;
-  align-items:center; max-width:1300px; width:100%;
-}
-
-/* scan lines overlay on hero */
-.hero::before {
-  content:'';
-  position:absolute; inset:0;
-  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.015) 2px,rgba(0,229,255,0.015) 4px);
-  pointer-events:none; z-index:1;
-}
-
 .hero-badge {
-  display:inline-flex; align-items:center; gap:10px;
-  background: rgba(0,229,255,0.08); border:1px solid rgba(0,229,255,0.2);
-  color:var(--cyber); font-size:12px; font-weight:700;
-  padding:7px 16px; border-radius:4px; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:28px;
-  position:relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-dim); border: 1px solid var(--gold-bdr);
+  color: var(--gold); font-size: 12px; font-weight: 700;
+  padding: 5px 14px; border-radius: 20px; letter-spacing: .5px;
+  text-transform: uppercase; margin-bottom: 24px;
 }
 .hero-badge::before {
-  content:''; width:8px; height:8px; border-radius:50%;
-  background:var(--cyber); box-shadow:0 0 10px var(--cyber);
-  animation:blip 1.5s ease infinite;
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); box-shadow: 0 0 8px var(--gold);
+  animation: pulse 1.5s ease infinite;
 }
-
-.hero-title {
-  font-family: var(--font-head);
-  font-size: clamp(52px, 6vw, 90px);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+.hero h1 {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800; letter-spacing: -2px; line-height: 1.05;
+  margin-bottom: 20px;
 }
-.hero-title .line1 { color: var(--text); display:block; }
-.hero-title .line2 {
-  display:block;
-  background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
-  background-size:200% 100%;
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  animation: shimmer 4s linear infinite;
+.hero h1 .grad {
+  background: linear-gradient(135deg, var(--gold), #ffb300, var(--gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradshift 4s linear infinite;
 }
-.hero-title .line3 {
-  display:block; color:var(--text3);
-  font-size: clamp(28px,3vw,46px); letter-spacing:8px;
-}
-@keyframes shimmer { 0%{background-position:200%} 100%{background-position:-200%} }
-
+@keyframes gradshift { 0%{background-position:0%} 100%{background-position:200%} }
 .hero-sub {
-  color:var(--text2); font-size:17px; line-height:1.8;
-  max-width:460px; margin:24px 0 38px;
-  border-left:2px solid var(--cyber); padding-left:18px;
+  font-size: 18px; color: var(--text2); max-width: 560px;
+  margin: 0 auto 36px; line-height: 1.75;
 }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+.hero-stats {
+  display: inline-flex; gap: 0;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.hs-item {
+  padding: 18px 32px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.hs-item:last-child { border-right: none; }
+.hs-val { font-size: 26px; font-weight: 800; color: var(--gold); letter-spacing: -1px; }
+.hs-lbl { font-size: 12px; color: var(--text3); margin-top: 2px; font-weight: 500; }
 
-.hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:48px; }
+/* ── SECTION HEADER ── */
+.sec-head { margin-bottom: 40px; }
+.sec-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 12px;
+}
+.sec-label::before { content: ''; width: 16px; height: 2px; background: var(--blue); display: block; }
+.sec-title {
+  font-size: clamp(28px, 3.5vw, 42px); font-weight: 800;
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 12px;
+}
+.sec-sub { color: var(--text2); font-size: 16px; max-width: 480px; line-height: 1.7; }
 
-.hero-metrics {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:1px; background:var(--edge);
-  border:1px solid var(--edge); border-radius:12px; overflow:hidden;
-}
-.metric {
-  background: var(--panel);
-  padding:18px 20px;
-  text-align:center;
-}
-.metric-val {
-  font-family:var(--font-head); font-size:28px; font-weight:700;
-  color:var(--gold); letter-spacing:1px;
-}
-.metric-lbl { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:1.5px; margin-top:4px; }
+/* ── SECTION SPACING ── */
+.section { padding: 80px 0; }
+.section + .section { border-top: 1px solid var(--border); }
 
-/* ═══════════════════════════════════════════
-   GACHA CARD (3D FLIP)
-═══════════════════════════════════════════ */
-.gacha-showcase {
-  position:relative; display:flex; flex-direction:column; align-items:center; gap:24px;
+/* ── FEATURE CARDS ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
+.feat {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  transition: border-color .2s, transform .2s, background .2s;
+  position: relative; overflow: hidden;
+}
+.feat:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-3px); }
+.feat-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 16px;
+  border: 1px solid transparent;
+}
+.fi-gold   { background: var(--gold-dim);   border-color: var(--gold-bdr); }
+.fi-blue   { background: var(--blue-dim);   border-color: var(--blue-bdr); }
+.fi-green  { background: var(--green-dim);  border-color: rgba(62,207,142,.25); }
+.fi-purple { background: var(--purple-dim); border-color: rgba(167,139,250,.25); }
+.fi-pink   { background: var(--pink-dim);   border-color: rgba(240,98,146,.25); }
+.fi-cyan   { background: var(--cyan-dim);   border-color: rgba(34,211,238,.25); }
+.feat-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.feat-desc  { color: var(--text2); font-size: 13.5px; line-height: 1.65; }
 
-.card-scene {
-  width:280px; height:420px;
-  perspective:1000px; cursor:none;
-}
-.card-flip {
-  width:100%; height:100%;
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-.card-scene:hover .card-flip { transform:rotateY(180deg); }
-.card-face {
-  position:absolute; inset:0;
-  backface-visibility:hidden;
-  border-radius:20px; overflow:hidden;
-}
-.card-back {
-  background: linear-gradient(145deg,#1a0a3a,#0d0520);
-  border:1px solid rgba(155,114,255,0.3);
-  box-shadow: 0 0 40px rgba(155,114,255,0.2), 0 30px 60px rgba(0,0,0,0.5);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:16px;
-}
-.card-back-pattern {
-  position:absolute; inset:0;
-  background-image: repeating-linear-gradient(45deg,rgba(155,114,255,0.04) 0px,rgba(155,114,255,0.04) 1px,transparent 1px,transparent 20px),
-                    repeating-linear-gradient(-45deg,rgba(155,114,255,0.04) 0px,rgba(155,114,255,0.04) 1px,transparent 1px,transparent 20px);
-}
-.card-back-logo { font-size:60px; position:relative; z-index:1; }
-.card-back-text { font-family:var(--font-head); font-size:14px; letter-spacing:4px; color:rgba(155,114,255,0.6); text-transform:uppercase; }
-.card-back-glow {
-  position:absolute; width:200px; height:200px;
-  background:radial-gradient(circle,rgba(155,114,255,0.2),transparent 70%);
-  border-radius:50%; animation:cardGlow 3s ease-in-out infinite;
-}
-@keyframes cardGlow { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.3);opacity:1} }
+/* ── COMMANDS SECTION ── */
+.cmd-layout { display: grid; grid-template-columns: 220px 1fr; gap: 20px; }
 
-.card-front {
-  transform: rotateY(180deg);
-  background: linear-gradient(165deg,#1e0a00,#2a1500,#1e0a00);
-  border:1px solid rgba(240,192,64,0.4);
-  box-shadow: 0 0 50px rgba(240,192,64,0.25), 0 30px 60px rgba(0,0,0,0.5);
-  display:flex; flex-direction:column; overflow:hidden;
+.cmd-nav { position: sticky; top: 84px; align-self: start; }
+.cmd-nav-inner {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
 }
-.card-rarity-bar {
-  height:4px;
-  background: linear-gradient(90deg,var(--gold3),var(--gold),var(--gold2),var(--gold));
-  background-size:200% 100%; animation:shimmer 2s linear infinite;
+.cn-head {
+  padding: 14px 18px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text3); border-bottom: 1px solid var(--border);
 }
-.card-art {
-  flex:1; display:flex; align-items:center; justify-content:center;
-  font-size:100px; position:relative;
-  background:radial-gradient(ellipse at center,rgba(240,192,64,0.15) 0%,transparent 60%);
+.cn-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 18px; cursor: pointer;
+  font-size: 14px; font-weight: 500; color: var(--text2);
+  transition: background .15s, color .15s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
 }
-.card-art-glow {
-  position:absolute; inset:0;
-  background:radial-gradient(ellipse at 50% 60%,rgba(240,192,64,0.1),transparent 60%);
-  animation:artGlow 2s ease-in-out infinite;
-}
-@keyframes artGlow { 0%,100%{opacity:0.5} 50%{opacity:1} }
-.card-info { padding:16px 18px 20px; }
-.card-element { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
-.card-char-name { font-family:var(--font-head); font-size:26px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
-.card-stars { color:var(--gold); font-size:16px; margin-top:4px; letter-spacing:2px; }
-.card-type { font-size:12px; color:var(--text3); margin-top:4px; letter-spacing:1px; }
+.cn-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.cn-item.active { background: rgba(255,255,255,.05); color: var(--text); border-left-color: var(--blue); }
+.cn-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-gacha   { background: var(--gold); }
+.dot-social  { background: var(--pink); }
+.dot-emotion { background: var(--purple); }
+.dot-utility { background: var(--blue); }
+.dot-fun     { background: var(--orange); }
+.dot-owner   { background: var(--green); }
+.cn-count { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--text3); }
 
-.card-hint {
-  text-align:center; font-size:12px; color:var(--text3);
-  letter-spacing:1.5px; text-transform:uppercase;
-  animation:fadeHint 2s ease-in-out infinite;
-}
-@keyframes fadeHint { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
+/* Command panel */
+.cmd-panel { display: flex; flex-direction: column; gap: 0; }
+.cmd-section { display: none; }
+.cmd-section.active { display: block; }
 
-/* Floating particles around card */
-.card-particles { position:absolute; width:320px; height:460px; pointer-events:none; }
-.cp { position:absolute; border-radius:50%; animation:cpFloat linear infinite; }
-@keyframes cpFloat {
-  0%{transform:translateY(0) translateX(0) scale(1);opacity:0}
-  20%{opacity:1}
-  80%{opacity:1}
-  100%{transform:translateY(-120px) translateX(var(--tx,20px)) scale(0);opacity:0}
+.cmd-section-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
 }
+.csh-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+  border: 1px solid transparent; flex-shrink: 0;
+}
+.csh-title { font-size: 18px; font-weight: 700; }
+.csh-desc  { font-size: 13px; color: var(--text2); margin-top: 2px; }
 
-/* Pull button below card */
-.pull-btn-wrap { text-align:center; }
-.pull-cost {
-  display:flex; align-items:center; justify-content:center; gap:6px;
-  font-size:13px; color:var(--text3); margin-top:10px; letter-spacing:1px;
+/* search */
+.cmd-search-bar {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
 }
-
-/* ═══════════════════════════════════════════
-   SEPARATOR
-═══════════════════════════════════════════ */
-.divider {
-  position:relative; z-index:10;
-  display:flex; align-items:center;
-  padding:0 50px; max-width:1300px; margin:0 auto 80px;
-  gap:20px;
-}
-.div-line { flex:1; height:1px; background:var(--edge); }
-.div-text { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--text4); white-space:nowrap; }
-
-/* ═══════════════════════════════════════════
-   STATS ROW
-═══════════════════════════════════════════ */
-.stats-row {
-  position:relative; z-index:10;
-  padding:0 50px 80px; max-width:1300px; margin:0 auto;
-  display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
-}
-.stat-cell {
-  background:var(--panel); padding:36px 20px; text-align:center;
-  border:1px solid var(--edge); position:relative; overflow:hidden;
-  transition:background 0.3s;
-}
-.stat-cell:first-child { border-radius:14px 0 0 14px; }
-.stat-cell:last-child { border-radius:0 14px 14px 0; }
-.stat-cell:hover { background:var(--panel2); }
-.stat-cell::before {
-  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-  background: linear-gradient(90deg,transparent,var(--gold),transparent);
-  opacity:0; transition:0.3s;
-}
-.stat-cell:hover::before { opacity:1; }
-.stat-n {
-  font-family:var(--font-head); font-size:50px; font-weight:700; line-height:1;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  margin-bottom:8px;
-}
-.stat-l { font-size:13px; color:var(--text2); font-weight:500; letter-spacing:0.5px; }
-
-/* ═══════════════════════════════════════════
-   FEATURES — BENTO GRID
-═══════════════════════════════════════════ */
-.bento-section {
-  position:relative; z-index:10;
-  padding:0 50px 100px; max-width:1300px; margin:0 auto;
-}
-.section-eyebrow {
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
-  color:var(--cyber); margin-bottom:14px;
-}
-.section-eyebrow::before { content:'//'; color:var(--text3); }
-.section-h {
-  font-family:var(--font-head); font-size:clamp(36px,4vw,58px); font-weight:700;
-  text-transform:uppercase; letter-spacing:2px; line-height:1.05;
-  margin-bottom:12px;
-}
-.section-h span {
-  background:linear-gradient(90deg,var(--cyber),var(--purple2));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.section-p { color:var(--text2); font-size:16px; line-height:1.7; max-width:500px; margin-bottom:50px; }
-
-.bento-grid {
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  grid-template-rows:auto;
-  gap:14px;
-}
-.bento { 
-  background:var(--panel); border:1px solid var(--edge);
-  border-radius:16px; padding:32px; overflow:hidden; position:relative;
-  transition:border-color 0.3s, background 0.3s, transform 0.3s;
-}
-.bento:hover { background:var(--panel2); border-color:var(--edge2); transform:translateY(-4px); }
-.bento::after {
-  content:''; position:absolute; inset:0; border-radius:16px;
-  background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent);
-  pointer-events:none;
-}
-
-.b1 { grid-column:span 5; }
-.b2 { grid-column:span 7; }
-.b3 { grid-column:span 4; }
-.b4 { grid-column:span 4; }
-.b5 { grid-column:span 4; }
-.b6 { grid-column:span 7; }
-.b7 { grid-column:span 5; }
-
-.bento-tag {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
-  padding:4px 10px; border-radius:4px; margin-bottom:20px;
-}
-.tag-gold  { background:rgba(240,192,64,0.1); color:var(--gold); border:1px solid rgba(240,192,64,0.2); }
-.tag-cyber { background:rgba(0,229,255,0.08); color:var(--cyber); border:1px solid rgba(0,229,255,0.2); }
-.tag-purple{ background:rgba(155,114,255,0.1); color:var(--purple2); border:1px solid rgba(155,114,255,0.2); }
-.tag-green { background:rgba(0,255,157,0.08); color:var(--green); border:1px solid rgba(0,255,157,0.2); }
-
-.bento-title { font-family:var(--font-head); font-size:22px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
-.bento-desc { color:var(--text2); font-size:14px; line-height:1.7; }
-
-/* Gacha bento — live pity display */
-.pity-display { margin-top:24px; }
-.pity-track {
-  display:flex; justify-content:space-between; align-items:center;
-  font-size:12px; color:var(--text3); margin-bottom:6px; letter-spacing:0.5px;
-}
-.pity-bar { height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; position:relative; }
-.pity-bar-fill {
-  height:100%; border-radius:3px; position:relative;
-  transition:width 1.5s cubic-bezier(0.4,0,0.2,1);
-}
-.pity-bar-fill::after {
-  content:''; position:absolute; top:0; right:0; width:12px; height:100%;
-  background:rgba(255,255,255,0.4); border-radius:3px;
-  animation:barShine 2s ease-in-out infinite;
-}
-@keyframes barShine { 0%,100%{opacity:0} 50%{opacity:1} }
-.pf-gold { background:linear-gradient(90deg,var(--gold3),var(--gold)); }
-.pf-purple { background:linear-gradient(90deg,#5a2dcc,var(--purple)); }
-.pity-nums {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px;
-}
-.pnum {
-  background:rgba(255,255,255,0.04); border:1px solid var(--edge); border-radius:8px;
-  padding:10px 12px; text-align:center;
-}
-.pnum-v { font-family:var(--font-head); font-size:20px; font-weight:700; color:var(--gold); }
-.pnum-l { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
-
-/* Economy bento */
-.economy-preview { margin-top:20px; display:flex; flex-direction:column; gap:8px; }
-.eco-row {
-  display:flex; align-items:center; justify-content:space-between;
-  background:rgba(255,255,255,0.03); border:1px solid var(--edge);
-  border-radius:8px; padding:10px 14px;
-}
-.eco-label { font-size:13px; color:var(--text2); display:flex; align-items:center; gap:8px; }
-.eco-val { font-family:var(--font-mono); font-size:14px; color:var(--gold); font-weight:500; }
-
-/* Characters bento */
-.chars-grid-mini { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:20px; }
-.cmini {
-  background:rgba(255,255,255,0.03); border:1px solid var(--edge);
-  border-radius:8px; padding:10px 6px; text-align:center;
-  transition:0.2s;
-}
-.cmini:hover { background:rgba(240,192,64,0.06); border-color:rgba(240,192,64,0.2); }
-.cmini-em { font-size:24px; display:block; margin-bottom:4px; }
-.cmini-name { font-size:10px; color:var(--text3); }
-.cmini-stars { font-size:9px; color:var(--gold); margin-top:2px; }
-
-/* Social bento */
-.social-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
-.s-action {
-  background:rgba(255,255,255,0.04); border:1px solid var(--edge);
-  border-radius:20px; padding:5px 12px; font-size:12px; color:var(--text2);
-  transition:0.2s;
-}
-.s-action:hover { background:rgba(0,229,255,0.08); border-color:rgba(0,229,255,0.2); color:var(--cyber); }
-
-/* Leaderboard mini */
-.lb-rows { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
-.lb-row {
-  display:grid; grid-template-columns:24px 1fr auto auto;
-  align-items:center; gap:12px;
-  background:rgba(255,255,255,0.03); border:1px solid var(--edge);
-  border-radius:8px; padding:10px 14px;
-}
-.lb-rank { font-family:var(--font-mono); font-size:12px; color:var(--text3); }
-.lb-rank.top { color:var(--gold); }
-.lb-name { font-size:13px; font-weight:500; }
-.lb-gems { font-family:var(--font-mono); font-size:12px; color:var(--gold); }
-.lb-stars { font-size:11px; color:var(--text3); }
-
-/* ═══════════════════════════════════════════
-   TERMINAL COMMANDS
-═══════════════════════════════════════════ */
-.terminal-section {
-  position:relative; z-index:10;
-  padding:0 50px 100px; max-width:1300px; margin:0 auto;
-}
-.terminal-layout { display:grid; grid-template-columns:320px 1fr; gap:24px; margin-top:50px; }
-
-.cmd-sidebar {
-  background:var(--panel); border:1px solid var(--edge); border-radius:16px;
-  overflow:hidden;
-}
-.cmd-sidebar-head {
-  padding:20px; border-bottom:1px solid var(--edge);
-  font-family:var(--font-mono); font-size:12px; color:var(--text3); letter-spacing:1px;
-}
-.cmd-search-wrap { padding:12px; border-bottom:1px solid var(--edge); }
 .cmd-search {
-  width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--edge2);
-  color:var(--text); padding:9px 14px; border-radius:8px;
-  font-size:13px; font-family:var(--font-body);
+  flex: 1; background: var(--card); border: 1px solid var(--border2);
+  color: var(--text); padding: 10px 16px; border-radius: 9px;
+  font-size: 14px; font-family: var(--font);
 }
-.cmd-search::placeholder { color:var(--text4); }
-.cmd-search:focus { outline:none; border-color:var(--cyber); box-shadow:0 0 0 3px rgba(0,229,255,0.08); }
-.cmd-filters { display:flex; gap:6px; padding:10px 12px; border-bottom:1px solid var(--edge); flex-wrap:wrap; }
-.cf {
-  padding:4px 10px; border-radius:4px; font-size:11px; font-weight:700;
-  letter-spacing:1px; text-transform:uppercase; cursor:none; transition:0.2s;
-  background:transparent; border:1px solid var(--edge); color:var(--text3);
-  font-family:var(--font-body);
-}
-.cf:hover, .cf.on { background:var(--cyber); border-color:var(--cyber); color:#001; }
-.cf.on.gold-f { background:var(--gold); border-color:var(--gold); color:#1a0e00; }
-.cf.on.purple-f { background:var(--purple); border-color:var(--purple); color:#fff; }
-.cf.on.green-f { background:var(--green); border-color:var(--green); color:#001; }
-.cf.on.red-f { background:var(--red); border-color:var(--red); color:#fff; }
+.cmd-search::placeholder { color: var(--text3); }
+.cmd-search:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(91,127,255,.1); }
 
-.cmd-list { height:360px; overflow-y:auto; padding:8px; }
-.cmd-list::-webkit-scrollbar { width:4px; }
-.cmd-list::-webkit-scrollbar-track { background:transparent; }
-.cmd-list::-webkit-scrollbar-thumb { background:var(--edge2); border-radius:2px; }
-.cmd-item {
-  padding:10px 12px; border-radius:8px; cursor:none;
-  display:flex; align-items:center; gap:10px; transition:0.15s;
-  border:1px solid transparent;
+.cmd-cards { display: flex; flex-direction: column; gap: 8px; }
+.cmd-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px 18px;
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: start; gap: 8px;
+  transition: border-color .15s, background .15s;
 }
-.cmd-item:hover, .cmd-item.selected {
-  background:rgba(0,229,255,0.06); border-color:rgba(0,229,255,0.15); 
+.cmd-card:hover { border-color: var(--border2); background: var(--card2); }
+.cmd-card.hidden { display: none; }
+.cc-name {
+  font-family: var(--mono); font-size: 14px; font-weight: 500;
+  margin-bottom: 4px; color: var(--text);
 }
-.cmd-item.selected { background:rgba(0,229,255,0.1); }
-.cmd-item.hidden { display:none; }
-.cmd-cat-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
-.dot-gacha   { background:var(--gold); box-shadow:0 0 6px var(--gold); }
-.dot-social  { background:var(--green); box-shadow:0 0 6px var(--green); }
-.dot-utility { background:var(--cyber); box-shadow:0 0 6px var(--cyber); }
-.dot-fun     { background:var(--red); box-shadow:0 0 6px var(--red); }
-.cmd-item-name { font-family:var(--font-mono); font-size:13px; color:var(--text); flex:1; }
-.cmd-item-count { font-size:10px; color:var(--text4); }
+.cc-name .slash { color: var(--blue); }
+.cc-name .prefix { color: var(--gold); }
+.cc-desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.cc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.cc-tag {
+  font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 4px;
+  letter-spacing: .3px; white-space: nowrap;
+}
+.tag-slash   { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-bdr); }
+.tag-prefix  { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-bdr); }
+.tag-both    { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
+.tag-owner   { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,207,142,.25); }
+.cc-cost {
+  font-size: 11px; color: var(--gold); font-weight: 600;
+  font-family: var(--mono);
+}
 
-/* Terminal display */
-.terminal-display {
-  background:var(--panel); border:1px solid var(--edge); border-radius:16px;
-  overflow:hidden; display:flex; flex-direction:column;
+/* no results */
+.no-results {
+  text-align: center; padding: 48px 0;
+  color: var(--text3); font-size: 14px; display: none;
 }
-.term-bar {
-  background:rgba(0,0,0,0.3); border-bottom:1px solid var(--edge);
-  padding:12px 18px; display:flex; align-items:center; gap:10px;
-}
-.term-dots { display:flex; gap:6px; }
-.term-dot { width:10px; height:10px; border-radius:50%; }
-.td1{background:#ff5f56} .td2{background:#ffbd2e} .td3{background:#27c93f}
-.term-title { font-family:var(--font-mono); font-size:12px; color:var(--text3); margin-left:auto; }
-.term-body { flex:1; padding:28px 32px; min-height:400px; }
-.term-prompt {
-  font-family:var(--font-mono); font-size:13px;
-  color:var(--text3); margin-bottom:20px;
-}
-.term-prompt span { color:var(--cyber); }
-.cmd-detail { display:none; }
-.cmd-detail.visible { display:block; animation:fadeIn 0.3s ease; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-.cd-name {
-  font-family:var(--font-head); font-size:36px; font-weight:700; letter-spacing:2px;
-  text-transform:uppercase; margin-bottom:6px;
-}
-.cd-name.col-gacha   { color:var(--gold); }
-.cd-name.col-social  { color:var(--green); }
-.cd-name.col-utility { color:var(--cyber); }
-.cd-name.col-fun     { color:var(--red); }
-.cd-cat { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--text3); margin-bottom:20px; }
-.cd-desc { color:var(--text2); font-size:16px; line-height:1.7; margin-bottom:24px; }
-.cd-usage {
-  background:rgba(0,0,0,0.3); border:1px solid var(--edge2);
-  border-radius:8px; padding:16px 20px;
-  font-family:var(--font-mono); font-size:14px; color:var(--cyber);
-  margin-bottom:24px; position:relative;
-}
-.cd-usage::before {
-  content:'USAGE'; position:absolute; top:-9px; left:14px;
-  font-size:10px; letter-spacing:2px; color:var(--text3);
-  background:var(--panel); padding:0 6px;
-}
-.cd-meta { display:flex; gap:12px; flex-wrap:wrap; }
-.cd-meta-chip {
-  padding:5px 12px; border-radius:4px; font-size:12px; font-weight:600;
-  letter-spacing:0.5px;
-}
-.chip-cost    { background:rgba(240,192,64,0.1); color:var(--gold); border:1px solid rgba(240,192,64,0.2); }
-.chip-alias   { background:rgba(0,229,255,0.08); color:var(--cyber); border:1px solid rgba(0,229,255,0.2); }
-.chip-perms   { background:rgba(255,77,109,0.1); color:var(--red); border:1px solid rgba(255,77,109,0.2); }
-.chip-type    { background:rgba(255,255,255,0.05); color:var(--text2); border:1px solid var(--edge); }
+.no-results.show { display: block; }
 
-.term-empty {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  height:300px; color:var(--text3); gap:12px;
+/* ── GACHA SECTION ── */
+.gacha-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.gacha-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
 }
-.term-empty-icon { font-size:48px; opacity:0.3; }
-.term-empty-text { font-family:var(--font-mono); font-size:13px; letter-spacing:1px; }
+.gc-header {
+  background: var(--card2); border-bottom: 1px solid var(--border);
+  padding: 16px 20px; display: flex; align-items: center; gap: 10px;
+}
+.gc-header-icon { font-size: 18px; }
+.gc-header-title { font-weight: 700; font-size: 15px; }
+.gc-body { padding: 20px; }
 
-/* ═══════════════════════════════════════════
-   SUPPORT SECTION
-═══════════════════════════════════════════ */
-.support-section {
-  position:relative; z-index:10;
-  padding:0 50px 100px; max-width:1300px; margin:0 auto;
+.rate-rows { display: flex; flex-direction: column; gap: 10px; }
+.rate-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
-.support-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:50px; }
+.rr-left { display: flex; align-items: center; gap: 10px; }
+.rr-star { font-size: 13px; font-weight: 700; }
+.rr-star.s5 { color: var(--gold); }
+.rr-star.s4 { color: var(--purple); }
+.rr-star.s3 { color: var(--blue); }
+.rr-label { font-size: 13px; color: var(--text2); }
+.rr-val { font-family: var(--mono); font-size: 14px; font-weight: 500; }
+
+.pity-section { margin-top: 16px; }
+.pity-label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  margin-bottom: 7px;
+}
+.pity-label span:last-child { color: var(--gold); }
+.pity-track { height: 6px; background: var(--bg2); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
+.pity-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
+.pf-1 { background: linear-gradient(90deg, #8b6200, var(--gold)); }
+.pf-2 { background: linear-gradient(90deg, #4a1fb5, var(--purple)); }
+
+.chars-section { margin-top: 16px; }
+.chars-label { font-size: 12px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.chars-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.char-pill {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 6px; text-align: center;
+  transition: border-color .2s;
+}
+.char-pill:hover { border-color: var(--gold-bdr); }
+.cp-em { font-size: 22px; }
+.cp-name { font-size: 10px; color: var(--text2); margin-top: 4px; }
+.cp-star { font-size: 9px; color: var(--gold); margin-top: 2px; }
+
+.eco-rows { display: flex; flex-direction: column; gap: 8px; }
+.eco-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.er-label { font-size: 13px; color: var(--text2); }
+.er-val { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--gold); }
+
+/* ── SUPPORT ── */
+.support-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 .supp-card {
-  background:var(--panel); border:1px solid var(--edge);
-  border-radius:16px; padding:36px 30px; text-align:center;
-  transition:0.3s; position:relative; overflow:hidden;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 30px 24px; text-align: center;
+  transition: border-color .2s, transform .2s, background .2s;
 }
-.supp-card:hover { background:var(--panel2); border-color:var(--edge2); transform:translateY(-6px); }
-.supp-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:1px;
-  transition:0.3s;
+.supp-card:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-3px); }
+.sc-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin: 0 auto 16px;
+  border: 1px solid var(--border);
 }
-.supp-card.bug-card::before { background:linear-gradient(90deg,transparent,var(--red),transparent); }
-.supp-card.feat-card::before { background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-.supp-card.disc-card::before { background:linear-gradient(90deg,transparent,#5865f2,transparent); }
-.supp-icon-wrap {
-  width:68px; height:68px; border-radius:16px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:30px; margin:0 auto 20px;
-  border:1px solid var(--edge2);
-}
-.bug-card .supp-icon-wrap { background:rgba(255,77,109,0.08); }
-.feat-card .supp-icon-wrap { background:rgba(240,192,64,0.08); }
-.disc-card .supp-icon-wrap { background:rgba(88,101,242,0.08); }
-.supp-title { font-family:var(--font-head); font-size:22px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
-.supp-desc { color:var(--text2); font-size:14px; line-height:1.7; margin-bottom:26px; }
+.sc-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.sc-desc  { font-size: 13.5px; color: var(--text2); line-height: 1.65; margin-bottom: 20px; }
 
-/* ═══════════════════════════════════════════
-   CTA
-═══════════════════════════════════════════ */
-.cta-section {
-  position:relative; z-index:10;
-  padding:0 50px 80px; max-width:1300px; margin:0 auto;
+/* ── CTA ── */
+.cta-band {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 64px 48px; text-align: center;
+  position: relative; overflow: hidden; margin: 80px 0;
 }
-.cta-card {
-  background:var(--panel);
-  border:1px solid var(--edge2);
-  border-radius:24px; padding:80px 60px;
-  text-align:center; position:relative; overflow:hidden;
+.cta-band::before {
+  content: '';
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 300px;
+  background: radial-gradient(ellipse, rgba(91,127,255,.08), transparent 60%);
+  pointer-events: none;
 }
-.cta-card::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at 50% 0%,rgba(155,114,255,0.12),transparent 60%);
-  pointer-events:none;
-}
-.cta-card::after {
-  content:''; position:absolute; top:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,var(--purple2),transparent);
-}
-.cta-eyebrow { color:var(--cyber); font-size:12px; letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
-.cta-title {
-  font-family:var(--font-head); font-size:clamp(38px,5vw,72px); font-weight:700;
-  text-transform:uppercase; letter-spacing:2px; line-height:1; margin-bottom:16px;
-}
-.cta-title .glow {
-  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));
-  background-size:200% 100%; animation:shimmer 3s linear infinite;
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.cta-sub { color:var(--text2); font-size:17px; margin-bottom:40px; max-width:500px; margin-left:auto; margin-right:auto; }
-.cta-btns { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+.cta-band h2 { font-size: clamp(26px,4vw,44px); font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+.cta-band p  { color: var(--text2); font-size: 16px; margin-bottom: 32px; max-width: 440px; margin-left: auto; margin-right: auto; }
+.cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
-/* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
+/* ── FOOTER ── */
 footer {
-  border-top:1px solid var(--edge);
-  padding:48px 50px;
-  max-width:1300px; margin:0 auto;
-  position:relative; z-index:10;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
 }
-.footer-left { display:flex; flex-direction:column; gap:8px; }
-.footer-logo { font-family:var(--font-head); font-size:20px; font-weight:700; letter-spacing:3px; text-transform:uppercase; }
-.footer-logo span { color:var(--gold); }
-.footer-note { font-size:13px; color:var(--text3); }
-.footer-links { display:flex; gap:24px; }
-.footer-links a { color:var(--text3); text-decoration:none; font-size:13px; transition:0.2s; }
-.footer-links a:hover { color:var(--cyber); }
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-logo {
+  font-weight: 800; font-size: 16px; letter-spacing: -0.3px;
+  display: flex; align-items: center; gap: 8px;
+}
+.footer-logo span { color: var(--gold); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { color: var(--text3); text-decoration: none; font-size: 13px; transition: color .2s; }
+.footer-links a:hover { color: var(--text2); }
+.footer-note { color: var(--text3); font-size: 12px; }
 
-/* ═══════════════════════════════════════════
-   MODAL
-═══════════════════════════════════════════ */
-.modal-bg {
-  display:none; position:fixed; inset:0;
-  background:rgba(0,0,0,0.9); backdrop-filter:blur(20px);
-  z-index:9000; align-items:center; justify-content:center;
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.8); backdrop-filter: blur(12px);
+  z-index: 999; align-items: center; justify-content: center;
 }
-.modal-bg.on { display:flex; animation:fadeIn 0.2s ease; }
+.modal-overlay.open { display: flex; animation: fadeIn .2s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 .modal-box {
-  background:var(--panel2); border:1px solid var(--edge2);
-  border-radius:20px; padding:48px 44px; width:100%; max-width:520px; margin:20px;
-  animation:slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  position:relative;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 40px; width: 100%; max-width: 500px; margin: 20px;
+  animation: slideUp .25s ease;
+  position: relative;
 }
-@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-.modal-box::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--cyber),transparent);
+@keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border);
+  color: var(--text3); width: 30px; height: 30px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 15px; transition: .2s;
 }
-.modal-close-btn {
-  position:absolute; top:18px; right:18px;
-  background:var(--glass); border:1px solid var(--edge); color:var(--text3);
-  width:32px; height:32px; border-radius:8px; display:flex;
-  align-items:center; justify-content:center; cursor:none; font-size:16px; transition:0.2s;
+.modal-close:hover { background: rgba(255,255,255,.1); color: var(--text); }
+.modal-title { font-size: 22px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 4px; }
+.modal-sub   { color: var(--text2); font-size: 14px; margin-bottom: 28px; }
+.form-field  { margin-bottom: 16px; }
+.form-field label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 7px; }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%; background: var(--card); border: 1px solid var(--border2);
+  color: var(--text); padding: 11px 14px; border-radius: 9px;
+  font-size: 14px; font-family: var(--font); transition: .2s; resize: vertical;
 }
-.modal-close-btn:hover { background:var(--glass2); color:var(--text); }
-.modal-head { margin-bottom:28px; }
-.modal-ttl { font-family:var(--font-head); font-size:28px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
-.modal-sub { color:var(--text2); font-size:14px; }
-.f-row { margin-bottom:18px; }
-.f-row label { display:block; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text3); margin-bottom:8px; }
-.f-row input, .f-row select, .f-row textarea {
-  width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--edge2);
-  color:var(--text); padding:12px 16px; border-radius:10px;
-  font-size:14px; font-family:var(--font-body); transition:0.2s; resize:vertical;
-}
-.f-row input::placeholder, .f-row textarea::placeholder { color:var(--text4); }
-.f-row input:focus, .f-row select:focus, .f-row textarea:focus {
-  outline:none; border-color:var(--cyber); box-shadow:0 0 0 3px rgba(0,229,255,0.08);
-}
-.f-row select option { background:#0b0f20; }
-.f-row textarea { min-height:100px; }
-.modal-submit {
-  width:100%; padding:15px; border-radius:10px; border:none; cursor:none;
-  background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,180,200,0.1));
-  border:1px solid rgba(0,229,255,0.3); color:var(--cyber);
-  font-size:15px; font-weight:700; font-family:var(--font-body);
-  letter-spacing:1px; text-transform:uppercase; transition:0.3s; margin-top:8px;
-}
-.modal-submit:hover { background:rgba(0,229,255,0.2); box-shadow:0 0 30px rgba(0,229,255,0.2); }
-.modal-success { display:none; text-align:center; padding:20px 0; }
-.modal-success.on { display:block; animation:fadeIn 0.4s ease; }
-.succ-icon { font-size:56px; margin-bottom:16px; }
-.succ-title { font-family:var(--font-head); font-size:28px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; color:var(--green); }
-.succ-msg { color:var(--text2); font-size:15px; margin-bottom:24px; }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--text3); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(91,127,255,.1); }
+.form-field select option { background: var(--bg2); }
+.form-field textarea { min-height: 90px; }
+.modal-submit { width: 100%; padding: 13px; margin-top: 8px; cursor: pointer; }
+.modal-success { display: none; text-align: center; padding: 20px 0; }
+.modal-success.show { display: block; animation: fadeIn .3s ease; }
+.ms-icon  { font-size: 48px; margin-bottom: 14px; }
+.ms-title { font-size: 22px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+.ms-msg   { color: var(--text2); font-size: 14px; margin-bottom: 22px; }
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
-@media(max-width:1100px){
-  .bento-grid{grid-template-columns:1fr 1fr;}
-  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 1;}
-  .b2,.b6{grid-column:span 2;}
-  .terminal-layout{grid-template-columns:1fr;}
-  .terminal-section .cmd-sidebar{display:none;}
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .tb-nav { display: none; }
+  .hero h1 { letter-spacing: -1px; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .gacha-layout { grid-template-columns: 1fr; }
+  .cmd-layout { grid-template-columns: 1fr; }
+  .cmd-nav { display: flex; flex-direction: row; position: static; overflow-x: auto; }
+  .cmd-nav-inner { display: flex; flex-direction: row; width: 100%; border-radius: 9px; }
+  .cn-head { display: none; }
+  .cn-item { flex-direction: column; gap: 4px; font-size: 12px; padding: 12px 14px; border-left: none; border-bottom: 2px solid transparent; }
+  .cn-item.active { border-bottom-color: var(--blue); border-left: none; }
+  .cn-count { display: none; }
+  .support-grid { grid-template-columns: 1fr; }
+  .cta-band { padding: 48px 24px; }
+  .hero-stats { flex-wrap: wrap; }
+  .hs-item { padding: 14px 20px; }
 }
-@media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr;text-align:center;}
-  .hero-sub{max-width:100%;}
-  .gacha-showcase{display:none;}
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .stat-cell:first-child{border-radius:14px 14px 0 0;}
-  .stat-cell:last-child{border-radius:0 0 14px 14px;}
-  .stat-cell{border-radius:0;}
-  .support-grid{grid-template-columns:1fr;}
-  nav{padding:0 20px;}
-  .nav-center{display:none;}
-  .hero,.bento-section,.terminal-section,.support-section,.cta-section,.stats-row,.divider{padding-left:20px;padding-right:20px;}
-  footer{padding:40px 20px;}
-  .cta-card{padding:50px 24px;}
-  .bento-grid{grid-template-columns:1fr;}
-  .b2,.b6{grid-column:span 1;}
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 36px; }
+  .hero-sub { font-size: 16px; }
+  .tb-right .btn { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<div id="pgbar"></div>
-
-<!-- 3D STARFIELD CANVAS -->
-<canvas id="bg-canvas"></canvas>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <div class="logo-icon">
-      🎮
-      <div class="logo-pulse"></div>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="wrap">
+    <a href="#" class="tb-logo">
+      <div class="tb-logo-icon">🎮</div>
+      <span class="tb-logo-name">XD<span>Bot</span></span>
+    </a>
+    <nav class="tb-nav">
+      <a href="#features" class="tb-link">Features</a>
+      <a href="#gacha"    class="tb-link">Gacha</a>
+      <a href="#commands" class="tb-link">Commands</a>
+      <a href="#support"  class="tb-link">Support</a>
+    </nav>
+    <div class="tb-right">
+      <div class="tb-status"><div class="tb-dot"></div> Online</div>
+      <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-primary btn-sm" target="_blank">Add to Discord</a>
     </div>
-    <span class="nav-brand-text">XD<span>BOT</span></span>
   </div>
-  <div class="nav-center">
-    <a href="#features" class="nav-link">Features</a>
-    <a href="#gacha-system" class="nav-link">Gacha</a>
-    <a href="#commands" class="nav-link">Commands</a>
-    <a href="#support" class="nav-link">Support</a>
-  </div>
-  <div class="nav-right">
-    <div class="status-pill"><div class="status-dot"></div> Online</div>
-    <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-cyber" target="_blank">Add to Discord</a>
-  </div>
-</nav>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid">
-    <div>
-      <div class="hero-badge">Genshin Impact Gacha Bot</div>
-      <h1 class="hero-title">
-        <span class="line1">PULL.</span>
-        <span class="line2">COLLECT.</span>
-        <span class="line3">DOMINATE.</span>
-      </h1>
-      <p class="hero-sub">
-        Full Genshin gacha on Discord. Real pity system, 100+ characters, economy, social commands, and leaderboards — all free.
-      </p>
-      <div class="hero-actions">
-        <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-discord btn-xl" target="_blank">➕ Add to Discord</a>
-        <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote — Get 4,000 💎</a>
-        <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-ghost btn-lg" target="_blank">💬 Support</a>
-      </div>
-      <div class="hero-metrics">
-        <div class="metric"><div class="metric-val" data-count="100">0</div><div class="metric-lbl">Characters</div></div>
-        <div class="metric"><div class="metric-val" data-count="30">0</div><div class="metric-lbl">Commands</div></div>
-        <div class="metric"><div class="metric-val" data-count="90">0</div><div class="metric-lbl">Hard Pity</div></div>
-      </div>
+  <div class="wrap">
+    <div class="hero-badge">Genshin Impact Gacha Bot</div>
+    <h1>The Genshin Gacha Bot<br>your Discord <span class="grad">deserves.</span></h1>
+    <p class="hero-sub">100+ characters, real pity system, Primogem economy, social commands, leaderboards, and more — all free, all in Discord.</p>
+    <div class="hero-btns">
+      <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-discord btn-xl" target="_blank">➕ Add to Discord</a>
+      <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote — Get 4,000 💎</a>
+      <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-outline btn-lg" target="_blank">💬 Support Server</a>
     </div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">100+</div><div class="hs-lbl">Characters</div></div>
+      <div class="hs-item"><div class="hs-val">40+</div><div class="hs-lbl">Commands</div></div>
+      <div class="hs-item"><div class="hs-val">0.6%</div><div class="hs-lbl">5★ Rate</div></div>
+      <div class="hs-item"><div class="hs-val">90</div><div class="hs-lbl">Hard Pity</div></div>
+    </div>
+  </div>
+</section>
 
-    <!-- 3D FLIP CARD -->
-    <div class="gacha-showcase">
-      <div class="card-particles" id="cardParticles"></div>
-      <div class="card-scene">
-        <div class="card-flip" id="cardFlip">
-          <div class="card-face card-back">
-            <div class="card-back-pattern"></div>
-            <div class="card-back-glow"></div>
-            <div class="card-back-logo">✦</div>
-            <div class="card-back-text">XD Gacha</div>
-          </div>
-          <div class="card-face card-front">
-            <div class="card-rarity-bar"></div>
-            <div class="card-art">
-              <span id="cardEmoji">⚡</span>
-              <div class="card-art-glow"></div>
-            </div>
-            <div class="card-info">
-              <div class="card-element" id="cardElement">ELECTRO</div>
-              <div class="card-char-name" id="cardName">RAIDEN SHOGUN</div>
-              <div class="card-stars">★★★★★</div>
-              <div class="card-type">Polearm • Inazuma</div>
-            </div>
-          </div>
-        </div>
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">Features</div>
+      <h2 class="sec-title">Everything packed in.<br>Nothing held back.</h2>
+      <p class="sec-sub">Built from scratch to feel like Genshin Impact — right inside your Discord server.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feat">
+        <div class="feat-icon fi-gold">🎲</div>
+        <div class="feat-title">Authentic Gacha System</div>
+        <p class="feat-desc">Real pity counter per-user stored in MongoDB. Soft pity kicks in at 74, hard pity guarantees 5★ at 90. Feels exactly like the game.</p>
       </div>
-      <div class="card-hint">✦ &nbsp; HOVER TO REVEAL &nbsp; ✦</div>
-      <div class="pull-btn-wrap">
-        <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-gold btn-lg" target="_blank">🎲 Try /pull in your server</a>
-        <div class="pull-cost">💎 160 Primogems per pull</div>
+      <div class="feat">
+        <div class="feat-icon fi-blue">📦</div>
+        <div class="feat-title">100+ Characters</div>
+        <p class="feat-desc">Every Genshin region and element represented. Paginated inventory with rarity sorting, duplicate tracking, and sell/trade system.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon fi-green">💎</div>
+        <div class="feat-title">Primogem Economy</div>
+        <p class="feat-desc">Earn through voting, buy with daily limits, gift to friends, sell duplicates, or trade characters. A fully featured economy system.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon fi-pink">🎭</div>
+        <div class="feat-title">Social & Emotion Commands</div>
+        <p class="feat-desc">20+ anime-style social actions with live GIFs — kiss, hug, pat, marry, slap, cuddle, blush, cry, smile, and more.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon fi-purple">🏆</div>
+        <div class="feat-title">Global Leaderboards</div>
+        <p class="feat-desc">Compete for the top spot in Primogem wealth and 5★ character count. Updated live with every pull.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon fi-cyan">⚡</div>
+        <div class="feat-title">Slash + Prefix Support</div>
+        <p class="feat-desc">Every command works as a Discord slash command (<code style="color:var(--blue);font-family:var(--mono)">/pull</code>) and as a message prefix (<code style="color:var(--gold);font-family:var(--mono)">xd pull</code>).</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div style="position:relative;z-index:10;max-width:1300px;margin:0 auto;padding:0 50px 80px;" id="stats-anchor">
-  <div class="stats-row" style="padding:0;max-width:100%;">
-    <div class="stat-cell"><div class="stat-n" data-count="100">0</div><div class="stat-l">Genshin Characters</div></div>
-    <div class="stat-cell"><div class="stat-n" data-count="90">0</div><div class="stat-l">Hard Pity Guarantee</div></div>
-    <div class="stat-cell"><div class="stat-n" data-count="74">0</div><div class="stat-l">Soft Pity Starts At</div></div>
-    <div class="stat-cell"><div class="stat-n" data-count="30">0</div><div class="stat-l">Total Commands</div></div>
-  </div>
-</div>
-
-<!-- BENTO FEATURES -->
-<section class="bento-section" id="features">
-  <div class="section-eyebrow">Core Features</div>
-  <h2 class="section-h">Built Different.<br><span>Plays Different.</span></h2>
-  <p class="section-p">Every system is crafted to feel as close to Genshin as possible — in Discord.</p>
-
-  <div class="bento-grid" id="gacha-system">
-    <!-- Gacha — wide left -->
-    <div class="bento b1">
-      <div class="bento-tag tag-gold">⭐ Gacha</div>
-      <div class="bento-title">Authentic Pity System</div>
-      <div class="bento-desc">Real soft and hard pity. Tracked per-user in MongoDB. Feels exactly like the game.</div>
-      <div class="pity-display">
-        <div class="pity-track"><span>Hard Pity</span><span style="color:var(--gold)">67 / 90</span></div>
-        <div class="pity-bar"><div class="pity-bar-fill pf-gold" id="pb1" style="width:0%"></div></div>
-        <div style="margin-top:12px;">
-        <div class="pity-track"><span>Soft Pity</span><span style="color:var(--purple2)">Active ✦</span></div>
-        <div class="pity-bar"><div class="pity-bar-fill pf-purple" id="pb2" style="width:0%"></div></div>
+<!-- GACHA DEEP DIVE -->
+<section class="section" id="gacha">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">Gacha System</div>
+      <h2 class="sec-title">Real pity. Real rates.<br>Real Genshin feel.</h2>
+    </div>
+    <div class="gacha-layout">
+      <!-- Left col -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="gacha-card">
+          <div class="gc-header"><span class="gc-header-icon">📊</span><span class="gc-header-title">Pull Rates</span></div>
+          <div class="gc-body">
+            <div class="rate-rows">
+              <div class="rate-row">
+                <div class="rr-left"><span class="rr-star s5">★★★★★</span><span class="rr-label">5-Star Character</span></div>
+                <span class="rr-val">0.6%</span>
+              </div>
+              <div class="rate-row">
+                <div class="rr-left"><span class="rr-star s4">★★★★</span><span class="rr-label">4-Star Character</span></div>
+                <span class="rr-val">5.1%</span>
+              </div>
+              <div class="rate-row">
+                <div class="rr-left"><span class="rr-star s3">★★★</span><span class="rr-label">3-Star Character</span></div>
+                <span class="rr-val">94.3%</span>
+              </div>
+            </div>
+            <div class="pity-section">
+              <div class="pity-label"><span>Hard Pity Counter</span><span>67 / 90</span></div>
+              <div class="pity-track"><div class="pity-fill pf-1" id="pf1"></div></div>
+              <div class="pity-label"><span>Soft Pity</span><span style="color:var(--purple)">Active at 74+</span></div>
+              <div class="pity-track"><div class="pity-fill pf-2" id="pf2"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="pity-nums">
-          <div class="pnum"><div class="pnum-v">0.6%</div><div class="pnum-l">5★ Base</div></div>
-          <div class="pnum"><div class="pnum-v">5.1%</div><div class="pnum-l">4★ Base</div></div>
-          <div class="pnum"><div class="pnum-v">74+</div><div class="pnum-l">Soft Pity</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Characters — wide right -->
-    <div class="bento b2">
-      <div class="bento-tag tag-cyber">📦 Collection</div>
-      <div class="bento-title">100+ Genshin Characters</div>
-      <div class="bento-desc">Every region, every element. From launch characters to the latest additions. Duplicate tracking built-in.</div>
-      <div class="chars-grid-mini">
-        <div class="cmini"><span class="cmini-em">⚡</span><div class="cmini-name">Raiden</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">❄️</span><div class="cmini-name">Ayaka</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">🔥</span><div class="cmini-name">Hu Tao</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">💧</span><div class="cmini-name">Kokomi</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">🌿</span><div class="cmini-name">Nahida</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">🌊</span><div class="cmini-name">Tartaglia</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">🌙</span><div class="cmini-name">Ganyu</div><div class="cmini-stars">★★★★★</div></div>
-        <div class="cmini"><span class="cmini-em">⚔️</span><div class="cmini-name">Xiao</div><div class="cmini-stars">★★★★★</div></div>
-      </div>
-    </div>
-
-    <!-- Economy -->
-    <div class="bento b3">
-      <div class="bento-tag tag-gold">💎 Economy</div>
-      <div class="bento-title">Live Primogem Economy</div>
-      <div class="bento-desc">Earn, spend, gift, and trade Primogems.</div>
-      <div class="economy-preview">
-        <div class="eco-row"><span class="eco-label">💎 Your Balance</span><span class="eco-val">4,800</span></div>
-        <div class="eco-row"><span class="eco-label">🎲 Pull Cost</span><span class="eco-val">160</span></div>
-        <div class="eco-row"><span class="eco-label">🗳️ Vote Reward</span><span class="eco-val">+4,000</span></div>
-        <div class="eco-row"><span class="eco-label">📅 Buy Limit</span><span class="eco-val">20,000/day</span></div>
-      </div>
-    </div>
-
-    <!-- Social -->
-    <div class="bento b4">
-      <div class="bento-tag tag-green">🎭 Social</div>
-      <div class="bento-title">13+ Social Actions</div>
-      <div class="bento-desc">Anime-style GIFs powered by live APIs.</div>
-      <div class="social-actions">
-        <span class="s-action">💋 kiss</span><span class="s-action">🤗 hug</span>
-        <span class="s-action">🐾 pat</span><span class="s-action">🥰 cuddle</span>
-        <span class="s-action">💍 marry</span><span class="s-action">👊 punch</span>
-        <span class="s-action">👋 slap</span><span class="s-action">😼 bite</span>
-        <span class="s-action">😋 nom</span><span class="s-action">🙌 highfive</span>
-        <span class="s-action">💀 kill</span><span class="s-action">👀 stare</span>
-        <span class="s-action">😈 bully</span>
-      </div>
-    </div>
-
-    <!-- Leaderboard -->
-    <div class="bento b5">
-      <div class="bento-tag tag-cyber">🏆 Rankings</div>
-      <div class="bento-title">Global Leaderboards</div>
-      <div class="bento-desc">Top Primogem holders and most 5★ collectors.</div>
-      <div class="lb-rows">
-        <div class="lb-row"><span class="lb-rank top">01</span><span class="lb-name">Kazuha_Fan</span><span class="lb-gems">98,400 💎</span><span class="lb-stars">⭐12</span></div>
-        <div class="lb-row"><span class="lb-rank top">02</span><span class="lb-name">WishAddict</span><span class="lb-gems">76,200 💎</span><span class="lb-stars">⭐9</span></div>
-        <div class="lb-row"><span class="lb-rank">03</span><span class="lb-name">GachaGod99</span><span class="lb-gems">54,880 💎</span><span class="lb-stars">⭐7</span></div>
-        <div class="lb-row"><span class="lb-rank">04</span><span class="lb-name">PrimoPrince</span><span class="lb-gems">41,000 💎</span><span class="lb-stars">⭐6</span></div>
-      </div>
-    </div>
-
-    <!-- Utility — wide -->
-    <div class="bento b6">
-      <div class="bento-tag tag-purple">⚡ Slash + Prefix</div>
-      <div class="bento-title">Every Command. Both Ways.</div>
-      <div class="bento-desc">Use slash commands for autocomplete or type-ahead with the XD prefix. Both work for every command — your server, your style.</div>
-      <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:10px;padding:14px 16px;">
-          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cyber);margin-bottom:8px;">Slash Command</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">/pull</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">/inventory</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">/leaderboard</div>
-        </div>
-        <div style="background:rgba(240,192,64,0.05);border:1px solid rgba(240,192,64,0.15);border-radius:10px;padding:14px 16px;">
-          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Message Prefix</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">xd pull</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">xd inventory</div>
-          <div style="font-family:var(--font-mono);font-size:14px;color:var(--text);">xd ld</div>
+        <div class="gacha-card">
+          <div class="gc-header"><span class="gc-header-icon">💎</span><span class="gc-header-title">Primogem Economy</span></div>
+          <div class="gc-body">
+            <div class="eco-rows">
+              <div class="eco-row"><span class="er-label">💎 Cost per Pull</span><span class="er-val">160</span></div>
+              <div class="eco-row"><span class="er-label">🗳️ Vote Reward (Top.gg)</span><span class="er-val">+4,000</span></div>
+              <div class="eco-row"><span class="er-label">📅 Daily Buy Limit</span><span class="er-val">2,000</span></div>
+              <div class="eco-row"><span class="er-label">💰 Sell Duplicate</span><span class="er-val">varies</span></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Fun -->
-    <div class="bento b7">
-      <div class="bento-tag tag-purple">🎮 Fun</div>
-      <div class="bento-title">Extra Goodies</div>
-      <div class="bento-desc">Memes, coinflip, roasts, love calculator, AFK system, Genshin redeem codes, and more.</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-        <span style="font-size:22px;" title="Memes">😂</span>
-        <span style="font-size:22px;" title="Coinflip">🪙</span>
-        <span style="font-size:22px;" title="Roast">🔥</span>
-        <span style="font-size:22px;" title="Love">❤️</span>
-        <span style="font-size:22px;" title="AFK">💤</span>
-        <span style="font-size:22px;" title="Codes">🎁</span>
+      <!-- Right col -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="gacha-card">
+          <div class="gc-header"><span class="gc-header-icon">✨</span><span class="gc-header-title">Sample 5★ Characters</span></div>
+          <div class="gc-body">
+            <div class="chars-row">
+              <div class="char-pill"><div class="cp-em"><img src="https://cdn.discordapp.com/emojis/:anemo:1501568430178832495>.png" width="24" height="24"></div><div class="cp-name">Raiden</div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:14px;text-align:center;">+ 90 more across all regions & elements</p>
+          </div>
+        </div>
+        <div class="gacha-card">
+          <div class="gc-header"><span class="gc-header-icon">🔄</span><span class="gc-header-title">How it Works</span></div>
+          <div class="gc-body" style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;border-radius:6px;background:var(--blue-dim);border:1px solid var(--blue-bdr);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0;">1</div>
+              <div><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Use /pull or xd pull</div><div style="font-size:12px;color:var(--text2);">Spends 160 Primogems from your balance</div></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;border-radius:6px;background:var(--gold-dim);border:1px solid var(--gold-bdr);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;">2</div>
+              <div><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Character is revealed</div><div style="font-size:12px;color:var(--text2);">Rarity determined by rates above, pity tracked automatically</div></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;border-radius:6px;background:var(--green-dim);border:1px solid rgba(62,207,142,.25);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--green);flex-shrink:0;">3</div>
+              <div><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Added to your inventory</div><div style="font-size:12px;color:var(--text2);">Duplicates can be sold or traded with other users</div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMMANDS TERMINAL -->
-<section class="terminal-section" id="commands">
-  <div class="section-eyebrow">Command Reference</div>
-  <h2 class="section-h">Every <span>Command.</span><br>Explorer.</h2>
-  <p class="section-p">Click any command for full details, usage syntax, and metadata.</p>
-  <div class="terminal-layout">
-    <div class="cmd-sidebar">
-      <div class="cmd-sidebar-head">> command_list.json</div>
-      <div class="cmd-search-wrap">
-        <input type="text" class="cmd-search" placeholder="Search commands..." id="cmdSearch" oninput="filterCmds()">
-      </div>
-      <div class="cmd-filters" id="cmdFilters">
-        <button class="cf on" data-filter="all" onclick="setFilter('all',this)">ALL</button>
-        <button class="cf gold-f" data-filter="gacha" onclick="setFilter('gacha',this)">GACHA</button>
-        <button class="cf green-f" data-filter="social" onclick="setFilter('social',this)">SOCIAL</button>
-        <button class="cf on" data-filter="utility" style="--cyber:var(--cyber)" onclick="setFilter('utility',this)">UTIL</button>
-        <button class="cf red-f" data-filter="fun" onclick="setFilter('fun',this)">FUN</button>
-      </div>
-      <div class="cmd-list" id="cmdList"></div>
+<!-- COMMANDS -->
+<section class="section" id="commands">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">Commands</div>
+      <h2 class="sec-title">Every command,<br>organized.</h2>
+      <p class="sec-sub">Browse by category or search. Click any category tab on the left.</p>
     </div>
-    <div class="terminal-display">
-      <div class="term-bar">
-        <div class="term-dots"><div class="term-dot td1"></div><div class="term-dot td2"></div><div class="term-dot td3"></div></div>
-        <div class="term-title">xd_bot ~ command_explorer</div>
-      </div>
-      <div class="term-body" id="termBody">
-        <div class="term-prompt">[<span>xd-bot</span>@discord ~]$ <span id="typedCmd">_</span></div>
-        <div id="termContent">
-          <div class="term-empty">
-            <div class="term-empty-icon">⌨</div>
-            <div class="term-empty-text">// SELECT A COMMAND TO EXPLORE</div>
-          </div>
+
+    <div class="cmd-search-bar">
+      <input type="text" class="cmd-search" placeholder="🔍  Search all commands..." id="globalSearch" oninput="globalFilter()">
+    </div>
+
+    <div class="cmd-layout">
+      <!-- Sidebar nav -->
+      <div class="cmd-nav">
+        <div class="cmd-nav-inner">
+          <div class="cn-head">Categories</div>
+          <a class="cn-item active" onclick="showSection('gacha',this)">
+            <div class="cn-dot dot-gacha"></div> Gacha & Economy
+            <span class="cn-count">12</span>
+          </a>
+          <a class="cn-item" onclick="showSection('social',this)">
+            <div class="cn-dot dot-social"></div> Social Actions
+            <span class="cn-count">14</span>
+          </a>
+          <a class="cn-item" onclick="showSection('emotion',this)">
+            <div class="cn-dot dot-emotion"></div> Emotions
+            <span class="cn-count">8</span>
+          </a>
+          <a class="cn-item" onclick="showSection('utility',this)">
+            <div class="cn-dot dot-utility"></div> Utility & Info
+            <span class="cn-count">9</span>
+          </a>
+          <a class="cn-item" onclick="showSection('fun',this)">
+            <div class="cn-dot dot-fun"></div> Fun
+            <span class="cn-count">5</span>
+          </a>
+          <a class="cn-item" onclick="showSection('owner',this)">
+            <div class="cn-dot dot-owner"></div> Owner Only
+            <span class="cn-count">3</span>
+          </a>
         </div>
+      </div>
+
+      <!-- Command panels -->
+      <div class="cmd-panel" id="cmdPanel">
+
+        <!-- GACHA -->
+        <div class="cmd-section active" id="sec-gacha">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-gold" style="width:36px;height:36px;border-radius:9px;">🎲</div>
+            <div>
+              <div class="csh-title">Gacha & Economy</div>
+              <div class="csh-desc">Pull characters, manage Primogems, trade, and climb leaderboards</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-gacha">
+            <!-- cards injected by JS -->
+          </div>
+          <div class="no-results" id="nr-gacha">No commands match your search.</div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="cmd-section" id="sec-social">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-pink" style="width:36px;height:36px;border-radius:9px;">🎭</div>
+            <div>
+              <div class="csh-title">Social Actions</div>
+              <div class="csh-desc">Interact with other users using animated anime GIFs</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-social"></div>
+          <div class="no-results" id="nr-social">No commands match your search.</div>
+        </div>
+
+        <!-- EMOTION -->
+        <div class="cmd-section" id="sec-emotion">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-purple" style="width:36px;height:36px;border-radius:9px;">😊</div>
+            <div>
+              <div class="csh-title">Emotions</div>
+              <div class="csh-desc">Express yourself with reaction GIFs</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-emotion"></div>
+          <div class="no-results" id="nr-emotion">No commands match your search.</div>
+        </div>
+
+        <!-- UTILITY -->
+        <div class="cmd-section" id="sec-utility">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-blue" style="width:36px;height:36px;border-radius:9px;">🔧</div>
+            <div>
+              <div class="csh-title">Utility & Info</div>
+              <div class="csh-desc">Server info, user info, AFK, and bot utilities</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-utility"></div>
+          <div class="no-results" id="nr-utility">No commands match your search.</div>
+        </div>
+
+        <!-- FUN -->
+        <div class="cmd-section" id="sec-fun">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-cyan" style="width:36px;height:36px;border-radius:9px;">🎉</div>
+            <div>
+              <div class="csh-title">Fun</div>
+              <div class="csh-desc">Memes, coinflips, roasts, and entertainment</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-fun"></div>
+          <div class="no-results" id="nr-fun">No commands match your search.</div>
+        </div>
+
+        <!-- OWNER -->
+        <div class="cmd-section" id="sec-owner">
+          <div class="cmd-section-head">
+            <div class="csh-icon fi-green" style="width:36px;height:36px;border-radius:9px;">🔒</div>
+            <div>
+              <div class="csh-title">Owner Only</div>
+              <div class="csh-desc">Restricted commands for the bot owner</div>
+            </div>
+          </div>
+          <div class="cmd-cards" id="cards-owner"></div>
+          <div class="no-results" id="nr-owner">No commands match your search.</div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
 <!-- SUPPORT -->
-<section class="support-section" id="support">
-  <div class="section-eyebrow">Get Help</div>
-  <h2 class="section-h">We've Got<br><span>You Covered.</span></h2>
-  <div class="support-grid">
-    <div class="supp-card bug-card" onclick="openModal('bug')" style="cursor:none">
-      <div class="supp-icon-wrap">🐛</div>
-      <div class="supp-title">Bug Report</div>
-      <p class="supp-desc">Something broken? Tell us exactly what happened and we'll fix it fast.</p>
-      <div class="btn btn-ghost" style="justify-content:center;">Report Bug</div>
+<section class="section" id="support">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">Support</div>
+      <h2 class="sec-title">We've got you covered.</h2>
     </div>
-    <div class="supp-card feat-card" onclick="openModal('feature')" style="cursor:none">
-      <div class="supp-icon-wrap">💡</div>
-      <div class="supp-title">Feature Request</div>
-      <p class="supp-desc">Have a wild idea for a new command? We build what the community asks for.</p>
-      <div class="btn btn-gold" style="justify-content:center;">Suggest Feature</div>
-    </div>
-    <div class="supp-card disc-card">
-      <div class="supp-icon-wrap">💬</div>
-      <div class="supp-title">Discord Server</div>
-      <p class="supp-desc">Join for real-time support, update previews, and community events.</p>
-      <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-discord" style="justify-content:center;" target="_blank">Join Server</a>
+    <div class="support-grid">
+      <div class="supp-card" onclick="openModal('bug')" style="cursor:pointer">
+        <div class="sc-icon" style="background:rgba(240,98,146,.08);border-color:rgba(240,98,146,.2);">🐛</div>
+        <div class="sc-title">Report a Bug</div>
+        <p class="sc-desc">Found something broken? Let us know and we'll fix it as fast as possible.</p>
+        <button class="btn btn-outline btn-sm">Report Bug</button>
+      </div>
+      <div class="supp-card" onclick="openModal('feature')" style="cursor:pointer">
+        <div class="sc-icon" style="background:var(--gold-dim);border-color:var(--gold-bdr);">💡</div>
+        <div class="sc-title">Feature Request</div>
+        <p class="sc-desc">Have an idea for a new command or improvement? We build what the community wants.</p>
+        <button class="btn btn-outline btn-sm">Suggest Feature</button>
+      </div>
+      <div class="supp-card">
+        <div class="sc-icon" style="background:rgba(88,101,242,.08);border-color:rgba(88,101,242,.2);">💬</div>
+        <div class="sc-title">Discord Server</div>
+        <p class="sc-desc">Join our support server for help, update announcements, and to chat with the community.</p>
+        <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-discord btn-sm" target="_blank">Join Server</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<div class="cta-section">
-  <div class="cta-card">
-    <div class="cta-eyebrow">// READY TO START</div>
-    <h2 class="cta-title">PULL YOUR<br><span class="glow">FIRST 5★</span></h2>
-    <p class="cta-sub">Add XD Bot to your server in 10 seconds. No setup. No config. Just add and start pulling.</p>
+<div class="wrap">
+  <div class="cta-band">
+    <h2>Ready to start pulling?</h2>
+    <p>Add XD Bot to your server in seconds. Free, no setup required.</p>
     <div class="cta-btns">
       <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" class="btn btn-discord btn-xl" target="_blank">➕ Add to Discord — Free</a>
       <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote on Top.gg</a>
@@ -1176,368 +863,273 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-left">
-    <div class="footer-logo">XD<span>BOT</span></div>
-    <div class="footer-note">Not affiliated with HoYoverse · Made for fun 🎮</div>
-  </div>
-  <div class="footer-links">
-    <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">Support Server</a>
-    <a href="https://top.gg/bot/1305780094937337906/vote" target="_blank">Vote on Top.gg</a>
-    <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" target="_blank">Invite Bot</a>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">🎮 XD<span>Bot</span></div>
+      <div class="footer-links">
+        <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">Support</a>
+        <a href="https://top.gg/bot/1305780094937337906/vote" target="_blank">Vote</a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" target="_blank">Invite</a>
+      </div>
+      <div class="footer-note">Not affiliated with HoYoverse · Made for fun 🎮</div>
+    </div>
   </div>
 </footer>
 
 <!-- MODAL -->
-<div class="modal-bg" id="modalBg">
+<div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <button class="modal-close-btn" onclick="closeModal()">✕</button>
-    <div id="mFormWrap">
-      <div class="modal-head">
-        <div class="modal-ttl" id="mTitle">Report a Bug</div>
-        <div class="modal-sub" id="mSub">Help us squash it — describe what went wrong.</div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="mForm">
+      <div class="modal-title" id="mTitle">Report a Bug</div>
+      <p class="modal-sub" id="mSub">Describe what went wrong and we'll fix it.</p>
+      <div class="form-field">
+        <label>Discord Username</label>
+        <input type="text" id="fUser" placeholder="username or user#0000">
       </div>
-      <div class="f-row"><label>Discord Username</label><input type="text" id="mUser" placeholder="username or user#0000"></div>
-      <div class="f-row"><label>Type</label>
-        <select id="mType">
+      <div class="form-field">
+        <label>Type</label>
+        <select id="fType">
           <option value="bug">🐛 Bug Report</option>
           <option value="feature">💡 Feature Request</option>
         </select>
       </div>
-      <div class="f-row"><label>Command / Area</label><input type="text" id="mCmd" placeholder="/pull, inventory, economy..."></div>
-      <div class="f-row"><label>Description</label><textarea id="mDesc" placeholder="Describe in detail..."></textarea></div>
-      <div class="f-row" id="mStepsRow"><label>Steps to Reproduce</label><textarea id="mSteps" placeholder="1. Did X&#10;2. Expected Y&#10;3. Got Z"></textarea></div>
-      <button class="modal-submit" onclick="submitForm()">⟶ Submit Report</button>
+      <div class="form-field">
+        <label>Command / Area</label>
+        <input type="text" id="fCmd" placeholder="/pull, inventory, economy…">
+      </div>
+      <div class="form-field">
+        <label>Description</label>
+        <textarea id="fDesc" placeholder="Describe the issue or idea in detail…"></textarea>
+      </div>
+      <div class="form-field" id="fStepsRow">
+        <label>Steps to Reproduce</label>
+        <textarea id="fSteps" placeholder="1. Did X&#10;2. Expected Y&#10;3. Got Z instead"></textarea>
+      </div>
+      <button class="btn btn-primary modal-submit" onclick="submitReport()">Submit →</button>
     </div>
     <div class="modal-success" id="mSuccess">
-      <div class="succ-icon">✅</div>
-      <div class="succ-title">Submitted!</div>
-      <p class="succ-msg">Thanks — we'll review your report and improve XD Bot.</p>
-      <button class="btn btn-ghost" onclick="closeModal()" style="margin:auto">Close</button>
+      <div class="ms-icon">✅</div>
+      <div class="ms-title">Submitted!</div>
+      <p class="ms-msg">Thanks for the report — we'll review it and improve XD Bot.</p>
+      <button class="btn btn-outline" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
 <script>
-// ════════════════════════════════════════
-// CURSOR
-// ════════════════════════════════════════
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,.bento,.cmd-item,.supp-card,.card-scene').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='52px';ring.style.height='52px';});
-  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
-});
+// ── COMMAND DATA ──
+const CMDS = {
+  gacha: [
+    { name: '/pull',        alias: 'xd pull',      both: true,  desc: 'Pull a random Genshin character from the banner.',                           cost: '160 💎' },
+    { name: '/profile',     alias: null,            slash: true, desc: 'View your gacha profile — total pulls, pity counter, and top 5★ characters.' },
+    { name: '/inventory',   alias: null,            slash: true, desc: 'Browse your full character collection with pagination, rarity sorting, and duplicate tracking.' },
+    { name: '/balance',     alias: 'xd b / !balance', both: true, desc: 'Check your current Primogem balance.' },
+    { name: '/shop',        alias: 'xd s / !shop', both: true,  desc: 'View the Primogem shop and your current pity info.' },
+    { name: '/buy',         alias: null,            slash: true, desc: 'Purchase Primogems. 2,000 per day limit.',                                  cost: 'Costs real 💎' },
+    { name: '/sell',        alias: null,            slash: true, desc: 'Sell a duplicate character back for Primogems.' },
+    { name: '/sellall',     alias: null,            slash: true, desc: 'Sell all duplicate characters at once for maximum Primogems.' },
+    { name: '/trade',       alias: null,            slash: true, desc: 'Trade a character with another user. Both parties must agree.' },
+    { name: '/leaderboard', alias: 'xd lb / !lb',  both: true,  desc: 'View the top 5 richest players and most 5★ character collectors.' },
+    { name: '/checkvote',   alias: 'xd cv / !checkvote', both: true, desc: 'Claim your Top.gg vote reward — 4,000 Primogems!',                      cost: '+4,000 💎' },
+    { name: '/codes',       alias: null,            slash: true, desc: 'Share up to 3 Genshin Impact redeem codes with clickable redemption buttons.' },
+  ],
+  social: [
+    { name: 'xd kiss',      prefix: true, desc: 'Kiss someone with an anime GIF 💋' },
+    { name: 'xd hug',       prefix: true, desc: 'Hug someone warmly 🤗' },
+    { name: 'xd pat',       prefix: true, desc: 'Pat someone on the head 🐾' },
+    { name: 'xd cuddle',    prefix: true, desc: 'Cuddle up with someone 🥰' },
+    { name: 'xd nom',       prefix: true, desc: 'Nom nom someone 😋' },
+    { name: 'xd bite',      prefix: true, desc: 'Bite someone playfully 😼' },
+    { name: 'xd slap',      prefix: true, desc: 'Slap someone 👋' },
+    { name: 'xd punch',     prefix: true, desc: 'Punch someone 👊' },
+    { name: 'xd kill',      prefix: true, desc: 'Dramatically eliminate someone 💀' },
+    { name: 'xd bully',     prefix: true, desc: 'Playfully bully someone 😈' },
+    { name: 'xd highfive',  prefix: true, desc: 'High five someone 🙌' },
+    { name: 'xd stare',     prefix: true, desc: 'Stare someone down 👀' },
+    { name: 'xd marry',     prefix: true, desc: 'Propose marriage to someone — they must accept! 💍' },
+    { name: '/divorce',     alias: 'xd divorce', both: true, desc: 'Divorce your current spouse 💔' },
+  ],
+  emotion: [
+    { name: 'xd blush',    prefix: true, desc: 'Show a blushing reaction 😳' },
+    { name: 'xd cry',      prefix: true, desc: 'Express sadness 😢' },
+    { name: 'xd sleepy',   prefix: true, desc: 'Show a sleepy reaction 😴' },
+    { name: 'xd smile',    prefix: true, desc: 'Flash a big smile 😊' },
+    { name: 'xd think',    prefix: true, desc: 'Show a thinking/pondering reaction 🤔' },
+    { name: 'xd lewd',     prefix: true, desc: 'Lewd reaction GIF 😏' },
+    { name: 'xd greet',    prefix: true, desc: 'Wave and greet someone 👋' },
+    { name: 'xd roast',    alias: '/roast', both: true, desc: 'Roast a user with savage friendly banter 🔥' },
+  ],
+  utility: [
+    { name: '/userinfo',   alias: 'xd user / !user',   both: true,  desc: 'View detailed info about any Discord user.' },
+    { name: '/serverinfo', alias: 'xd server / !server', both: true, desc: 'View server statistics, member counts, and metadata.' },
+    { name: '/botinfo',    alias: 'xd info / !info',   both: true,  desc: 'View bot stats — uptime, ping, and memory usage.' },
+    { name: '/avatar',     alias: 'xd avatar / !avatar', both: true, desc: "Display any user's avatar in full high resolution." },
+    { name: '/afk',        alias: 'xd afk / !afk',    both: true,  desc: 'Set yourself as AFK with a custom reason. Bot notifies others when you are mentioned.' },
+    { name: '/help',       alias: 'xd help / !help',   both: true,  desc: 'Browse all commands organized by category with interactive buttons.' },
+    { name: '/say',        alias: null,                 slash: true, desc: 'Make the bot send a message in the current channel.' },
+    { name: '/vote',       alias: 'xd vote / !vote',   both: true,  desc: 'Get the Top.gg link to vote for XD Bot and earn 4,000 Primogems.' },
+    { name: '/setinvitechannel', alias: null,           slash: true, desc: 'Set a channel to log invite tracking. Requires Administrator permission.' },
+  ],
+  fun: [
+    { name: '/coinflip',   alias: '!coinflip / !flip', both: true,  desc: 'Flip a coin with a satisfying animation 🪙' },
+    { name: '/meme',       alias: 'pls meme',           both: true,  desc: 'Fetch a random meme from Reddit. Also triggered by typing "pls meme" 😂' },
+    { name: '/love',       alias: null,                 slash: true, desc: 'Calculate the love compatibility percentage between two users ❤️' },
+    { name: 'xd fish',     prefix: true,                desc: 'A fun prefix command alias 🐟' },
+    { name: '/profile',    alias: null,                 slash: true, desc: 'View gacha stats and see your top characters at a glance.' },
+  ],
+  owner: [
+    { name: '/gift',       alias: null, slash: true, owner: true, desc: 'Gift any amount of Primogems to a user. Owner only.' },
+    { name: '/resetcollection', alias: null, slash: true, owner: true, desc: "Reset a user's entire character collection. Owner only." },
+    { name: '/serverlist', alias: null, slash: true, owner: true, desc: 'List all servers the bot is currently in. Owner only.' },
+  ]
+};
 
-// ════════════════════════════════════════
-// SCROLL PROGRESS
-// ════════════════════════════════════════
-window.addEventListener('scroll',()=>{
-  const p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
-  document.getElementById('pgbar').style.width=p+'%';
-});
-
-// ════════════════════════════════════════
-// 3D STARFIELD
-// ════════════════════════════════════════
-const canvas=document.getElementById('bg-canvas');
-const ctx=canvas.getContext('2d');
-let W,H,stars=[];
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-resize();window.addEventListener('resize',resize);
-function mkStar(){return{x:Math.random()*W-W/2,y:Math.random()*H-H/2,z:Math.random()*W,pz:0};}
-for(let i=0;i<700;i++)stars.push(mkStar());
-let speed=1.5;
-function drawStars(){
-  ctx.fillStyle='rgba(1,2,10,0.25)';ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2;
-  for(let s of stars){
-    s.pz=s.z;
-    s.z-=speed;
-    if(s.z<=0){Object.assign(s,mkStar());s.z=W;s.pz=W;}
-    const sx=((s.x/s.z)*W)+cx,sy=((s.y/s.z)*H)+cy;
-    const px=((s.x/s.pz)*W)+cx,py=((s.y/s.pz)*H)+cy;
-    const r=Math.max(0,(1-s.z/W)*2.5);
-    const op=Math.max(0,(1-s.z/W));
-    ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(sx,sy);
-    ctx.strokeStyle=`rgba(200,210,255,${op*0.7})`;
-    ctx.lineWidth=r;ctx.stroke();
-  }
-  requestAnimationFrame(drawStars);
+// ── BUILD CARDS ──
+function tagHTML(c) {
+  if (c.owner) return '<span class="cc-tag tag-owner">Owner</span>';
+  if (c.both)  return '<span class="cc-tag tag-both">Slash + Prefix</span>';
+  if (c.slash) return '<span class="cc-tag tag-slash">Slash</span>';
+  if (c.prefix)return '<span class="cc-tag tag-prefix">Prefix</span>';
+  return '';
 }
-drawStars();
-
-// ════════════════════════════════════════
-// COUNT UP
-// ════════════════════════════════════════
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el=e.target,target=+el.dataset.count,dur=1400;
-      let s=0,step=target/(dur/16);
-      const t=setInterval(()=>{s=Math.min(s+step,target);el.textContent=Math.floor(s)+(target>=100?'+':'');if(s>=target)clearInterval(t);},16);
-      obs.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll('[data-count]').forEach(el=>obs.observe(el));
-
-// ════════════════════════════════════════
-// PITY BAR ANIMATION
-// ════════════════════════════════════════
-const pobs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      setTimeout(()=>{document.getElementById('pb1').style.width='74%';},200);
-      setTimeout(()=>{document.getElementById('pb2').style.width='85%';},400);
-      pobs.unobserve(e.target);
-    }
-  });
-},{threshold:0.3});
-const pEl=document.querySelector('.pity-display');
-if(pEl)pobs.observe(pEl);
-
-// ════════════════════════════════════════
-// CARD PARTICLES
-// ════════════════════════════════════════
-const cpWrap=document.getElementById('cardParticles');
-for(let i=0;i<18;i++){
-  const p=document.createElement('div');
-  const size=Math.random()*4+2;
-  const colors=['#f0c040','#ffe080','#c084fc','#00e5ff','#ffffff'];
-  p.className='cp';
-  p.style.cssText=`width:${size}px;height:${size}px;
-    background:${colors[Math.floor(Math.random()*colors.length)]};
-    left:${10+Math.random()*80}%;
-    bottom:${10+Math.random()*30}%;
-    --tx:${(Math.random()-0.5)*60}px;
-    animation-duration:${2+Math.random()*3}s;
-    animation-delay:${Math.random()*3}s;
-    opacity:0;
-    box-shadow:0 0 6px currentColor;`;
-  cpWrap.appendChild(p);
+function nameHTML(name) {
+  if (name.startsWith('/')) return `<span class="slash">/</span>${name.slice(1)}`;
+  return `<span class="prefix">${name}</span>`;
 }
-
-// ════════════════════════════════════════
-// AUTO CARD FLIP
-// ════════════════════════════════════════
-const cards=[
-  {emoji:'⚡',element:'ELECTRO',name:'RAIDEN SHOGUN'},
-  {emoji:'❄️',element:'CRYO',name:'AYAKA KAMISATO'},
-  {emoji:'🔥',element:'PYRO',name:'HU TAO'},
-  {emoji:'🌿',element:'DENDRO',name:'NAHIDA'},
-  {emoji:'💧',element:'HYDRO',name:'TARTAGLIA'},
-  {emoji:'🌙',element:'CRYO',name:'GANYU'},
-];
-let ci=0,flipped=false;
-setInterval(()=>{
-  ci=(ci+1)%cards.length;
-  const c=cards[ci];
-  document.getElementById('cardEmoji').textContent=c.emoji;
-  document.getElementById('cardElement').textContent=c.element;
-  document.getElementById('cardName').textContent=c.name;
-  const flip=document.getElementById('cardFlip');
-  flip.style.transform='rotateY(180deg)';
-  flipped=true;
-  setTimeout(()=>{flip.style.transform='rotateY(0deg)';flipped=false;},3500);
-},5000);
-
-// ════════════════════════════════════════
-// COMMANDS DATA
-// ════════════════════════════════════════
-const CMDS=[
-  {name:'/pull',cat:'gacha',desc:'Pull a random Genshin Impact character from the banner.',usage:'/pull',cost:'160 Primogems',alias:'xd pull',type:'Slash + Prefix'},
-  {name:'/profile',cat:'gacha',desc:'View your gacha profile including total pulls, pity counter, and top 5-star characters.',usage:'/profile [@user]',type:'Slash'},
-  {name:'/inventory',cat:'gacha',desc:'Browse your full character collection with two-column pagination, rarity sorting, and duplicate tracking.',usage:'/inventory [@user]',type:'Slash'},
-  {name:'/shop',cat:'gacha',desc:'View the Primogem shop, purchase options, and your current pity information.',usage:'/shop',type:'Slash'},
-  {name:'/balance',cat:'gacha',desc:'Check your current Primogems balance.',usage:'/balance [@user]',alias:'xd balance',type:'Slash + Prefix'},
-  {name:'/buy',cat:'gacha',desc:'Purchase Primogems with a 20,000 daily limit.',usage:'/buy <amount>',type:'Slash'},
-  {name:'/sell',cat:'gacha',desc:'Sell a duplicate character back for Primogems.',usage:'/sell <character>',type:'Slash'},
-  {name:'/sellall',cat:'gacha',desc:'Sell all duplicate characters at once for maximum Primogem gains.',usage:'/sellall',type:'Slash'},
-  {name:'/trade',cat:'gacha',desc:'Initiate a character trade with another user.',usage:'/trade @user <character>',type:'Slash'},
-  {name:'/gift',cat:'gacha',desc:'Gift Primogems to a user. Owner-only command.',usage:'/gift @user <amount>',perms:'Owner Only',type:'Slash'},
-  {name:'/checkvote',cat:'gacha',desc:'Claim your Top.gg vote reward of 4,000 Primogems.',usage:'/checkvote',alias:'xd checkvote',type:'Slash + Prefix'},
-  {name:'/leaderboard',cat:'gacha',desc:'View the top 5 richest players and top 5-star collectors globally.',usage:'/leaderboard',alias:'xd ld',type:'Slash + Prefix'},
-  {name:'XD kiss',cat:'social',desc:'Kiss someone with an anime GIF.',usage:'xd kiss @user',type:'Prefix'},
-  {name:'XD hug',cat:'social',desc:'Hug someone warmly.',usage:'xd hug @user',type:'Prefix'},
-  {name:'XD pat',cat:'social',desc:'Pat someone on the head.',usage:'xd pat @user',type:'Prefix'},
-  {name:'XD cuddle',cat:'social',desc:'Cuddle up with someone.',usage:'xd cuddle @user',type:'Prefix'},
-  {name:'XD nom',cat:'social',desc:'Nom nom someone.',usage:'xd nom @user',type:'Prefix'},
-  {name:'XD bite',cat:'social',desc:'Bite someone playfully.',usage:'xd bite @user',type:'Prefix'},
-  {name:'XD slap',cat:'social',desc:'Slap someone.',usage:'xd slap @user',type:'Prefix'},
-  {name:'XD punch',cat:'social',desc:'Punch someone.',usage:'xd punch @user',type:'Prefix'},
-  {name:'XD kill',cat:'social',desc:'Dramatically eliminate someone.',usage:'xd kill @user',type:'Prefix'},
-  {name:'XD bully',cat:'social',desc:'Playfully bully someone.',usage:'xd bully @user',type:'Prefix'},
-  {name:'XD highfive',cat:'social',desc:'High five someone.',usage:'xd highfive @user',type:'Prefix'},
-  {name:'XD stare',cat:'social',desc:'Stare someone down.',usage:'xd stare @user',type:'Prefix'},
-  {name:'XD marry',cat:'social',desc:'Propose to someone — they must accept!',usage:'xd marry @user',type:'Prefix'},
-  {name:'/userinfo',cat:'utility',desc:'View detailed information about any user.',usage:'/userinfo [@user]',alias:'xd user',type:'Slash + Prefix'},
-  {name:'/serverinfo',cat:'utility',desc:'View server statistics, member counts, and metadata.',usage:'/serverinfo',alias:'xd server',type:'Slash + Prefix'},
-  {name:'/botinfo',cat:'utility',desc:'View bot stats including uptime, ping, and memory usage.',usage:'/botinfo',alias:'xd info',type:'Slash + Prefix'},
-  {name:'/avatar',cat:'utility',desc:"Display any user's avatar in full resolution.",usage:'/avatar [@user]',alias:'xd avatar',type:'Slash + Prefix'},
-  {name:'/help',cat:'utility',desc:'Browse all commands organized by category with interactive buttons.',usage:'/help',alias:'xd help',type:'Slash + Prefix'},
-  {name:'/afk',cat:'utility',desc:'Set yourself as AFK with a custom reason. Bot will notify others when you are mentioned.',usage:'/afk [reason]',type:'Slash'},
-  {name:'/say',cat:'utility',desc:'Make the bot say something in the current channel.',usage:'/say <message>',type:'Slash'},
-  {name:'/codes',cat:'utility',desc:'Share Genshin Impact redeem codes with clickable redemption buttons.',usage:'/codes <code>',type:'Slash'},
-  {name:'/vote',cat:'utility',desc:'Get the Top.gg link to vote for XD Bot.',usage:'/vote',alias:'xd vote',type:'Slash + Prefix'},
-  {name:'/coinflip',cat:'fun',desc:'Flip a coin with a satisfying animation.',usage:'/coinflip',alias:'!flip',type:'Slash + Prefix'},
-  {name:'/meme',cat:'fun',desc:'Fetch a random meme from Reddit. Also triggered by "pls meme".',usage:'/meme',type:'Slash'},
-  {name:'/roast',cat:'fun',desc:'Roast a user with savage friendly banter.',usage:'/roast @user',type:'Slash'},
-  {name:'/love',cat:'fun',desc:'Calculate the love compatibility percentage between two users.',usage:'/love @user1 @user2',type:'Slash'},
-];
-
-const catColor={gacha:'col-gacha',social:'col-social',utility:'col-utility',fun:'col-fun'};
-const dotClass={gacha:'dot-gacha',social:'dot-social',utility:'dot-utility',fun:'dot-fun'};
-let activeFilter='all', selectedCmd=null;
-
-function buildCmdList(){
-  const list=document.getElementById('cmdList');
-  list.innerHTML='';
-  CMDS.forEach((c,i)=>{
-    const el=document.createElement('div');
-    el.className='cmd-item';
-    el.dataset.cat=c.cat;
-    el.dataset.idx=i;
-    el.dataset.name=c.name.toLowerCase();
-    el.innerHTML=`<div class="cmd-cat-dot ${dotClass[c.cat]}"></div><div class="cmd-item-name">${c.name}</div>`;
-    el.onclick=()=>selectCmd(i,el);
-    list.appendChild(el);
-  });
-  updateList();
-}
-
-function selectCmd(i,el){
-  document.querySelectorAll('.cmd-item').forEach(e=>e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedCmd=i;
-  const c=CMDS[i];
-  // typing effect
-  const typedEl=document.getElementById('typedCmd');
-  let typed='',full=c.name+' --help';
-  typedEl.textContent='';
-  let ti=0;
-  const typer=setInterval(()=>{
-    typedEl.textContent=full.slice(0,++ti)+'_';
-    if(ti>=full.length){clearInterval(typer);typedEl.textContent=full;}
-  },40);
-  
-  document.getElementById('termContent').innerHTML=`
-    <div class="cmd-detail visible">
-      <div class="cd-name ${catColor[c.cat]}">${c.name}</div>
-      <div class="cd-cat">${c.cat.toUpperCase()} COMMAND</div>
-      <div class="cd-desc">${c.desc}</div>
-      <div class="cd-usage">${c.usage}</div>
-      <div class="cd-meta">
-        <span class="cd-meta-chip chip-type">${c.type||'Slash'}</span>
-        ${c.cost?`<span class="cd-meta-chip chip-cost">💎 ${c.cost}</span>`:''}
-        ${c.alias?`<span class="cd-meta-chip chip-alias">⌨ ${c.alias}</span>`:''}
-        ${c.perms?`<span class="cd-meta-chip chip-perms">🔒 ${c.perms}</span>`:''}
+function buildSection(key) {
+  const container = document.getElementById('cards-' + key);
+  CMDS[key].forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'cmd-card';
+    div.dataset.search = (c.name + ' ' + (c.alias||'') + ' ' + c.desc).toLowerCase();
+    div.innerHTML = `
+      <div>
+        <div class="cc-name">${nameHTML(c.name)}</div>
+        <div class="cc-desc">${c.desc}${c.alias ? `<br><span style="font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:4px;display:block;">Also: ${c.alias}</span>` : ''}</div>
       </div>
-    </div>`;
-}
-
-function updateList(){
-  const q=document.getElementById('cmdSearch').value.toLowerCase();
-  let shown=0;
-  document.querySelectorAll('.cmd-item').forEach(el=>{
-    const matchCat=activeFilter==='all'||el.dataset.cat===activeFilter;
-    const matchSearch=!q||el.dataset.name.includes(q);
-    const hide=!matchCat||!matchSearch;
-    el.classList.toggle('hidden',hide);
-    if(!hide)shown++;
+      <div class="cc-right">
+        ${tagHTML(c)}
+        ${c.cost ? `<div class="cc-cost">${c.cost}</div>` : ''}
+      </div>`;
+    container.appendChild(div);
   });
 }
-function filterCmds(){updateList();}
-function setFilter(f,btn){
-  activeFilter=f;
-  document.querySelectorAll('.cf').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  updateList();
+Object.keys(CMDS).forEach(buildSection);
+
+// ── SECTION SWITCHING ──
+let currentSection = 'gacha';
+function showSection(id, el) {
+  document.querySelectorAll('.cmd-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.cn-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  currentSection = id;
+  // clear search
+  document.getElementById('globalSearch').value = '';
+  globalFilter();
 }
 
-buildCmdList();
+// ── GLOBAL SEARCH ──
+function globalFilter() {
+  const q = document.getElementById('globalSearch').value.trim().toLowerCase();
+  if (q.length > 0) {
+    // show all sections, filter within them
+    document.querySelectorAll('.cmd-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.cn-item').forEach(i => i.classList.remove('active'));
+    Object.keys(CMDS).forEach(key => {
+      const sec = document.getElementById('sec-' + key);
+      const cards = sec.querySelectorAll('.cmd-card');
+      let shown = 0;
+      cards.forEach(c => {
+        const match = c.dataset.search.includes(q);
+        c.classList.toggle('hidden', !match);
+        if (match) shown++;
+      });
+      const nr = document.getElementById('nr-' + key);
+      if (shown > 0) { sec.classList.add('active'); nr.classList.remove('show'); }
+      else { nr.classList.add('show'); }
+    });
+  } else {
+    // restore to current section
+    document.querySelectorAll('.cmd-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('sec-' + currentSection).classList.add('active');
+    document.querySelectorAll('.cn-item').forEach(i => i.classList.remove('active'));
+    // re-show all cards
+    document.querySelectorAll('.cmd-card').forEach(c => c.classList.remove('hidden'));
+    document.querySelectorAll('.no-results').forEach(nr => nr.classList.remove('show'));
+    // re-highlight nav
+    document.querySelectorAll('.cn-item').forEach(item => {
+      if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("'" + currentSection + "'")) {
+        item.classList.add('active');
+      }
+    });
+  }
+}
 
-// ════════════════════════════════════════
-// SCROLL REVEAL
-// ════════════════════════════════════════
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.opacity='1';
-      e.target.style.transform='translateY(0)';
+// ── PITY BARS ──
+const pbObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => { document.getElementById('pf1').style.width = '74%'; }, 200);
+      setTimeout(() => { document.getElementById('pf2').style.width = '85%'; }, 400);
+      pbObs.unobserve(e.target);
     }
   });
-},{threshold:0.1});
-document.querySelectorAll('.bento,.supp-card,.stat-cell').forEach(el=>{
-  el.style.opacity='0';
-  el.style.transform='translateY(24px)';
-  el.style.transition='opacity 0.6s ease, transform 0.6s ease, background 0.3s, border-color 0.3s';
-  revObs.observe(el);
-});
+}, { threshold: 0.4 });
+const pt = document.querySelector('.pity-track');
+if (pt) pbObs.observe(pt);
 
-// ════════════════════════════════════════
-// MODAL
-// ════════════════════════════════════════
-function openModal(type){
-  document.getElementById('modalBg').classList.add('on');
-  document.getElementById('mFormWrap').style.display='block';
-  document.getElementById('mSuccess').classList.remove('on');
-  document.getElementById('mType').value=type;
-  if(type==='bug'){
-    document.getElementById('mTitle').textContent='🐛 Report a Bug';
-    document.getElementById('mSub').textContent='Help us squash it — describe what went wrong.';
-    document.getElementById('mStepsRow').style.display='block';
-  } else {
-    document.getElementById('mTitle').textContent='💡 Feature Request';
-    document.getElementById('mSub').textContent="What would make XD Bot even better? Let's hear it.";
-    document.getElementById('mStepsRow').style.display='none';
-  }
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  document.getElementById('modalBg').classList.remove('on');
-  document.body.style.overflow='';
-  ['mUser','mCmd','mDesc','mSteps'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-}
-document.getElementById('modalBg').addEventListener('click',e=>{if(e.target.id==='modalBg')closeModal();});
-
-function submitForm(){
-  const user=document.getElementById('mUser').value.trim();
-  const desc=document.getElementById('mDesc').value.trim();
-  if(!user||!desc){alert('Please fill in username and description.');return;}
-  const type=document.getElementById('mType').value;
-  const cmd=document.getElementById('mCmd').value.trim();
-  const steps=document.getElementById('mSteps').value.trim();
-  const webhookURL='https://discord.com/api/webhooks/1503470610431479941/PCzHYmKsaQpm8mBIXvrfwD6RCDTf41Ew828CpNtAAqKhKAy3XgRWc7A1zarzDQl6J-pB';
-  const embed={embeds:[{
-    title:type==='bug'?'🐛 Bug Report':'💡 Feature Request',
-    color:type==='bug'?0xFF4D6D:0xF0C040,
-    fields:[
-      {name:'👤 User',value:user,inline:true},
-      {name:'⚙️ Area',value:cmd||'Not specified',inline:true},
-      {name:'📝 Description',value:desc}
-    ],
-    timestamp:new Date(),
-    footer:{text:'XD Bot — Report System v3'}
-  }]};
-  if(type==='bug'&&steps)embed.embeds[0].fields.push({name:'🔍 Steps',value:steps});
-  fetch(webhookURL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(embed)}).catch(()=>{});
-  document.getElementById('mFormWrap').style.display='none';
-  document.getElementById('mSuccess').classList.add('on');
-}
-
-// ════════════════════════════════════════
-// SMOOTH SCROLL
-// ════════════════════════════════════════
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
     e.preventDefault();
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// ── MODAL ──
+function openModal(type) {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('mForm').style.display = 'block';
+  document.getElementById('mSuccess').classList.remove('show');
+  document.getElementById('fType').value = type;
+  if (type === 'bug') {
+    document.getElementById('mTitle').textContent = '🐛 Report a Bug';
+    document.getElementById('mSub').textContent = 'Describe what went wrong and we\'ll fix it.';
+    document.getElementById('fStepsRow').style.display = 'block';
+  } else {
+    document.getElementById('mTitle').textContent = '💡 Suggest a Feature';
+    document.getElementById('mSub').textContent = 'What would make XD Bot even better?';
+    document.getElementById('fStepsRow').style.display = 'none';
+  }
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  ['fUser','fCmd','fDesc','fSteps'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+}
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
+
+function submitReport() {
+  const user = document.getElementById('fUser').value.trim();
+  const desc = document.getElementById('fDesc').value.trim();
+  if (!user || !desc) { alert('Please fill in your username and description.'); return; }
+  const type = document.getElementById('fType').value;
+  const cmd  = document.getElementById('fCmd').value.trim();
+  const steps= document.getElementById('fSteps').value.trim();
+  const wh   = 'https://discord.com/api/webhooks/1503470610431479941/PCzHYmKsaQpm8mBIXvrfwD6RCDTf41Ew828CpNtAAqKhKAy3XgRWc7A1zarzDQl6J-pB';
+  const embed = { embeds: [{ title: type==='bug'?'🐛 Bug Report':'💡 Feature Request', color: type==='bug'?0xFF4D6D:0xF5C542,
+    fields: [ {name:'👤 User',value:user,inline:true}, {name:'⚙️ Area',value:cmd||'—',inline:true}, {name:'📝 Description',value:desc} ],
+    timestamp: new Date(), footer: { text: 'XD Bot Website' }
+  }]};
+  if (type==='bug'&&steps) embed.embeds[0].fields.push({name:'🔍 Steps',value:steps});
+  fetch(wh, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(embed)}).catch(()=>{});
+  document.getElementById('mForm').style.display = 'none';
+  document.getElementById('mSuccess').classList.add('show');
+}
 </script>
 </body>
 </html>
