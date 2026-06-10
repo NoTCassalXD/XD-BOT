@@ -1,167 +1,185 @@
-cat > /mnt/user-data/outputs/xd-bot-final/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XD Bot — Genshin Gacha Discord Bot</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 :root{
-  --bg:#0f1117;--bg2:#161820;--bg3:#1c1f2e;
-  --card:#1e2130;--card2:#242840;
-  --b:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.12);
-  --gold:#f5c542;--gold-bg:rgba(245,197,66,0.1);--gold-b:rgba(245,197,66,0.22);
-  --blue:#5b8fff;--blue-bg:rgba(91,143,255,0.1);--blue-b:rgba(91,143,255,0.22);
-  --green:#3ecf8e;--green-bg:rgba(62,207,142,0.1);--green-b:rgba(62,207,142,0.22);
-  --pink:#f472b6;--pink-bg:rgba(244,114,182,0.1);--pink-b:rgba(244,114,182,0.22);
-  --purple:#a78bfa;--purple-bg:rgba(167,139,250,0.1);--purple-b:rgba(167,139,250,0.22);
-  --orange:#fb923c;--orange-bg:rgba(251,146,60,0.1);--orange-b:rgba(251,146,60,0.22);
-  --red:#f87171;--red-bg:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.22);
-  --text:#e2e8f0;--text2:#8892a4;--text3:#4a5568;
-  --font:'Inter',sans-serif;--mono:'Fira Code',monospace;
+  --bg:#0a0a10;--bg2:#0f0f18;--bg3:#13131f;
+  --card:#16161f;--card2:#1c1c2a;
+  --b:rgba(200,168,75,0.1);--b2:rgba(200,168,75,0.2);
+  --gold:#c8a84b;--gold2:#f5d878;--gold-bg:rgba(200,168,75,0.08);--gold-b:rgba(200,168,75,0.22);
+  --blue:#5b8fff;--blue-bg:rgba(91,143,255,0.08);--blue-b:rgba(91,143,255,0.2);
+  --green:#3ecf8e;--green-bg:rgba(62,207,142,0.08);--green-b:rgba(62,207,142,0.2);
+  --pink:#f472b6;--pink-bg:rgba(244,114,182,0.08);--pink-b:rgba(244,114,182,0.2);
+  --purple:#a78bfa;--purple-bg:rgba(167,139,250,0.08);--purple-b:rgba(167,139,250,0.2);
+  --orange:#fb923c;--orange-bg:rgba(251,146,60,0.08);--orange-b:rgba(251,146,60,0.2);
+  --red:#f87171;--red-bg:rgba(248,113,113,0.08);--red-b:rgba(248,113,113,0.2);
+  --text:#e8e8f0;--text2:#8a8aaa;--text3:#3a3a5a;
+  --font:'Inter',sans-serif;--display:'Cinzel',serif;--mono:'Fira Code',monospace;
   --r:12px;--r-sm:8px;
 }
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;overflow-x:hidden}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
 
-/* LAYOUT */
 .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;height:62px;z-index:200;
-  background:rgba(15,17,23,0.9);backdrop-filter:blur(16px);
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
+  background:rgba(10,10,16,0.92);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--b)}
-.nav-inner{display:flex;align-items:center;height:62px;gap:0}
-.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);font-weight:700;font-size:17px}
-.nav-logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#2a1f7a,#1a1250);
-  border:1px solid var(--blue-b);display:flex;align-items:center;justify-content:center;font-size:16px}
-.nav-logo span{color:var(--gold)}
-.nav-links{display:flex;align-items:center;gap:2px;margin-left:32px}
-.nav-link{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;
-  padding:6px 13px;border-radius:7px;transition:.15s}
-.nav-link:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+.nav-inner{display:flex;align-items:center;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo-icon{width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,#1a1030,#0d0820);
+  border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-logo-text{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:.12em;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:28px}
+.nav-link{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;
+  padding:6px 12px;border-radius:7px;transition:.15s;letter-spacing:.02em}
+.nav-link:hover{color:var(--gold);background:var(--gold-bg)}
 .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
-.nav-status{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--green)}
-.ndot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s ease infinite}
+.nav-status{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em}
+.ndot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* BUTTONS */
+/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:9px;
   font-size:14px;font-weight:600;font-family:var(--font);text-decoration:none;
-  border:none;cursor:pointer;transition:.18s;white-space:nowrap}
-.btn-blue{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(91,143,255,.28)}
-.btn-blue:hover{background:#4a7bef;transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,143,255,.38)}
-.btn-gold{background:var(--gold);color:#1a0e00;font-weight:700;box-shadow:0 4px 14px rgba(245,197,66,.22)}
-.btn-gold:hover{background:#ffd54f;transform:translateY(-1px)}
+  border:none;cursor:pointer;transition:.18s;white-space:nowrap;letter-spacing:.01em}
+.btn-gold{background:linear-gradient(135deg,#c8a84b,#f5d878);color:#0a0800;font-weight:700;
+  box-shadow:0 4px 20px rgba(200,168,75,.25)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,168,75,.35)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--b2)}
-.btn-ghost:hover{background:rgba(255,255,255,.05);color:var(--text);transform:translateY(-1px)}
-.btn-discord{background:#5865F2;color:#fff;box-shadow:0 4px 14px rgba(88,101,242,.28)}
+.btn-ghost:hover{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-b);transform:translateY(-1px)}
+.btn-discord{background:#5865F2;color:#fff;box-shadow:0 4px 14px rgba(88,101,242,.25)}
 .btn-discord:hover{background:#4752c4;transform:translateY(-1px)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(91,143,255,.22)}
+.btn-blue:hover{background:#4a7bef;transform:translateY(-1px)}
 .btn-sm{padding:7px 15px;font-size:13px;border-radius:7px}
 .btn-lg{padding:13px 28px;font-size:16px;border-radius:11px}
 .btn-xl{padding:15px 34px;font-size:17px;border-radius:12px;font-weight:700}
 
-/* HERO */
-.hero{padding:130px 0 72px;text-align:center}
-.hero-pill{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bg);
-  border:1px solid var(--gold-b);color:var(--gold);font-size:12px;font-weight:700;
-  padding:5px 14px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:22px}
-.hero-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);
-  box-shadow:0 0 7px var(--gold);animation:blink 1.5s ease infinite}
-h1{font-size:clamp(38px,5.5vw,66px);font-weight:800;letter-spacing:-2px;line-height:1.06;margin-bottom:18px}
-h1 .g{background:linear-gradient(90deg,var(--gold),#ffd54f,var(--gold));background-size:200%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:gs 3s linear infinite}
-@keyframes gs{0%{background-position:0%}100%{background-position:200%}}
-.hero-sub{font-size:17px;color:var(--text2);max-width:520px;margin:0 auto 32px;line-height:1.75}
-.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+/* ── HERO ── */
+.hero{padding:140px 0 80px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse at center top, rgba(200,168,75,.06) 0%, transparent 65%);
+  pointer-events:none}
+.hero-eyebrow{font-family:var(--display);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:30px;height:1px;background:var(--gold);opacity:.4}
+h1{font-family:var(--display);font-size:clamp(36px,5.5vw,68px);font-weight:900;
+  letter-spacing:-.02em;line-height:1.05;margin-bottom:20px;color:var(--text)}
+h1 .g{background:linear-gradient(90deg,var(--gold),var(--gold2),#ffeaa0,var(--gold));
+  background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:gs 4s linear infinite}
+@keyframes gs{0%{background-position:0%}100%{background-position:300%}}
+.hero-sub{font-size:17px;color:var(--text2);max-width:500px;margin:0 auto 36px;line-height:1.75;font-weight:300}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
 .hero-stats{display:inline-flex;border:1px solid var(--b);border-radius:var(--r);overflow:hidden;background:var(--card)}
 .hs{padding:16px 28px;text-align:center;border-right:1px solid var(--b)}
 .hs:last-child{border-right:none}
-.hs-v{font-size:24px;font-weight:800;color:var(--gold);letter-spacing:-1px}
-.hs-l{font-size:11px;color:var(--text3);font-weight:500;margin-top:2px}
+.hs-v{font-family:var(--display);font-size:22px;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.hs-l{font-size:11px;color:var(--text3);font-weight:500;margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
 
-/* SECTION */
-.section{padding:72px 0}
+/* ── ORNAMENT DIVIDER ── */
+.ornament{text-align:center;padding:8px 0;color:var(--text3);font-family:var(--display);
+  font-size:.75rem;letter-spacing:.4em;position:relative}
+.ornament::before,.ornament::after{content:'';position:absolute;top:50%;
+  width:calc(50% - 80px);height:1px;background:linear-gradient(to right,transparent,var(--b))}
+.ornament::before{left:0}
+.ornament::after{right:0;background:linear-gradient(to left,transparent,var(--b))}
+
+/* ── SECTIONS ── */
+.section{padding:80px 0}
 .section+.section{border-top:1px solid var(--b)}
-.sec-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
-.sec-tag::before{content:'';width:14px;height:2px;background:var(--blue);display:block}
-h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
+.sec-eyebrow{font-family:var(--display);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.sec-eyebrow::before{content:'✦';font-size:.6rem}
+h2{font-family:var(--display);font-size:clamp(24px,3.2vw,38px);font-weight:700;
+  letter-spacing:-.01em;line-height:1.15;margin-bottom:10px;color:var(--text)}
 h2 span{color:var(--gold)}
-.sec-sub{color:var(--text2);font-size:15px;max-width:460px;line-height:1.7}
+.sec-sub{color:var(--text2);font-size:15px;max-width:460px;line-height:1.7;font-weight:300}
 
-/* FEATURE GRID */
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
-.feat{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:24px;transition:.2s}
-.feat:hover{background:var(--card2);border-color:var(--b2);transform:translateY(-3px)}
-.feat-ico{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-  font-size:18px;margin-bottom:14px;border:1px solid transparent}
+/* ── FEATURE GRID ── */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.feat{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:26px;transition:.2s;position:relative;overflow:hidden}
+.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:.3s}
+.feat:hover{background:var(--card2);border-color:var(--gold-b);transform:translateY(-3px)}
+.feat:hover::before{opacity:1}
+.feat-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:18px;margin-bottom:16px;border:1px solid transparent}
 .ico-gold{background:var(--gold-bg);border-color:var(--gold-b)}
 .ico-blue{background:var(--blue-bg);border-color:var(--blue-b)}
 .ico-green{background:var(--green-bg);border-color:var(--green-b)}
 .ico-pink{background:var(--pink-bg);border-color:var(--pink-b)}
 .ico-purple{background:var(--purple-bg);border-color:var(--purple-b)}
 .ico-orange{background:var(--orange-bg);border-color:var(--orange-b)}
-.feat-title{font-size:15px;font-weight:700;margin-bottom:7px}
-.feat-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.feat-title{font-family:var(--display);font-size:.82rem;font-weight:600;margin-bottom:8px;
+  letter-spacing:.05em;color:var(--text)}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.65;font-weight:300}
 
-/* GACHA */
-.gacha-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+/* ── GACHA ── */
+.gacha-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
 .g-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
 .g-head{background:var(--bg3);border-bottom:1px solid var(--b);padding:14px 18px;
-  display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px}
+  display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;
+  font-size:.78rem;letter-spacing:.08em;color:var(--gold)}
 .g-body{padding:18px}
 .rate-row{display:flex;align-items:center;justify-content:space-between;
-  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r-sm);margin-bottom:8px}
+  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);
+  border-radius:var(--r-sm);margin-bottom:8px}
 .rr-left{display:flex;align-items:center;gap:9px}
-.star5{color:var(--gold);font-weight:700;font-size:13px}
-.star4{color:var(--purple);font-weight:700;font-size:13px}
-.star3{color:var(--blue);font-weight:700;font-size:13px}
-.rr-label{font-size:13px;color:var(--text2)}
-.rr-val{font-family:var(--mono);font-size:13px;font-weight:500}
+.star5{color:var(--gold);font-weight:700;font-size:12px}
+.star4{color:var(--purple);font-weight:700;font-size:12px}
+.star3{color:var(--blue);font-weight:700;font-size:12px}
+.rr-label{font-size:12px;color:var(--text2)}
+.rr-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text)}
 .pity-wrap{margin-top:14px}
-.pity-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:500}
+.pity-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);
+  margin-bottom:6px;font-weight:500;letter-spacing:.03em}
 .pity-lbl span:last-child{color:var(--gold)}
-.pity-track{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-bottom:10px}
-.pity-fill{height:100%;border-radius:3px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
-.pf-g{background:linear-gradient(90deg,#8b6200,var(--gold))}
-.pf-p{background:linear-gradient(90deg,#4a1fa0,var(--purple))}
+.pity-track{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.pity-fill{height:100%;border-radius:2px;width:0;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.pf-g{background:linear-gradient(90deg,#6b4800,var(--gold2))}
+.pf-p{background:linear-gradient(90deg,#3a1080,var(--purple))}
 .eco-row{display:flex;justify-content:space-between;align-items:center;
-  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r-sm);margin-bottom:8px}
-.eco-lbl{font-size:13px;color:var(--text2)}
+  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);
+  border-radius:var(--r-sm);margin-bottom:8px}
+.eco-lbl{font-size:12px;color:var(--text2)}
 .eco-val{font-family:var(--mono);font-size:13px;color:var(--gold);font-weight:500}
-
-/* ELEMENT GRID */
-.el-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px}
+.el-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
 .el-item{background:var(--bg2);border:1px solid var(--b);border-radius:8px;
-  padding:10px 6px;text-align:center;transition:.2s}
-.el-item:hover{border-color:var(--b2)}
-.el-em{font-size:20px;display:block;margin-bottom:4px}
-.el-name{font-size:10px;color:var(--text3);font-weight:500}
-
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+  padding:10px 4px;text-align:center;transition:.2s}
+.el-item:hover{border-color:var(--gold-b);background:var(--gold-bg)}
+.el-em{font-size:18px;display:block;margin-bottom:4px}
+.el-name{font-size:9px;color:var(--text3);font-weight:500;letter-spacing:.05em}
+.steps{display:flex;flex-direction:column;gap:12px;margin-top:4px}
 .step{display:flex;align-items:flex-start;gap:12px}
-.step-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;flex-shrink:0}
-.step-title{font-size:13px;font-weight:600;margin-bottom:2px}
-.step-desc{font-size:12px;color:var(--text2)}
+.step-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--display)}
+.step-title{font-size:13px;font-weight:600;margin-bottom:2px;color:var(--text)}
+.step-desc{font-size:12px;color:var(--text2);font-weight:300}
 
-/* COMMANDS */
-.cmd-wrap{display:grid;grid-template-columns:200px 1fr;gap:18px;margin-top:40px}
+/* ── COMMANDS ── */
+.cmd-wrap{display:grid;grid-template-columns:200px 1fr;gap:18px;margin-top:44px}
 .cmd-sidebar{position:sticky;top:80px;align-self:start}
 .cmd-nav{background:var(--card);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
-.cn-head{padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--b)}
+.cn-head{padding:12px 16px;font-family:var(--display);font-size:.6rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  border-bottom:1px solid var(--b);opacity:.7}
 .cn-btn{display:flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;
   font-size:13px;font-weight:500;color:var(--text2);transition:.15s;
-  border-left:2px solid transparent;border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
-.cn-btn:hover{background:rgba(255,255,255,.04);color:var(--text)}
-.cn-btn.on{background:rgba(255,255,255,.05);color:var(--text);border-left:2px solid var(--blue)}
+  border-left:2px solid transparent;border:none;background:none;
+  width:100%;text-align:left;font-family:var(--font)}
+.cn-btn:hover{background:var(--gold-bg);color:var(--gold)}
+.cn-btn.on{background:var(--gold-bg);color:var(--gold);border-left:2px solid var(--gold)}
 .cn-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .d-gold{background:var(--gold)}
 .d-pink{background:var(--pink)}
@@ -170,37 +188,32 @@ h2 span{color:var(--gold)}
 .d-orange{background:var(--orange)}
 .d-green{background:var(--green)}
 .cn-n{margin-left:auto;font-size:11px;font-weight:600;color:var(--text3)}
-
-/* CMD SEARCH */
-.cmd-search-wrap{margin-bottom:14px}
 .cmd-search{width:100%;background:var(--card);border:1px solid var(--b2);
-  color:var(--text);padding:10px 14px;border-radius:9px;font-size:14px;font-family:var(--font)}
+  color:var(--text);padding:10px 14px;border-radius:9px;font-size:14px;
+  font-family:var(--font);margin-bottom:14px}
 .cmd-search::placeholder{color:var(--text3)}
-.cmd-search:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(91,143,255,.1)}
-
-/* CMD SECTION */
+.cmd-search:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,168,75,.1)}
 .cmd-section{display:none}
 .cmd-section.on{display:block}
 .cs-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .cs-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;
   justify-content:center;font-size:16px;border:1px solid transparent;flex-shrink:0}
-.cs-title{font-size:16px;font-weight:700}
+.cs-title{font-family:var(--display);font-size:.85rem;font-weight:700;letter-spacing:.06em;color:var(--gold)}
 .cs-sub{font-size:12px;color:var(--text2);margin-top:2px}
-
-/* CMD CARDS */
 .cmd-cards{display:flex;flex-direction:column;gap:7px}
 .cmd-card{background:var(--card);border:1px solid var(--b);border-radius:9px;
   padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;
   align-items:center;transition:.15s}
-.cmd-card:hover{background:var(--card2);border-color:var(--b2)}
+.cmd-card:hover{background:var(--card2);border-color:var(--gold-b)}
 .cmd-card.hide{display:none}
 .cc-name{font-family:var(--mono);font-size:13px;font-weight:500;margin-bottom:4px}
 .cc-name .s{color:var(--blue)}
 .cc-name .p{color:var(--gold)}
-.cc-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.cc-desc{font-size:12px;color:var(--text2);line-height:1.55;font-weight:300}
 .cc-alias{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px}
 .cc-tags{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;letter-spacing:.2px}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
+  white-space:nowrap;letter-spacing:.2px}
 .t-slash{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b)}
 .t-prefix{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b)}
 .t-both{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-b)}
@@ -209,68 +222,102 @@ h2 span{color:var(--gold)}
 .no-r{display:none;text-align:center;padding:36px 0;color:var(--text3);font-size:14px}
 .no-r.show{display:block}
 
-/* SUPPORT */
-.supp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+/* ── SUPPORT ── */
+.supp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
 .supp-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);
   padding:28px 22px;text-align:center;transition:.2s}
-.supp-card:hover{background:var(--card2);border-color:var(--b2);transform:translateY(-3px)}
+.supp-card:hover{background:var(--card2);border-color:var(--gold-b);transform:translateY(-3px)}
 .supp-ico{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;
   justify-content:center;font-size:22px;margin:0 auto 14px;border:1px solid var(--b)}
-.supp-title{font-size:16px;font-weight:700;margin-bottom:7px}
-.supp-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px}
+.supp-title{font-family:var(--display);font-size:.85rem;font-weight:600;margin-bottom:8px;
+  letter-spacing:.06em;color:var(--gold)}
+.supp-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px;font-weight:300}
 
-/* CTA */
+/* ── CTA ── */
 .cta{background:var(--card);border:1px solid var(--b);border-radius:18px;
-  padding:60px 40px;text-align:center;margin:72px 0;position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:400px;height:300px;background:radial-gradient(ellipse,rgba(91,143,255,.07),transparent 60%);pointer-events:none}
+  padding:64px 40px;text-align:center;margin:80px 0;position:relative;overflow:hidden}
+.cta::before{content:'✦';position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  font-family:var(--display);font-size:.75rem;letter-spacing:.3em;color:var(--gold);opacity:.5}
+.cta::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:200px;background:radial-gradient(ellipse,rgba(200,168,75,.06),transparent 60%);
+  pointer-events:none}
 .cta h2{margin-bottom:10px}
-.cta p{color:var(--text2);font-size:15px;margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto}
+.cta p{color:var(--text2);font-size:15px;margin-bottom:30px;max-width:400px;
+  margin-left:auto;margin-right:auto;font-weight:300}
 .cta-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
-/* FOOTER */
-footer{border-top:1px solid var(--b);padding:36px 0}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-.footer-logo{font-weight:700;font-size:15px}
-.footer-logo span{color:var(--gold)}
-.footer-links{display:flex;gap:18px}
-.footer-links a{color:var(--text3);text-decoration:none;font-size:13px;transition:.15s}
-.footer-links a:hover{color:var(--text2)}
-.footer-note{font-size:12px;color:var(--text3)}
+/* ── LEGAL SECTION ── */
+.legal-section{padding:80px 0;border-top:1px solid var(--b)}
+.legal-tabs{display:flex;gap:0;border-bottom:1px solid var(--b);margin-bottom:48px}
+.legal-tab{font-family:var(--display);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+  padding:.75rem 1.5rem;cursor:pointer;color:var(--text2);
+  border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.legal-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.legal-tab:hover:not(.active){color:var(--text)}
+.legal-page{display:none}
+.legal-page.active{display:block}
+.legal-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.legal-col{}
+.l-section{margin-bottom:2rem}
+.l-section h3{font-family:var(--display);font-size:.72rem;font-weight:600;
+  color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;
+  display:flex;align-items:center;gap:.5rem}
+.l-section h3::before{content:'';display:inline-block;width:3px;height:.75rem;
+  background:var(--gold);border-radius:2px}
+.l-section p{font-size:.88rem;color:var(--text2);line-height:1.75;font-weight:300}
+.l-section ul{list-style:none;padding:0}
+.l-section ul li{font-size:.88rem;color:var(--text2);padding:.25rem 0 .25rem 1.1rem;
+  position:relative;font-weight:300}
+.l-section ul li::before{content:'◆';position:absolute;left:0;font-size:.4rem;
+  color:var(--gold);top:.5rem}
+.l-callout{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);
+  border-radius:4px;padding:.9rem 1.1rem;font-size:.85rem;color:var(--text2);margin-top:1rem}
+.l-callout a{color:var(--gold);text-decoration:none}
+.l-callout a:hover{text-decoration:underline}
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);
-  backdrop-filter:blur(10px);z-index:999;align-items:center;justify-content:center}
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--b);padding:40px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:var(--display);font-weight:700;font-size:.9rem;letter-spacing:.1em;color:var(--gold)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{color:var(--text3);text-decoration:none;font-size:13px;transition:.15s;font-weight:300}
+.footer-links a:hover{color:var(--gold)}
+.footer-note{font-size:12px;color:var(--text3);font-weight:300}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);
+  backdrop-filter:blur(12px);z-index:999;align-items:center;justify-content:center}
 .modal-bg.on{display:flex;animation:fi .2s ease}
 @keyframes fi{from{opacity:0}to{opacity:1}}
 .modal{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;
   padding:36px;width:100%;max-width:480px;margin:20px;position:relative;
   animation:su .25s ease}
 @keyframes su{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.modal-x{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.06);
+.modal-x{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.05);
   border:1px solid var(--b);color:var(--text3);width:28px;height:28px;border-radius:6px;
   display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.15s}
-.modal-x:hover{background:rgba(255,255,255,.1);color:var(--text)}
-.m-title{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
-.m-sub{color:var(--text2);font-size:13px;margin-bottom:24px}
+.modal-x:hover{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-b)}
+.m-title{font-family:var(--display);font-size:1.2rem;font-weight:700;letter-spacing:.04em;
+  margin-bottom:4px;color:var(--gold)}
+.m-sub{color:var(--text2);font-size:13px;margin-bottom:24px;font-weight:300}
 .f-row{margin-bottom:14px}
-.f-row label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.f-row label{display:block;font-family:var(--display);font-size:.6rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px}
 .f-row input,.f-row select,.f-row textarea{
   width:100%;background:var(--card);border:1px solid var(--b2);color:var(--text);
   padding:10px 13px;border-radius:8px;font-size:13px;font-family:var(--font);transition:.15s;resize:vertical}
 .f-row input::placeholder,.f-row textarea::placeholder{color:var(--text3)}
-.f-row input:focus,.f-row select:focus,.f-row textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(91,143,255,.1)}
+.f-row input:focus,.f-row select:focus,.f-row textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,168,75,.1)}
 .f-row select option{background:var(--bg2)}
 .f-row textarea{min-height:84px}
 .m-submit{width:100%;padding:12px;margin-top:6px;cursor:pointer}
 .m-success{display:none;text-align:center;padding:16px 0}
 .m-success.on{display:block;animation:fi .3s ease}
 .ms-ico{font-size:44px;margin-bottom:12px}
-.ms-title{font-size:20px;font-weight:800;color:var(--green);margin-bottom:6px}
-.ms-msg{color:var(--text2);font-size:13px;margin-bottom:20px}
+.ms-title{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:6px;letter-spacing:.06em}
+.ms-msg{color:var(--text2);font-size:13px;margin-bottom:20px;font-weight:300}
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ── */
 @media(max-width:860px){
   .feat-grid{grid-template-columns:1fr 1fr}
   .gacha-grid{grid-template-columns:1fr}
@@ -278,41 +325,44 @@ footer{border-top:1px solid var(--b);padding:36px 0}
   .cmd-sidebar{position:static}
   .cmd-nav{display:flex;flex-direction:row;overflow-x:auto}
   .cn-head{display:none}
-  .cn-btn{flex-direction:column;gap:4px;font-size:11px;padding:10px 12px;border-left:none;border-bottom:2px solid transparent;white-space:nowrap}
-  .cn-btn.on{border-left:none;border-bottom-color:var(--blue)}
+  .cn-btn{flex-direction:column;gap:4px;font-size:11px;padding:10px 12px;
+    border-left:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .cn-btn.on{border-left:none;border-bottom-color:var(--gold)}
   .cn-n{display:none}
   .supp-grid{grid-template-columns:1fr}
   .el-grid{grid-template-columns:repeat(4,1fr)}
+  .legal-grid{grid-template-columns:1fr}
   nav .nav-links{display:none}
 }
 @media(max-width:560px){
-  .wrap{padding:0 14px}
+  .wrap{padding:0 16px}
   .feat-grid{grid-template-columns:1fr}
-  h1{letter-spacing:-1px}
+  .cta{padding:40px 20px}
   .hero-stats{flex-wrap:wrap}
   .hs{padding:12px 18px}
-  .cta{padding:40px 20px}
   .nav-right .btn{display:none}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="wrap nav-inner">
     <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">🎮</div>
-      XD<span>Bot</span>
+      <div class="nav-logo-icon">✦</div>
+      <span class="nav-logo-text">XD Bot</span>
     </a>
     <div class="nav-links">
       <a href="#features" class="nav-link">Features</a>
       <a href="#gacha" class="nav-link">Gacha</a>
       <a href="#commands" class="nav-link">Commands</a>
       <a href="#support" class="nav-link">Support</a>
+      <a href="#legal" class="nav-link">Legal</a>
     </div>
     <div class="nav-right">
-      <div class="nav-status"><div class="ndot"></div> Online</div>
-      <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn btn-blue btn-sm" target="_blank">Add to Discord</a>
+      <div class="nav-status"><div class="ndot"></div>Online</div>
+      <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn btn-gold btn-sm" target="_blank">Add to Discord</a>
     </div>
   </div>
 </nav>
@@ -320,9 +370,9 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <div class="hero-pill">Genshin Impact Gacha Bot</div>
+    <div class="hero-eyebrow">Genshin Impact Gacha Bot</div>
     <h1>The Genshin bot your<br>Discord <span class="g">deserves.</span></h1>
-    <p class="hero-sub">100+ characters, real pity system, Primogem economy, social commands, leaderboards — all free, all in Discord.</p>
+    <p class="hero-sub">100+ characters, real pity system, Primogem economy, social commands, leaderboards — all free, forever.</p>
     <div class="hero-btns">
       <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn btn-discord btn-xl" target="_blank">➕ Add to Discord</a>
       <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote — Get 4,000 💎</a>
@@ -340,7 +390,7 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <!-- FEATURES -->
 <section class="section" id="features">
   <div class="wrap">
-    <div class="sec-tag">Features</div>
+    <div class="sec-eyebrow">Features</div>
     <h2>Everything packed in.<br><span>Nothing held back.</span></h2>
     <p class="sec-sub">Built from scratch to feel like Genshin — right inside Discord.</p>
     <div class="feat-grid">
@@ -357,12 +407,12 @@ footer{border-top:1px solid var(--b);padding:36px 0}
       <div class="feat">
         <div class="feat-ico ico-green">💎</div>
         <div class="feat-title">Primogem Economy</div>
-        <p class="feat-desc">Earn by voting, buy daily, gift friends, sell duplicates, or trade characters. Full economy system.</p>
+        <p class="feat-desc">Earn by voting, daily claims, sell duplicates, or trade characters. Full living economy.</p>
       </div>
       <div class="feat">
         <div class="feat-ico ico-pink">🎭</div>
         <div class="feat-title">Social &amp; Emotion Commands</div>
-        <p class="feat-desc">20+ anime-style actions with live GIFs — kiss, hug, pat, marry, blush, cry, smile and more.</p>
+        <p class="feat-desc">20+ anime-style actions with live GIFs — kiss, hug, pat, marry, blush, cry, and more.</p>
       </div>
       <div class="feat">
         <div class="feat-ico ico-purple">🏆</div>
@@ -381,13 +431,12 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <!-- GACHA -->
 <section class="section" id="gacha">
   <div class="wrap">
-    <div class="sec-tag">Gacha System</div>
+    <div class="sec-eyebrow">Gacha System</div>
     <h2>Real pity. Real rates.<br><span>Real Genshin feel.</span></h2>
     <div class="gacha-grid">
-
       <div style="display:flex;flex-direction:column;gap:14px">
         <div class="g-card">
-          <div class="g-head">📊 Pull Rates</div>
+          <div class="g-head">✦ Pull Rates</div>
           <div class="g-body">
             <div class="rate-row"><div class="rr-left"><span class="star5">★★★★★</span><span class="rr-label">5-Star Character</span></div><span class="rr-val">0.6%</span></div>
             <div class="rate-row"><div class="rr-left"><span class="star4">★★★★</span><span class="rr-label">4-Star Character</span></div><span class="rr-val">5.1%</span></div>
@@ -400,7 +449,6 @@ footer{border-top:1px solid var(--b);padding:36px 0}
             </div>
           </div>
         </div>
-
         <div class="g-card">
           <div class="g-head">💎 Primogem Economy</div>
           <div class="g-body">
@@ -411,7 +459,6 @@ footer{border-top:1px solid var(--b);padding:36px 0}
           </div>
         </div>
       </div>
-
       <div style="display:flex;flex-direction:column;gap:14px">
         <div class="g-card">
           <div class="g-head">🌍 Elements</div>
@@ -425,10 +472,9 @@ footer{border-top:1px solid var(--b);padding:36px 0}
               <div class="el-item"><span class="el-em">🌀</span><div class="el-name">Anemo</div></div>
               <div class="el-item"><span class="el-em">🪨</span><div class="el-name">Geo</div></div>
             </div>
-            <p style="font-size:11px;color:var(--text3);margin-top:12px;text-align:center">100+ characters across all 7 elements</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:12px;text-align:center;letter-spacing:.04em">100+ characters across all 7 elements</p>
           </div>
         </div>
-
         <div class="g-card">
           <div class="g-head">🔄 How It Works</div>
           <div class="g-body">
@@ -449,7 +495,6 @@ footer{border-top:1px solid var(--b);padding:36px 0}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -457,16 +502,13 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <!-- COMMANDS -->
 <section class="section" id="commands">
   <div class="wrap">
-    <div class="sec-tag">Commands</div>
+    <div class="sec-eyebrow">Commands</div>
     <h2>Every command,<br><span>organized.</span></h2>
-    <p class="sec-sub">Browse by category. All 40+ commands from your actual bot.</p>
-
-    <div style="margin-top:24px;margin-bottom:14px">
+    <p class="sec-sub">Browse by category. All 40+ commands.</p>
+    <div style="margin-top:24px">
       <input type="text" class="cmd-search" id="gSearch" placeholder="🔍  Search all commands..." oninput="gFilter()">
     </div>
-
     <div class="cmd-wrap">
-      <!-- Sidebar -->
       <div class="cmd-sidebar">
         <div class="cmd-nav">
           <div class="cn-head">Categories</div>
@@ -478,64 +520,13 @@ footer{border-top:1px solid var(--b);padding:36px 0}
           <button class="cn-btn" onclick="showSec('owner',this)"><div class="cn-dot d-green"></div>Owner Only<span class="cn-n">3</span></button>
         </div>
       </div>
-
-      <!-- Panels -->
       <div id="cmdPanel">
-
-        <div class="cmd-section on" id="sec-gacha">
-          <div class="cs-head">
-            <div class="cs-ico ico-gold">🎲</div>
-            <div><div class="cs-title">Gacha & Economy</div><div class="cs-sub">Pull characters, manage Primogems, trade &amp; leaderboards</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-gacha"></div>
-          <div class="no-r" id="nr-gacha">No commands match.</div>
-        </div>
-
-        <div class="cmd-section" id="sec-social">
-          <div class="cs-head">
-            <div class="cs-ico ico-pink">🎭</div>
-            <div><div class="cs-title">Social Actions</div><div class="cs-sub">Interact with others using animated anime GIFs</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-social"></div>
-          <div class="no-r" id="nr-social">No commands match.</div>
-        </div>
-
-        <div class="cmd-section" id="sec-emotion">
-          <div class="cs-head">
-            <div class="cs-ico ico-purple">😊</div>
-            <div><div class="cs-title">Emotions</div><div class="cs-sub">Express yourself with reaction GIFs</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-emotion"></div>
-          <div class="no-r" id="nr-emotion">No commands match.</div>
-        </div>
-
-        <div class="cmd-section" id="sec-utility">
-          <div class="cs-head">
-            <div class="cs-ico ico-blue">🔧</div>
-            <div><div class="cs-title">Utility & Info</div><div class="cs-sub">Server info, user info, AFK, and bot utilities</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-utility"></div>
-          <div class="no-r" id="nr-utility">No commands match.</div>
-        </div>
-
-        <div class="cmd-section" id="sec-fun">
-          <div class="cs-head">
-            <div class="cs-ico ico-orange">🎉</div>
-            <div><div class="cs-title">Fun</div><div class="cs-sub">Memes, coinflips, roasts &amp; entertainment</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-fun"></div>
-          <div class="no-r" id="nr-fun">No commands match.</div>
-        </div>
-
-        <div class="cmd-section" id="sec-owner">
-          <div class="cs-head">
-            <div class="cs-ico ico-green">🔒</div>
-            <div><div class="cs-title">Owner Only</div><div class="cs-sub">Restricted commands for the bot owner</div></div>
-          </div>
-          <div class="cmd-cards" id="cc-owner"></div>
-          <div class="no-r" id="nr-owner">No commands match.</div>
-        </div>
-
+        <div class="cmd-section on" id="sec-gacha"><div class="cs-head"><div class="cs-ico ico-gold">🎲</div><div><div class="cs-title">Gacha & Economy</div><div class="cs-sub">Pull characters, manage Primogems, trade &amp; leaderboards</div></div></div><div class="cmd-cards" id="cc-gacha"></div><div class="no-r" id="nr-gacha">No commands match.</div></div>
+        <div class="cmd-section" id="sec-social"><div class="cs-head"><div class="cs-ico ico-pink">🎭</div><div><div class="cs-title">Social Actions</div><div class="cs-sub">Interact with others using animated anime GIFs</div></div></div><div class="cmd-cards" id="cc-social"></div><div class="no-r" id="nr-social">No commands match.</div></div>
+        <div class="cmd-section" id="sec-emotion"><div class="cs-head"><div class="cs-ico ico-purple">😊</div><div><div class="cs-title">Emotions</div><div class="cs-sub">Express yourself with reaction GIFs</div></div></div><div class="cmd-cards" id="cc-emotion"></div><div class="no-r" id="nr-emotion">No commands match.</div></div>
+        <div class="cmd-section" id="sec-utility"><div class="cs-head"><div class="cs-ico ico-blue">🔧</div><div><div class="cs-title">Utility & Info</div><div class="cs-sub">Server info, user info, AFK, and bot utilities</div></div></div><div class="cmd-cards" id="cc-utility"></div><div class="no-r" id="nr-utility">No commands match.</div></div>
+        <div class="cmd-section" id="sec-fun"><div class="cs-head"><div class="cs-ico ico-orange">🎉</div><div><div class="cs-title">Fun</div><div class="cs-sub">Memes, coinflips, roasts &amp; entertainment</div></div></div><div class="cmd-cards" id="cc-fun"></div><div class="no-r" id="nr-fun">No commands match.</div></div>
+        <div class="cmd-section" id="sec-owner"><div class="cs-head"><div class="cs-ico ico-green">🔒</div><div><div class="cs-title">Owner Only</div><div class="cs-sub">Restricted commands for the bot owner</div></div></div><div class="cmd-cards" id="cc-owner"></div><div class="no-r" id="nr-owner">No commands match.</div></div>
       </div>
     </div>
   </div>
@@ -544,7 +535,7 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <!-- SUPPORT -->
 <section class="section" id="support">
   <div class="wrap">
-    <div class="sec-tag">Support</div>
+    <div class="sec-eyebrow">Support</div>
     <h2>We've got you <span>covered.</span></h2>
     <div class="supp-grid">
       <div class="supp-card" onclick="openModal('bug')" style="cursor:pointer">
@@ -569,6 +560,116 @@ footer{border-top:1px solid var(--b);padding:36px 0}
   </div>
 </section>
 
+<!-- LEGAL -->
+<section class="legal-section" id="legal">
+  <div class="wrap">
+    <div class="sec-eyebrow">Legal</div>
+    <h2>Terms &amp; <span>Privacy</span></h2>
+    <p class="sec-sub" style="margin-bottom:0">Effective June 10, 2026 · XD Bot by notcassal</p>
+
+    <div style="margin-top:32px">
+      <div class="legal-tabs">
+        <div class="legal-tab active" onclick="switchLegal('tos')">Terms of Service</div>
+        <div class="legal-tab" onclick="switchLegal('privacy')">Privacy Policy</div>
+      </div>
+
+      <div class="legal-page active" id="lp-tos">
+        <div class="legal-grid">
+          <div class="legal-col">
+            <div class="l-section">
+              <h3>Acceptance</h3>
+              <p>By using XD Bot in any Discord server or direct message, you agree to these Terms. If you do not agree, do not use the Bot.</p>
+            </div>
+            <div class="l-section">
+              <h3>Eligibility</h3>
+              <p>You must comply with Discord's Terms of Service and be of the minimum age required in your country to use Discord.</p>
+            </div>
+            <div class="l-section">
+              <h3>Permitted Use</h3>
+              <p>You agree not to:</p>
+              <ul>
+                <li>Exploit bugs or glitches for unfair advantages</li>
+                <li>Use automated tools or macros to interact with the Bot</li>
+                <li>Attempt to reverse-engineer or redistribute the Bot's code</li>
+                <li>Use the Bot to harass or harm other users</li>
+                <li>Manipulate or corrupt data belonging to other users</li>
+              </ul>
+            </div>
+          </div>
+          <div class="legal-col">
+            <div class="l-section">
+              <h3>Virtual Items</h3>
+              <p>All in-bot currency (Primogems), characters, and items are virtual goods with no real-world monetary value. They cannot be sold for real money or exchanged for any goods or services.</p>
+            </div>
+            <div class="l-section">
+              <h3>Service Availability</h3>
+              <p>XD Bot is provided as-is and may be unavailable at any time for maintenance. We reserve the right to modify, suspend, or discontinue any feature without prior notice.</p>
+            </div>
+            <div class="l-section">
+              <h3>Account Actions</h3>
+              <p>We reserve the right to reset, suspend, or permanently ban any user's Bot data for violations of these terms or abuse.</p>
+            </div>
+            <div class="l-callout">
+              Questions? Contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">discord.gg/Gz3dEH9VpJ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-page" id="lp-privacy">
+        <div class="legal-grid">
+          <div class="legal-col">
+            <div class="l-section">
+              <h3>Data We Collect</h3>
+              <p>When you interact with XD Bot, the following is stored:</p>
+              <ul>
+                <li>Discord User ID and username</li>
+                <li>Primogem balance</li>
+                <li>Gacha character collection</li>
+                <li>XP, level, and achievement progress</li>
+                <li>Marriage status (partner's User ID)</li>
+                <li>Daily claim and vote timestamps</li>
+                <li>AFK status (in-memory only, not persisted)</li>
+              </ul>
+            </div>
+            <div class="l-section">
+              <h3>Server Data</h3>
+              <ul>
+                <li>Discord Guild (Server) ID</li>
+                <li>Level-up announcement channel ID</li>
+                <li>Invite tracking channel ID</li>
+                <li>Invite usage records</li>
+              </ul>
+            </div>
+          </div>
+          <div class="legal-col">
+            <div class="l-section">
+              <h3>How We Use It</h3>
+              <p>All data is used exclusively to operate the Bot's features. We do not sell, share, or use your data for advertising. We do not store message content.</p>
+            </div>
+            <div class="l-section">
+              <h3>Third-Party Services</h3>
+              <ul>
+                <li><strong>Top.gg</strong> — vote tracking</li>
+                <li><strong>nekos.best / otakugifs.xyz</strong> — GIFs (no user data sent)</li>
+                <li><strong>meme-api.com</strong> — meme content (no user data sent)</li>
+                <li><strong>MongoDB Atlas</strong> — secure data storage</li>
+              </ul>
+            </div>
+            <div class="l-section">
+              <h3>Data Deletion</h3>
+              <p>You may request deletion of your data at any time. All data tied to your Discord User ID will be removed within a reasonable timeframe.</p>
+            </div>
+            <div class="l-callout">
+              Data requests: contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">discord.gg/Gz3dEH9VpJ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="wrap">
   <div class="cta">
@@ -585,13 +686,15 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 <footer>
   <div class="wrap">
     <div class="footer-inner">
-      <div class="footer-logo">🎮 XD<span>Bot</span></div>
+      <div class="footer-logo">✦ XD Bot</div>
       <div class="footer-links">
         <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">Support</a>
         <a href="https://top.gg/bot/1305780094937337906/vote" target="_blank">Vote</a>
-        <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=4503739214195776&integration_type=0&scope=bot+applications.commands" target="_blank">Invite</a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" target="_blank">Invite</a>
+        <a href="#legal" onclick="switchLegal('tos')">Terms</a>
+        <a href="#legal" onclick="switchLegal('privacy')">Privacy</a>
       </div>
-      <div class="footer-note">Not affiliated with HoYoverse · Made for fun 🎮</div>
+      <div class="footer-note">Not affiliated with HoYoverse · Made for fun ✦</div>
     </div>
   </div>
 </footer>
@@ -603,12 +706,12 @@ footer{border-top:1px solid var(--b);padding:36px 0}
     <div id="mForm">
       <div class="m-title" id="mTitle">Report a Bug</div>
       <p class="m-sub" id="mSub">Describe what went wrong and we'll fix it.</p>
-      <div class="f-row"><label>Discord Username</label><input type="text" id="fUser" placeholder="username#0000"></div>
+      <div class="f-row"><label>Discord Username</label><input type="text" id="fUser" placeholder="username"></div>
       <div class="f-row"><label>Type</label><select id="fType"><option value="bug">🐛 Bug Report</option><option value="feature">💡 Feature Request</option></select></div>
       <div class="f-row"><label>Command / Area</label><input type="text" id="fCmd" placeholder="/pull, economy, social..."></div>
       <div class="f-row"><label>Description</label><textarea id="fDesc" placeholder="Describe in detail..."></textarea></div>
       <div class="f-row" id="fStepsRow"><label>Steps to Reproduce</label><textarea id="fSteps" placeholder="1. Did X&#10;2. Expected Y&#10;3. Got Z"></textarea></div>
-      <button class="btn btn-blue m-submit" onclick="submitReport()">Submit Report →</button>
+      <button class="btn btn-gold m-submit" onclick="submitReport()">Submit Report →</button>
     </div>
     <div class="m-success" id="mSuccess">
       <div class="ms-ico">✅</div>
@@ -620,81 +723,79 @@ footer{border-top:1px solid var(--b);padding:36px 0}
 </div>
 
 <script>
-// ── DATA ──
 const DATA = {
   gacha: [
-    {n:'/pull',         a:'xd pull / !pull',      t:'both',  d:'Pull a random Genshin character from the banner.',                            cost:'160 💎'},
-    {n:'/profile',      a:'xd profile',            t:'both',  d:'View your gacha profile — total pulls, pity counter, top 5★ characters.'},
-    {n:'/inventory',    a:'xd inv / !inventory',   t:'both',  d:'Browse your full character collection with pagination, rarity sorting, and duplicate tracking.'},
-    {n:'/balance',      a:'xd b / !balance',       t:'both',  d:'Check your current Primogem balance.'},
-    {n:'/shop',         a:'xd s / !shop',          t:'both',  d:'View the Primogem shop and your current pity info.'},
-    {n:'/buy',          a:null,                    t:'slash', d:'Purchase Primogems. 2,000 per day limit.',                                   cost:'2,000/day max'},
-    {n:'/sell',         a:null,                    t:'slash', d:'Sell a duplicate character back for Primogems.'},
-    {n:'/sellall',      a:null,                    t:'slash', d:'Sell all duplicate characters at once.'},
-    {n:'/trade',        a:null,                    t:'slash', d:'Trade a character with another user. Both must agree.'},
-    {n:'/leaderboard',  a:'xd lb / !lb',           t:'both',  d:'Top 5 richest players and most 5★ character collectors.'},
-    {n:'/checkvote',    a:'xd cv / !checkvote',    t:'both',  d:'Claim your Top.gg vote reward.',                                            cost:'+4,000 💎'},
-    {n:'/codes',        a:null,                    t:'slash', d:'Share up to 3 Genshin redeem codes with clickable buttons.'},
+    {n:'/pull',a:'xd pull / !pull',t:'both',d:'Pull a random Genshin character from the banner.',cost:'160 💎'},
+    {n:'/profile',a:'xd profile',t:'both',d:'View your gacha profile — total pulls, pity counter, top 5★ characters.'},
+    {n:'/inventory',a:'xd inv / !inventory',t:'both',d:'Browse your full character collection with pagination, rarity sorting, and duplicate tracking.'},
+    {n:'/balance',a:'xd b / !balance',t:'both',d:'Check your current Primogem balance.'},
+    {n:'/shop',a:'xd s / !shop',t:'both',d:'View the Primogem shop and your current pity info.'},
+    {n:'/buy',a:null,t:'slash',d:'Purchase Primogems. 2,000 per day limit.',cost:'2,000/day max'},
+    {n:'/sell',a:null,t:'slash',d:'Sell a duplicate character back for Primogems.'},
+    {n:'/sellall',a:null,t:'slash',d:'Sell all duplicate characters at once.'},
+    {n:'/trade',a:null,t:'slash',d:'Trade a character with another user. Both must agree.'},
+    {n:'/leaderboard',a:'xd lb / !lb',t:'both',d:'Top 5 richest players and most 5★ character collectors.'},
+    {n:'/daily',a:'xd daily / !daily',t:'both',d:'Claim your daily Primogem reward.',cost:'+60 💎'},
+    {n:'/codes',a:null,t:'slash',d:'Share up to 3 Genshin redeem codes with clickable buttons.'},
   ],
   social: [
-    {n:'xd kiss',      a:'!kiss',      t:'prefix', d:'Kiss someone with an anime GIF 💋'},
-    {n:'xd hug',       a:'!hug',       t:'prefix', d:'Hug someone warmly 🤗'},
-    {n:'xd pat',       a:'!pat',       t:'prefix', d:'Pat someone on the head 🐾'},
-    {n:'xd cuddle',    a:'!cuddle',    t:'prefix', d:'Cuddle up with someone 🥰'},
-    {n:'xd nom',       a:'!nom',       t:'prefix', d:'Nom nom someone 😋'},
-    {n:'xd bite',      a:'!bite',      t:'prefix', d:'Bite someone playfully 😼'},
-    {n:'xd slap',      a:'!slap',      t:'prefix', d:'Slap someone 👋'},
-    {n:'xd punch',     a:'!punch',     t:'prefix', d:'Punch someone 👊'},
-    {n:'xd kill',      a:'!kill',      t:'prefix', d:'Dramatically eliminate someone 💀'},
-    {n:'xd bully',     a:'!bully',     t:'prefix', d:'Playfully bully someone 😈'},
-    {n:'xd highfive',  a:'!highfive',  t:'prefix', d:'High five someone 🙌'},
-    {n:'xd stare',     a:'!stare',     t:'prefix', d:'Stare someone down 👀'},
-    {n:'xd marry',     a:'!marry',     t:'prefix', d:'Propose marriage — they must accept! 💍'},
-    {n:'/divorce',     a:'xd divorce / !divorce', t:'both', d:'Divorce your current spouse 💔'},
+    {n:'xd kiss',a:'!kiss',t:'prefix',d:'Kiss someone with an anime GIF 💋'},
+    {n:'xd hug',a:'!hug',t:'prefix',d:'Hug someone warmly 🤗'},
+    {n:'xd pat',a:'!pat',t:'prefix',d:'Pat someone on the head 🐾'},
+    {n:'xd cuddle',a:'!cuddle',t:'prefix',d:'Cuddle up with someone 🥰'},
+    {n:'xd nom',a:'!nom',t:'prefix',d:'Nom nom someone 😋'},
+    {n:'xd bite',a:'!bite',t:'prefix',d:'Bite someone playfully 😼'},
+    {n:'xd slap',a:'!slap',t:'prefix',d:'Slap someone 👋'},
+    {n:'xd punch',a:'!punch',t:'prefix',d:'Punch someone 👊'},
+    {n:'xd kill',a:'!kill',t:'prefix',d:'Dramatically eliminate someone 💀'},
+    {n:'xd bully',a:'!bully',t:'prefix',d:'Playfully bully someone 😈'},
+    {n:'xd highfive',a:'!highfive',t:'prefix',d:'High five someone 🙌'},
+    {n:'xd stare',a:'!stare',t:'prefix',d:'Stare someone down 👀'},
+    {n:'xd marry',a:'!marry',t:'prefix',d:'Propose marriage — they must accept! 💍'},
+    {n:'/divorce',a:'xd divorce / !divorce',t:'both',d:'Divorce your current spouse 💔'},
   ],
   emotion: [
-    {n:'xd blush',    a:'!blush',    t:'prefix', d:'Show a blushing reaction 😳'},
-    {n:'xd cry',      a:'!cry',      t:'prefix', d:'Express sadness 😢'},
-    {n:'xd sleepy',   a:'!sleepy',   t:'prefix', d:'Show a sleepy reaction 😴'},
-    {n:'xd smile',    a:'!smile',    t:'prefix', d:'Flash a big smile 😊'},
-    {n:'xd think',    a:'!thinking', t:'prefix', d:'Show a thinking reaction 🤔'},
-    {n:'xd lewd',     a:'!lewd',     t:'prefix', d:'Lewd reaction GIF 😏'},
-    {n:'xd greet',    a:'!greet',    t:'prefix', d:'Wave and greet 👋'},
-    {n:'/roast',      a:'xd roast / !roast', t:'both', d:'Roast a user with savage friendly banter 🔥'},
+    {n:'xd blush',a:'!blush',t:'prefix',d:'Show a blushing reaction 😳'},
+    {n:'xd cry',a:'!cry',t:'prefix',d:'Express sadness 😢'},
+    {n:'xd sleepy',a:'!sleepy',t:'prefix',d:'Show a sleepy reaction 😴'},
+    {n:'xd smile',a:'!smile',t:'prefix',d:'Flash a big smile 😊'},
+    {n:'xd think',a:'!thinking',t:'prefix',d:'Show a thinking reaction 🤔'},
+    {n:'xd lewd',a:'!lewd',t:'prefix',d:'Lewd reaction GIF 😏'},
+    {n:'xd greet',a:'!greet',t:'prefix',d:'Wave and greet 👋'},
+    {n:'/roast',a:'xd roast / !roast',t:'both',d:'Roast a user with savage friendly banter 🔥'},
   ],
   utility: [
-    {n:'/userinfo',   a:'xd user / !user',     t:'both', d:'View detailed info about any Discord user.'},
-    {n:'/serverinfo', a:'xd server / !server', t:'both', d:'View server statistics and member counts.'},
-    {n:'/botinfo',    a:'xd info / !info',     t:'both', d:'View bot stats — uptime, ping, memory usage.'},
-    {n:'/avatar',     a:'xd avatar / !avatar', t:'both', d:"Display any user's avatar in full resolution."},
-    {n:'/afk',        a:'xd afk / !afk',       t:'both', d:'Set AFK with a reason. Bot notifies when you are mentioned.'},
-    {n:'/help',       a:'xd help / !help',     t:'both', d:'Browse all commands with interactive category buttons.'},
-    {n:'/say',        a:null,                  t:'slash', d:'Make the bot send a message in the channel.'},
-    {n:'/vote',       a:'xd vote / !vote',     t:'both', d:'Get the Top.gg link to vote and earn Primogems.'},
-    {n:'/setinvitechannel', a:null,            t:'slash', d:'Set a channel for invite tracking logs. Requires Admin.'},
+    {n:'/userinfo',a:'xd user / !user',t:'both',d:'View detailed info about any Discord user.'},
+    {n:'/serverinfo',a:'xd server / !server',t:'both',d:'View server statistics and member counts.'},
+    {n:'/botinfo',a:'xd info / !info',t:'both',d:'View bot stats — uptime, ping, memory usage.'},
+    {n:'/avatar',a:'xd avatar / !avatar',t:'both',d:"Display any user's avatar in full resolution."},
+    {n:'/afk',a:'xd afk / !afk',t:'both',d:'Set AFK with a reason. Bot notifies when you are mentioned.'},
+    {n:'/help',a:'xd help / !help',t:'both',d:'Browse all commands with interactive category buttons.'},
+    {n:'/say',a:null,t:'slash',d:'Make the bot send a message in the channel.'},
+    {n:'/vote',a:'xd vote / !vote',t:'both',d:'Get the Top.gg link to vote and earn Primogems.'},
+    {n:'/invite',a:'xd invite / !invite',t:'both',d:'Get the bot invite link to add XD Bot to another server.'},
   ],
   fun: [
-    {n:'/coinflip',   a:'!coinflip / !flip', t:'both', d:'Flip a coin with a satisfying animation 🪙'},
-    {n:'/meme',       a:'pls meme',          t:'both', d:'Fetch a random meme from Reddit 😂'},
-    {n:'/love',       a:null,                t:'slash', d:'Calculate love compatibility between two users ❤️'},
-    {n:'/codes',      a:null,                t:'slash', d:'Share Genshin redeem codes with clickable redemption buttons 🎁'},
+    {n:'/coinflip',a:'!coinflip / xd coinflip',t:'both',d:'Flip a coin with a satisfying animation 🪙'},
+    {n:'/meme',a:'pls meme',t:'both',d:'Fetch a random meme from Reddit 😂'},
+    {n:'/love',a:null,t:'slash',d:'Calculate love compatibility between two users ❤️'},
+    {n:'/8ball',a:'xd 8ball / !8ball',t:'both',d:'Ask the magic 8ball any yes/no question 🎱'},
   ],
   owner: [
-    {n:'/gift',             a:null, t:'slash', owner:true, d:'Gift any amount of Primogems to a user.'},
-    {n:'/resetcollection',  a:null, t:'slash', owner:true, d:"Reset a user's entire character collection."},
-    {n:'/serverlist',       a:null, t:'slash', owner:true, d:'List all servers the bot is currently in.'},
+    {n:'/gift',a:null,t:'slash',owner:true,d:'Gift any amount of Primogems to a user.'},
+    {n:'/give',a:null,t:'slash',owner:true,d:'Give any character directly to a user.'},
+    {n:'/serverlist',a:null,t:'slash',owner:true,d:'List all servers the bot is currently in.'},
   ]
 };
 
-// ── BUILD CARDS ──
 function nameHTML(n){
   if(n.startsWith('/')) return `<span class="s">/</span>${n.slice(1)}`;
   return `<span class="p">${n}</span>`;
 }
 function tagHTML(c){
   if(c.owner) return '<span class="tag t-owner">Owner</span>';
-  if(c.t==='both')   return '<span class="tag t-both">Slash + Prefix</span>';
-  if(c.t==='slash')  return '<span class="tag t-slash">Slash</span>';
+  if(c.t==='both') return '<span class="tag t-both">Slash + Prefix</span>';
+  if(c.t==='slash') return '<span class="tag t-slash">Slash</span>';
   if(c.t==='prefix') return '<span class="tag t-prefix">Prefix</span>';
   return '';
 }
@@ -704,91 +805,74 @@ Object.keys(DATA).forEach(cat => {
     const el = document.createElement('div');
     el.className = 'cmd-card';
     el.dataset.q = (c.n+' '+(c.a||'')+' '+c.d).toLowerCase();
-    el.innerHTML = `
-      <div>
-        <div class="cc-name">${nameHTML(c.n)}</div>
-        <div class="cc-desc">${c.d}</div>
-        ${c.a ? `<div class="cc-alias">Also: ${c.a}</div>` : ''}
-      </div>
-      <div class="cc-tags">
-        ${tagHTML(c)}
-        ${c.cost ? `<div class="t-cost">${c.cost}</div>` : ''}
-      </div>`;
+    el.innerHTML = `<div><div class="cc-name">${nameHTML(c.n)}</div><div class="cc-desc">${c.d}</div>${c.a?`<div class="cc-alias">Also: ${c.a}</div>`:''}</div><div class="cc-tags">${tagHTML(c)}${c.cost?`<div class="t-cost">${c.cost}</div>`:''}</div>`;
     wrap.appendChild(el);
   });
 });
 
-// ── SECTION SWITCH ──
-let cur = 'gacha';
-function showSec(id, btn) {
-  document.querySelectorAll('.cmd-section').forEach(s => s.classList.remove('on'));
-  document.querySelectorAll('.cn-btn').forEach(b => b.classList.remove('on'));
+let cur='gacha';
+function showSec(id,btn){
+  document.querySelectorAll('.cmd-section').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.cn-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('sec-'+id).classList.add('on');
   btn.classList.add('on');
-  cur = id;
-  document.getElementById('gSearch').value = '';
+  cur=id;
+  document.getElementById('gSearch').value='';
   resetCards();
 }
-
 function resetCards(){
-  document.querySelectorAll('.cmd-card').forEach(c => c.classList.remove('hide'));
-  document.querySelectorAll('.no-r').forEach(n => n.classList.remove('show'));
+  document.querySelectorAll('.cmd-card').forEach(c=>c.classList.remove('hide'));
+  document.querySelectorAll('.no-r').forEach(n=>n.classList.remove('show'));
 }
-
-// ── SEARCH ──
 function gFilter(){
-  const q = document.getElementById('gSearch').value.trim().toLowerCase();
-  if(!q){ resetCards(); if(cur) { document.querySelectorAll('.cmd-section').forEach(s=>s.classList.remove('on')); document.getElementById('sec-'+cur).classList.add('on'); } return; }
-  // show all sections when searching
-  document.querySelectorAll('.cmd-section').forEach(s => s.classList.add('on'));
-  document.querySelectorAll('.cn-btn').forEach(b => b.classList.remove('on'));
-  Object.keys(DATA).forEach(cat => {
-    const cards = document.querySelectorAll('#cc-'+cat+' .cmd-card');
-    let shown = 0;
-    cards.forEach(c => { const hide = !c.dataset.q.includes(q); c.classList.toggle('hide', hide); if(!hide) shown++; });
-    const nr = document.getElementById('nr-'+cat);
-    const sec = document.getElementById('sec-'+cat);
-    if(shown === 0){ nr.classList.add('show'); sec.classList.remove('on'); } else { nr.classList.remove('show'); }
+  const q=document.getElementById('gSearch').value.trim().toLowerCase();
+  if(!q){resetCards();document.querySelectorAll('.cmd-section').forEach(s=>s.classList.remove('on'));document.getElementById('sec-'+cur).classList.add('on');return;}
+  document.querySelectorAll('.cmd-section').forEach(s=>s.classList.add('on'));
+  document.querySelectorAll('.cn-btn').forEach(b=>b.classList.remove('on'));
+  Object.keys(DATA).forEach(cat=>{
+    const cards=document.querySelectorAll('#cc-'+cat+' .cmd-card');
+    let shown=0;
+    cards.forEach(c=>{const hide=!c.dataset.q.includes(q);c.classList.toggle('hide',hide);if(!hide)shown++;});
+    const nr=document.getElementById('nr-'+cat);
+    const sec=document.getElementById('sec-'+cat);
+    if(shown===0){nr.classList.add('show');sec.classList.remove('on');}else{nr.classList.remove('show');}
   });
 }
 
-// ── PITY BARS ──
-const po = new IntersectionObserver(entries => {
-  entries.forEach(e => {
+function switchLegal(id){
+  document.querySelectorAll('.legal-tab').forEach((t,i)=>t.classList.toggle('active',['tos','privacy'][i]===id));
+  document.querySelectorAll('.legal-page').forEach(p=>p.classList.toggle('active',p.id==='lp-'+id));
+}
+
+const po=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
     if(e.isIntersecting){
-      setTimeout(()=>{ document.getElementById('pf1').style.width='82%'; },200);
-      setTimeout(()=>{ document.getElementById('pf2').style.width='88%'; },380);
+      setTimeout(()=>{document.getElementById('pf1').style.width='82%';},200);
+      setTimeout(()=>{document.getElementById('pf2').style.width='88%';},380);
       po.unobserve(e.target);
     }
   });
 },{threshold:.4});
-const pt = document.querySelector('.pity-track');
-if(pt) po.observe(pt);
+const pt=document.querySelector('.pity-track');
+if(pt)po.observe(pt);
 
-// ── SMOOTH SCROLL ──
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(href==='#'){return;}
     e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    const t=document.querySelector(href);
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
   });
 });
 
-// ── MODAL ──
 function openModal(type){
   document.getElementById('modalBg').classList.add('on');
   document.getElementById('mForm').style.display='block';
   document.getElementById('mSuccess').classList.remove('on');
-  document.getElementById('fType').value = type;
-  if(type==='bug'){
-    document.getElementById('mTitle').textContent='🐛 Report a Bug';
-    document.getElementById('mSub').textContent="Describe what went wrong and we'll fix it.";
-    document.getElementById('fStepsRow').style.display='block';
-  } else {
-    document.getElementById('mTitle').textContent='💡 Suggest a Feature';
-    document.getElementById('mSub').textContent="What would make XD Bot even better?";
-    document.getElementById('fStepsRow').style.display='none';
-  }
+  document.getElementById('fType').value=type;
+  if(type==='bug'){document.getElementById('mTitle').textContent='🐛 Report a Bug';document.getElementById('mSub').textContent="Describe what went wrong and we'll fix it.";document.getElementById('fStepsRow').style.display='block';}
+  else{document.getElementById('mTitle').textContent='💡 Suggest a Feature';document.getElementById('mSub').textContent="What would make XD Bot even better?";document.getElementById('fStepsRow').style.display='none';}
   document.body.style.overflow='hidden';
 }
 function closeModal(){
@@ -806,10 +890,10 @@ function submitReport(){
   const cmd=document.getElementById('fCmd').value.trim();
   const steps=document.getElementById('fSteps').value.trim();
   const wh='https://discord.com/api/webhooks/1503470610431479941/PCzHYmKsaQpm8mBIXvrfwD6RCDTf41Ew828CpNtAAqKhKAy3XgRWc7A1zarzDQl6J-pB';
-  const body={embeds:[{title:type==='bug'?'🐛 Bug Report':'💡 Feature Request',color:type==='bug'?0xF87171:0xF5C542,
+  const body={embeds:[{title:type==='bug'?'🐛 Bug Report':'💡 Feature Request',color:type==='bug'?0xF87171:0xC8A84B,
     fields:[{name:'👤 User',value:user,inline:true},{name:'⚙️ Area',value:cmd||'—',inline:true},{name:'📝 Description',value:desc}],
     timestamp:new Date(),footer:{text:'XD Bot Website'}}]};
-  if(type==='bug'&&steps) body.embeds[0].fields.push({name:'🔍 Steps',value:steps});
+  if(type==='bug'&&steps)body.embeds[0].fields.push({name:'🔍 Steps',value:steps});
   fetch(wh,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).catch(()=>{});
   document.getElementById('mForm').style.display='none';
   document.getElementById('mSuccess').classList.add('on');
@@ -817,4 +901,3 @@ function submitReport(){
 </script>
 </body>
 </html>
-HTMLEOF
