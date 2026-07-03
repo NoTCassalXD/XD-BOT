@@ -25,34 +25,21 @@ html{scroll-behavior:smooth}
 }
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;overflow-x:hidden}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
-
 .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
-
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
-  background:rgba(10,10,16,0.92);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--b)}
+nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;background:rgba(10,10,16,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--b)}
 .nav-inner{display:flex;align-items:center;height:64px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
-.nav-logo-icon{width:34px;height:34px;border-radius:8px;
-  background:linear-gradient(135deg,#1a1030,#0d0820);
-  border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-logo-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1a1030,#0d0820);border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:16px}
 .nav-logo-text{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:.12em;color:var(--gold)}
 .nav-links{display:flex;align-items:center;gap:2px;margin-left:28px}
-.nav-link{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;
-  padding:6px 12px;border-radius:7px;transition:.15s;letter-spacing:.02em}
+.nav-link{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;padding:6px 12px;border-radius:7px;transition:.15s;letter-spacing:.02em}
 .nav-link:hover{color:var(--gold);background:var(--gold-bg)}
 .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
 .nav-status{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em}
 .ndot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:9px;
-  font-size:14px;font-weight:600;font-family:var(--font);text-decoration:none;
-  border:none;cursor:pointer;transition:.18s;white-space:nowrap;letter-spacing:.01em}
-.btn-gold{background:linear-gradient(135deg,#c8a84b,#f5d878);color:#0a0800;font-weight:700;
-  box-shadow:0 4px 20px rgba(200,168,75,.25)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:9px;font-size:14px;font-weight:600;font-family:var(--font);text-decoration:none;border:none;cursor:pointer;transition:.18s;white-space:nowrap;letter-spacing:.01em}
+.btn-gold{background:linear-gradient(135deg,#c8a84b,#f5d878);color:#0a0800;font-weight:700;box-shadow:0 4px 20px rgba(200,168,75,.25)}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,168,75,.35)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--b2)}
 .btn-ghost:hover{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-b);transform:translateY(-1px)}
@@ -63,21 +50,12 @@ nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
 .btn-sm{padding:7px 15px;font-size:13px;border-radius:7px}
 .btn-lg{padding:13px 28px;font-size:16px;border-radius:11px}
 .btn-xl{padding:15px 34px;font-size:17px;border-radius:12px;font-weight:700}
-
-/* ── HERO ── */
 .hero{padding:140px 0 80px;text-align:center;position:relative}
-.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:800px;height:600px;
-  background:radial-gradient(ellipse at center top, rgba(200,168,75,.06) 0%, transparent 65%);
-  pointer-events:none}
-.hero-eyebrow{font-family:var(--display);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse at center top, rgba(200,168,75,.06) 0%, transparent 65%);pointer-events:none}
+.hero-eyebrow{font-family:var(--display);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:10px}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:30px;height:1px;background:var(--gold);opacity:.4}
-h1{font-family:var(--display);font-size:clamp(36px,5.5vw,68px);font-weight:900;
-  letter-spacing:-.02em;line-height:1.05;margin-bottom:20px;color:var(--text)}
-h1 .g{background:linear-gradient(90deg,var(--gold),var(--gold2),#ffeaa0,var(--gold));
-  background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:gs 4s linear infinite}
+h1{font-family:var(--display);font-size:clamp(36px,5.5vw,68px);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-bottom:20px;color:var(--text)}
+h1 .g{background:linear-gradient(90deg,var(--gold),var(--gold2),#ffeaa0,var(--gold));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gs 4s linear infinite}
 @keyframes gs{0%{background-position:0%}100%{background-position:300%}}
 .hero-sub{font-size:17px;color:var(--text2);max-width:500px;margin:0 auto 36px;line-height:1.75;font-weight:300}
 .hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
@@ -86,98 +64,66 @@ h1 .g{background:linear-gradient(90deg,var(--gold),var(--gold2),#ffeaa0,var(--go
 .hs:last-child{border-right:none}
 .hs-v{font-family:var(--display);font-size:22px;font-weight:700;color:var(--gold);letter-spacing:.02em}
 .hs-l{font-size:11px;color:var(--text3);font-weight:500;margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
-
-/* ── ORNAMENT DIVIDER ── */
-.ornament{text-align:center;padding:8px 0;color:var(--text3);font-family:var(--display);
-  font-size:.75rem;letter-spacing:.4em;position:relative}
-.ornament::before,.ornament::after{content:'';position:absolute;top:50%;
-  width:calc(50% - 80px);height:1px;background:linear-gradient(to right,transparent,var(--b))}
+.ornament{text-align:center;padding:8px 0;color:var(--text3);font-family:var(--display);font-size:.75rem;letter-spacing:.4em;position:relative}
+.ornament::before,.ornament::after{content:'';position:absolute;top:50%;width:calc(50% - 80px);height:1px;background:linear-gradient(to right,transparent,var(--b))}
 .ornament::before{left:0}
 .ornament::after{right:0;background:linear-gradient(to left,transparent,var(--b))}
-
-/* ── SECTIONS ── */
 .section{padding:80px 0}
 .section+.section{border-top:1px solid var(--b)}
-.sec-eyebrow{font-family:var(--display);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.sec-eyebrow{font-family:var(--display);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .sec-eyebrow::before{content:'✦';font-size:.6rem}
-h2{font-family:var(--display);font-size:clamp(24px,3.2vw,38px);font-weight:700;
-  letter-spacing:-.01em;line-height:1.15;margin-bottom:10px;color:var(--text)}
+h2{font-family:var(--display);font-size:clamp(24px,3.2vw,38px);font-weight:700;letter-spacing:-.01em;line-height:1.15;margin-bottom:10px;color:var(--text)}
 h2 span{color:var(--gold)}
 .sec-sub{color:var(--text2);font-size:15px;max-width:460px;line-height:1.7;font-weight:300}
-
-/* ── FEATURE GRID ── */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
 .feat{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:26px;transition:.2s;position:relative;overflow:hidden}
-.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:.3s}
+.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:.3s}
 .feat:hover{background:var(--card2);border-color:var(--gold-b);transform:translateY(-3px)}
 .feat:hover::before{opacity:1}
-.feat-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;
-  justify-content:center;font-size:18px;margin-bottom:16px;border:1px solid transparent}
+.feat-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px;border:1px solid transparent}
 .ico-gold{background:var(--gold-bg);border-color:var(--gold-b)}
 .ico-blue{background:var(--blue-bg);border-color:var(--blue-b)}
 .ico-green{background:var(--green-bg);border-color:var(--green-b)}
 .ico-pink{background:var(--pink-bg);border-color:var(--pink-b)}
 .ico-purple{background:var(--purple-bg);border-color:var(--purple-b)}
 .ico-orange{background:var(--orange-bg);border-color:var(--orange-b)}
-.feat-title{font-family:var(--display);font-size:.82rem;font-weight:600;margin-bottom:8px;
-  letter-spacing:.05em;color:var(--text)}
+.feat-title{font-family:var(--display);font-size:.82rem;font-weight:600;margin-bottom:8px;letter-spacing:.05em;color:var(--text)}
 .feat-desc{font-size:13px;color:var(--text2);line-height:1.65;font-weight:300}
-
-/* ── GACHA ── */
 .gacha-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
 .g-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
-.g-head{background:var(--bg3);border-bottom:1px solid var(--b);padding:14px 18px;
-  display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;
-  font-size:.78rem;letter-spacing:.08em;color:var(--gold)}
+.g-head{background:var(--bg3);border-bottom:1px solid var(--b);padding:14px 18px;display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.08em;color:var(--gold)}
 .g-body{padding:18px}
-.rate-row{display:flex;align-items:center;justify-content:space-between;
-  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);
-  border-radius:var(--r-sm);margin-bottom:8px}
+.rate-row{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r-sm);margin-bottom:8px}
 .rr-left{display:flex;align-items:center;gap:9px}
 .star5{color:var(--gold);font-weight:700;font-size:12px}
 .star4{color:var(--purple);font-weight:700;font-size:12px}
-.star3{color:var(--blue);font-weight:700;font-size:12px}
 .rr-label{font-size:12px;color:var(--text2)}
 .rr-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text)}
 .pity-wrap{margin-top:14px}
-.pity-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);
-  margin-bottom:6px;font-weight:500;letter-spacing:.03em}
+.pity-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:500;letter-spacing:.03em}
 .pity-lbl span:last-child{color:var(--gold)}
 .pity-track{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-bottom:10px}
 .pity-fill{height:100%;border-radius:2px;width:0;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
 .pf-g{background:linear-gradient(90deg,#6b4800,var(--gold2))}
 .pf-p{background:linear-gradient(90deg,#3a1080,var(--purple))}
-.eco-row{display:flex;justify-content:space-between;align-items:center;
-  padding:10px 13px;background:var(--bg2);border:1px solid var(--b);
-  border-radius:var(--r-sm);margin-bottom:8px}
+.eco-row{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r-sm);margin-bottom:8px}
 .eco-lbl{font-size:12px;color:var(--text2)}
 .eco-val{font-family:var(--mono);font-size:13px;color:var(--gold);font-weight:500}
 .el-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
-.el-item{background:var(--bg2);border:1px solid var(--b);border-radius:8px;
-  padding:10px 4px;text-align:center;transition:.2s}
+.el-item{background:var(--bg2);border:1px solid var(--b);border-radius:8px;padding:10px 4px;text-align:center;transition:.2s}
 .el-item:hover{border-color:var(--gold-b);background:var(--gold-bg)}
 .el-em{width:24px;height:24px;display:block;margin:0 auto 4px;object-fit:contain}
 .el-name{font-size:9px;color:var(--text3);font-weight:500;letter-spacing:.05em}
 .steps{display:flex;flex-direction:column;gap:12px;margin-top:4px}
 .step{display:flex;align-items:flex-start;gap:12px}
-.step-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;
-  justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--display)}
+.step-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--display)}
 .step-title{font-size:13px;font-weight:600;margin-bottom:2px;color:var(--text)}
 .step-desc{font-size:12px;color:var(--text2);font-weight:300}
-
-/* ── COMMANDS ── */
 .cmd-wrap{display:grid;grid-template-columns:200px 1fr;gap:18px;margin-top:44px}
 .cmd-sidebar{position:sticky;top:80px;align-self:start}
 .cmd-nav{background:var(--card);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
-.cn-head{padding:12px 16px;font-family:var(--display);font-size:.6rem;font-weight:600;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
-  border-bottom:1px solid var(--b);opacity:.7}
-.cn-btn{display:flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;
-  font-size:13px;font-weight:500;color:var(--text2);transition:.15s;
-  border-left:2px solid transparent;border:none;background:none;
-  width:100%;text-align:left;font-family:var(--font)}
+.cn-head{padding:12px 16px;font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--b);opacity:.7}
+.cn-btn{display:flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:.15s;border-left:2px solid transparent;border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
 .cn-btn:hover{background:var(--gold-bg);color:var(--gold)}
 .cn-btn.on{background:var(--gold-bg);color:var(--gold);border-left:2px solid var(--gold)}
 .cn-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
@@ -188,22 +134,17 @@ h2 span{color:var(--gold)}
 .d-orange{background:var(--orange)}
 .d-green{background:var(--green)}
 .cn-n{margin-left:auto;font-size:11px;font-weight:600;color:var(--text3)}
-.cmd-search{width:100%;background:var(--card);border:1px solid var(--b2);
-  color:var(--text);padding:10px 14px;border-radius:9px;font-size:14px;
-  font-family:var(--font);margin-bottom:14px}
+.cmd-search{width:100%;background:var(--card);border:1px solid var(--b2);color:var(--text);padding:10px 14px;border-radius:9px;font-size:14px;font-family:var(--font);margin-bottom:14px}
 .cmd-search::placeholder{color:var(--text3)}
 .cmd-search:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,168,75,.1)}
 .cmd-section{display:none}
 .cmd-section.on{display:block}
 .cs-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.cs-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;
-  justify-content:center;font-size:16px;border:1px solid transparent;flex-shrink:0}
+.cs-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;border:1px solid transparent;flex-shrink:0}
 .cs-title{font-family:var(--display);font-size:.85rem;font-weight:700;letter-spacing:.06em;color:var(--gold)}
 .cs-sub{font-size:12px;color:var(--text2);margin-top:2px}
 .cmd-cards{display:flex;flex-direction:column;gap:7px}
-.cmd-card{background:var(--card);border:1px solid var(--b);border-radius:9px;
-  padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;
-  align-items:center;transition:.15s}
+.cmd-card{background:var(--card);border:1px solid var(--b);border-radius:9px;padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;transition:.15s}
 .cmd-card:hover{background:var(--card2);border-color:var(--gold-b)}
 .cmd-card.hide{display:none}
 .cc-name{font-family:var(--mono);font-size:13px;font-weight:500;margin-bottom:4px}
@@ -212,8 +153,7 @@ h2 span{color:var(--gold)}
 .cc-desc{font-size:12px;color:var(--text2);line-height:1.55;font-weight:300}
 .cc-alias{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px}
 .cc-tags{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
-  white-space:nowrap;letter-spacing:.2px}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;letter-spacing:.2px}
 .t-slash{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b)}
 .t-prefix{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b)}
 .t-both{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-b)}
@@ -221,61 +161,36 @@ h2 span{color:var(--gold)}
 .t-cost{font-family:var(--mono);font-size:10px;color:var(--gold)}
 .no-r{display:none;text-align:center;padding:36px 0;color:var(--text3);font-size:14px}
 .no-r.show{display:block}
-
-/* ── SUPPORT ── */
 .supp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
-.supp-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);
-  padding:28px 22px;text-align:center;transition:.2s}
+.supp-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:28px 22px;text-align:center;transition:.2s}
 .supp-card:hover{background:var(--card2);border-color:var(--gold-b);transform:translateY(-3px)}
-.supp-ico{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;
-  justify-content:center;font-size:22px;margin:0 auto 14px;border:1px solid var(--b)}
-.supp-title{font-family:var(--display);font-size:.85rem;font-weight:600;margin-bottom:8px;
-  letter-spacing:.06em;color:var(--gold)}
+.supp-ico{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px;border:1px solid var(--b)}
+.supp-title{font-family:var(--display);font-size:.85rem;font-weight:600;margin-bottom:8px;letter-spacing:.06em;color:var(--gold)}
 .supp-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px;font-weight:300}
-
-/* ── CTA ── */
-.cta{background:var(--card);border:1px solid var(--b);border-radius:18px;
-  padding:64px 40px;text-align:center;margin:80px 0;position:relative;overflow:hidden}
-.cta::before{content:'✦';position:absolute;top:24px;left:50%;transform:translateX(-50%);
-  font-family:var(--display);font-size:.75rem;letter-spacing:.3em;color:var(--gold);opacity:.5}
-.cta::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
-  width:300px;height:200px;background:radial-gradient(ellipse,rgba(200,168,75,.06),transparent 60%);
-  pointer-events:none}
+.cta{background:var(--card);border:1px solid var(--b);border-radius:18px;padding:64px 40px;text-align:center;margin:80px 0;position:relative;overflow:hidden}
+.cta::before{content:'✦';position:absolute;top:24px;left:50%;transform:translateX(-50%);font-family:var(--display);font-size:.75rem;letter-spacing:.3em;color:var(--gold);opacity:.5}
+.cta::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:300px;height:200px;background:radial-gradient(ellipse,rgba(200,168,75,.06),transparent 60%);pointer-events:none}
 .cta h2{margin-bottom:10px}
-.cta p{color:var(--text2);font-size:15px;margin-bottom:30px;max-width:400px;
-  margin-left:auto;margin-right:auto;font-weight:300}
+.cta p{color:var(--text2);font-size:15px;margin-bottom:30px;max-width:400px;margin-left:auto;margin-right:auto;font-weight:300}
 .cta-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-
-/* ── LEGAL SECTION ── */
 .legal-section{padding:80px 0;border-top:1px solid var(--b)}
 .legal-tabs{display:flex;gap:0;border-bottom:1px solid var(--b);margin-bottom:48px}
-.legal-tab{font-family:var(--display);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
-  padding:.75rem 1.5rem;cursor:pointer;color:var(--text2);
-  border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.legal-tab{font-family:var(--display);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.75rem 1.5rem;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;transition:all .2s;user-select:none}
 .legal-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .legal-tab:hover:not(.active){color:var(--text)}
 .legal-page{display:none}
 .legal-page.active{display:block}
 .legal-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.legal-col{}
 .l-section{margin-bottom:2rem}
-.l-section h3{font-family:var(--display);font-size:.72rem;font-weight:600;
-  color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;
-  display:flex;align-items:center;gap:.5rem}
-.l-section h3::before{content:'';display:inline-block;width:3px;height:.75rem;
-  background:var(--gold);border-radius:2px}
+.l-section h3{font-family:var(--display);font-size:.72rem;font-weight:600;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.l-section h3::before{content:'';display:inline-block;width:3px;height:.75rem;background:var(--gold);border-radius:2px}
 .l-section p{font-size:.88rem;color:var(--text2);line-height:1.75;font-weight:300}
 .l-section ul{list-style:none;padding:0}
-.l-section ul li{font-size:.88rem;color:var(--text2);padding:.25rem 0 .25rem 1.1rem;
-  position:relative;font-weight:300}
-.l-section ul li::before{content:'◆';position:absolute;left:0;font-size:.4rem;
-  color:var(--gold);top:.5rem}
-.l-callout{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);
-  border-radius:4px;padding:.9rem 1.1rem;font-size:.85rem;color:var(--text2);margin-top:1rem}
+.l-section ul li{font-size:.88rem;color:var(--text2);padding:.25rem 0 .25rem 1.1rem;position:relative;font-weight:300}
+.l-section ul li::before{content:'◆';position:absolute;left:0;font-size:.4rem;color:var(--gold);top:.5rem}
+.l-callout{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;font-size:.85rem;color:var(--text2);margin-top:1rem}
 .l-callout a{color:var(--gold);text-decoration:none}
 .l-callout a:hover{text-decoration:underline}
-
-/* ── FOOTER ── */
 footer{border-top:1px solid var(--b);padding:40px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .footer-logo{font-family:var(--display);font-weight:700;font-size:.9rem;letter-spacing:.1em;color:var(--gold)}
@@ -283,29 +198,18 @@ footer{border-top:1px solid var(--b);padding:40px 0}
 .footer-links a{color:var(--text3);text-decoration:none;font-size:13px;transition:.15s;font-weight:300}
 .footer-links a:hover{color:var(--gold)}
 .footer-note{font-size:12px;color:var(--text3);font-weight:300}
-
-/* ── MODAL ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);
-  backdrop-filter:blur(12px);z-index:999;align-items:center;justify-content:center}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);z-index:999;align-items:center;justify-content:center}
 .modal-bg.on{display:flex;animation:fi .2s ease}
 @keyframes fi{from{opacity:0}to{opacity:1}}
-.modal{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;
-  padding:36px;width:100%;max-width:480px;margin:20px;position:relative;
-  animation:su .25s ease}
+.modal{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:36px;width:100%;max-width:480px;margin:20px;position:relative;animation:su .25s ease}
 @keyframes su{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.modal-x{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.05);
-  border:1px solid var(--b);color:var(--text3);width:28px;height:28px;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.15s}
+.modal-x{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.05);border:1px solid var(--b);color:var(--text3);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.15s}
 .modal-x:hover{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-b)}
-.m-title{font-family:var(--display);font-size:1.2rem;font-weight:700;letter-spacing:.04em;
-  margin-bottom:4px;color:var(--gold)}
+.m-title{font-family:var(--display);font-size:1.2rem;font-weight:700;letter-spacing:.04em;margin-bottom:4px;color:var(--gold)}
 .m-sub{color:var(--text2);font-size:13px;margin-bottom:24px;font-weight:300}
 .f-row{margin-bottom:14px}
-.f-row label{display:block;font-family:var(--display);font-size:.6rem;font-weight:600;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px}
-.f-row input,.f-row select,.f-row textarea{
-  width:100%;background:var(--card);border:1px solid var(--b2);color:var(--text);
-  padding:10px 13px;border-radius:8px;font-size:13px;font-family:var(--font);transition:.15s;resize:vertical}
+.f-row label{display:block;font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px}
+.f-row input,.f-row select,.f-row textarea{width:100%;background:var(--card);border:1px solid var(--b2);color:var(--text);padding:10px 13px;border-radius:8px;font-size:13px;font-family:var(--font);transition:.15s;resize:vertical}
 .f-row input::placeholder,.f-row textarea::placeholder{color:var(--text3)}
 .f-row input:focus,.f-row select:focus,.f-row textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,168,75,.1)}
 .f-row select option{background:var(--bg2)}
@@ -316,8 +220,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
 .ms-ico{font-size:44px;margin-bottom:12px}
 .ms-title{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:6px;letter-spacing:.06em}
 .ms-msg{color:var(--text2);font-size:13px;margin-bottom:20px;font-weight:300}
-
-/* ── RESPONSIVE ── */
 @media(max-width:860px){
   .feat-grid{grid-template-columns:1fr 1fr}
   .gacha-grid{grid-template-columns:1fr}
@@ -325,8 +227,7 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   .cmd-sidebar{position:static}
   .cmd-nav{display:flex;flex-direction:row;overflow-x:auto}
   .cn-head{display:none}
-  .cn-btn{flex-direction:column;gap:4px;font-size:11px;padding:10px 12px;
-    border-left:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .cn-btn{flex-direction:column;gap:4px;font-size:11px;padding:10px 12px;border-left:none;border-bottom:2px solid transparent;white-space:nowrap}
   .cn-btn.on{border-left:none;border-bottom-color:var(--gold)}
   .cn-n{display:none}
   .supp-grid{grid-template-columns:1fr}
@@ -346,7 +247,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="wrap nav-inner">
     <a href="#" class="nav-logo">
@@ -367,7 +267,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-eyebrow">Genshin Impact Gacha Bot</div>
@@ -375,19 +274,18 @@ footer{border-top:1px solid var(--b);padding:40px 0}
     <p class="hero-sub">100+ characters, real pity system, Primogem economy, social commands, leaderboards — all free, forever.</p>
     <div class="hero-btns">
       <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn btn-discord btn-xl" target="_blank">➕ Add to Discord</a>
-      <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote — Get 4,000 💎</a>
-      <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-ghost btn-lg" target="_blank">💬 Support Server</a>
+      <a href="https://top.gg/bot/1305780094937337906/vote" class="btn btn-gold btn-lg" target="_blank">⭐ Vote — Get 6,000 💎</a>
+      <a href="https://discord.gg/7jMYgba96B" class="btn btn-ghost btn-lg" target="_blank">💬 Support Server</a>
     </div>
     <div class="hero-stats">
       <div class="hs"><div class="hs-v">100+</div><div class="hs-l">Characters</div></div>
-      <div class="hs"><div class="hs-v">40+</div><div class="hs-l">Commands</div></div>
+      <div class="hs"><div class="hs-v">50+</div><div class="hs-l">Commands</div></div>
       <div class="hs"><div class="hs-v">0.6%</div><div class="hs-l">5★ Rate</div></div>
       <div class="hs"><div class="hs-v">90</div><div class="hs-l">Hard Pity</div></div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="section" id="features">
   <div class="wrap">
     <div class="sec-eyebrow">Features</div>
@@ -415,9 +313,9 @@ footer{border-top:1px solid var(--b);padding:40px 0}
         <p class="feat-desc">20+ anime-style actions with live GIFs — kiss, hug, pat, marry, blush, cry, and more.</p>
       </div>
       <div class="feat">
-        <div class="feat-ico ico-purple">🏆</div>
-        <div class="feat-title">Global Leaderboards</div>
-        <p class="feat-desc">Compete for top Primogem wealth and most 5★ characters. Updated live with every pull.</p>
+        <div class="feat-ico ico-purple">⚔️</div>
+        <div class="feat-title">Character Battles & Explore</div>
+        <p class="feat-desc">Set your team and duel other players for Primogems, or send them on timed explorations for rewards.</p>
       </div>
       <div class="feat">
         <div class="feat-ico ico-orange">⚡</div>
@@ -428,7 +326,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </section>
 
-<!-- GACHA -->
 <section class="section" id="gacha">
   <div class="wrap">
     <div class="sec-eyebrow">Gacha System</div>
@@ -439,10 +336,9 @@ footer{border-top:1px solid var(--b);padding:40px 0}
           <div class="g-head">✦ Pull Rates</div>
           <div class="g-body">
             <div class="rate-row"><div class="rr-left"><span class="star5">★★★★★</span><span class="rr-label">5-Star Character</span></div><span class="rr-val">0.6%</span></div>
-            <div class="rate-row"><div class="rr-left"><span class="star4">★★★★</span><span class="rr-label">4-Star Character</span></div><span class="rr-val">5.1%</span></div>
-            <div class="rate-row"><div class="rr-left"><span class="star3">★★★</span><span class="rr-label">3-Star Character</span></div><span class="rr-val">94.3%</span></div>
+            <div class="rate-row"><div class="rr-left"><span class="star4">★★★★</span><span class="rr-label">4-Star Character</span></div><span class="rr-val">99.4%</span></div>
             <div class="pity-wrap">
-              <div class="pity-lbl"><span>Hard Pity</span><span>74 / 90</span></div>
+              <div class="pity-lbl"><span>Hard Pity</span><span>90 pulls</span></div>
               <div class="pity-track"><div class="pity-fill pf-g" id="pf1"></div></div>
               <div class="pity-lbl"><span>Soft Pity</span><span style="color:var(--purple)">Active at 74+</span></div>
               <div class="pity-track"><div class="pity-fill pf-p" id="pf2"></div></div>
@@ -453,9 +349,11 @@ footer{border-top:1px solid var(--b);padding:40px 0}
           <div class="g-head">💎 Primogem Economy</div>
           <div class="g-body">
             <div class="eco-row"><span class="eco-lbl">💎 Cost per pull</span><span class="eco-val">160</span></div>
-            <div class="eco-row"><span class="eco-lbl">🗳️ Vote reward</span><span class="eco-val">+4,000</span></div>
-            <div class="eco-row"><span class="eco-lbl">📅 Daily buy limit</span><span class="eco-val">2,000</span></div>
-            <div class="eco-row"><span class="eco-lbl">💍 Sell duplicate</span><span class="eco-val">varies</span></div>
+            <div class="eco-row"><span class="eco-lbl">🗳️ Vote reward</span><span class="eco-val">+6,000</span></div>
+            <div class="eco-row"><span class="eco-lbl">🌟 Weekend vote bonus</span><span class="eco-val">+12,000</span></div>
+            <div class="eco-row"><span class="eco-lbl">📅 Daily buy limit</span><span class="eco-val">5,000</span></div>
+            <div class="eco-row"><span class="eco-lbl">💍 Sell duplicate 5★</span><span class="eco-val">200 each</span></div>
+            <div class="eco-row"><span class="eco-lbl">💍 Sell duplicate 4★</span><span class="eco-val">50 each</span></div>
           </div>
         </div>
       </div>
@@ -481,15 +379,15 @@ footer{border-top:1px solid var(--b);padding:40px 0}
             <div class="steps">
               <div class="step">
                 <div class="step-num" style="background:var(--blue-bg);border:1px solid var(--blue-b);color:var(--blue)">1</div>
-                <div><div class="step-title">Use /wish or xd wish | /wish10 or xd wish10</div><div class="step-desc">Spends 160 | 1600 Primogems from your balance</div></div>
+                <div><div class="step-title">Use /wish or xd wish | /wish10 or xd wish10</div><div class="step-desc">Spends 160 | 1,600 Primogems from your balance</div></div>
               </div>
               <div class="step">
                 <div class="step-num" style="background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold)">2</div>
-                <div><div class="step-title">Character is revealed</div><div class="step-desc">Rarity set by rates above, pity tracked per-user</div></div>
+                <div><div class="step-title">Character is revealed</div><div class="step-desc">5★ or 4★ rarity, pity tracked per-user in the database</div></div>
               </div>
               <div class="step">
                 <div class="step-num" style="background:var(--green-bg);border:1px solid var(--green-b);color:var(--green)">3</div>
-                <div><div class="step-title">Added to your inventory</div><div class="step-desc">Duplicates can be sold or traded with others</div></div>
+                <div><div class="step-title">Added to your inventory</div><div class="step-desc">Duplicates can be sold, ascended or traded with others</div></div>
               </div>
             </div>
           </div>
@@ -499,12 +397,11 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </section>
 
-<!-- COMMANDS -->
 <section class="section" id="commands">
   <div class="wrap">
     <div class="sec-eyebrow">Commands</div>
     <h2>Every command,<br><span>organized.</span></h2>
-    <p class="sec-sub">Browse by category. All 40+ commands.</p>
+    <p class="sec-sub">Browse by category. All 50+ commands.</p>
     <div style="margin-top:24px">
       <input type="text" class="cmd-search" id="gSearch" placeholder="🔍  Search all commands..." oninput="gFilter()">
     </div>
@@ -512,16 +409,18 @@ footer{border-top:1px solid var(--b);padding:40px 0}
       <div class="cmd-sidebar">
         <div class="cmd-nav">
           <div class="cn-head">Categories</div>
-          <button class="cn-btn on" onclick="showSec('gacha',this)"><div class="cn-dot d-gold"></div>Gacha & Economy<span class="cn-n">12</span></button>
+          <button class="cn-btn on" onclick="showSec('gacha',this)"><div class="cn-dot d-gold"></div>Gacha & Economy<span class="cn-n">25</span></button>
+          <button class="cn-btn" onclick="showSec('battle',this)"><div class="cn-dot d-orange"></div>Battle & Explore<span class="cn-n">4</span></button>
           <button class="cn-btn" onclick="showSec('social',this)"><div class="cn-dot d-pink"></div>Social Actions<span class="cn-n">14</span></button>
           <button class="cn-btn" onclick="showSec('emotion',this)"><div class="cn-dot d-purple"></div>Emotions<span class="cn-n">8</span></button>
-          <button class="cn-btn" onclick="showSec('utility',this)"><div class="cn-dot d-blue"></div>Utility & Info<span class="cn-n">9</span></button>
-          <button class="cn-btn" onclick="showSec('fun',this)"><div class="cn-dot d-orange"></div>Fun<span class="cn-n">4</span></button>
-          <button class="cn-btn" onclick="showSec('owner',this)"><div class="cn-dot d-green"></div>Owner Only<span class="cn-n">3</span></button>
+          <button class="cn-btn" onclick="showSec('utility',this)"><div class="cn-dot d-blue"></div>Utility & Info<span class="cn-n">10</span></button>
+          <button class="cn-btn" onclick="showSec('fun',this)"><div class="cn-dot d-orange"></div>Fun<span class="cn-n">5</span></button>
+          <button class="cn-btn" onclick="showSec('owner',this)"><div class="cn-dot d-green"></div>Owner Only<span class="cn-n">4</span></button>
         </div>
       </div>
       <div id="cmdPanel">
         <div class="cmd-section on" id="sec-gacha"><div class="cs-head"><div class="cs-ico ico-gold">🎲</div><div><div class="cs-title">Gacha & Economy</div><div class="cs-sub">Pull characters, manage Primogems, trade &amp; leaderboards</div></div></div><div class="cmd-cards" id="cc-gacha"></div><div class="no-r" id="nr-gacha">No commands match.</div></div>
+        <div class="cmd-section" id="sec-battle"><div class="cs-head"><div class="cs-ico ico-orange">⚔️</div><div><div class="cs-title">Battle & Explore</div><div class="cs-sub">Use your characters in duels and expeditions</div></div></div><div class="cmd-cards" id="cc-battle"></div><div class="no-r" id="nr-battle">No commands match.</div></div>
         <div class="cmd-section" id="sec-social"><div class="cs-head"><div class="cs-ico ico-pink">🎭</div><div><div class="cs-title">Social Actions</div><div class="cs-sub">Interact with others using animated anime GIFs</div></div></div><div class="cmd-cards" id="cc-social"></div><div class="no-r" id="nr-social">No commands match.</div></div>
         <div class="cmd-section" id="sec-emotion"><div class="cs-head"><div class="cs-ico ico-purple">😊</div><div><div class="cs-title">Emotions</div><div class="cs-sub">Express yourself with reaction GIFs</div></div></div><div class="cmd-cards" id="cc-emotion"></div><div class="no-r" id="nr-emotion">No commands match.</div></div>
         <div class="cmd-section" id="sec-utility"><div class="cs-head"><div class="cs-ico ico-blue">🔧</div><div><div class="cs-title">Utility & Info</div><div class="cs-sub">Server info, user info, AFK, and bot utilities</div></div></div><div class="cmd-cards" id="cc-utility"></div><div class="no-r" id="nr-utility">No commands match.</div></div>
@@ -532,7 +431,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </section>
 
-<!-- SUPPORT -->
 <section class="section" id="support">
   <div class="wrap">
     <div class="sec-eyebrow">Support</div>
@@ -554,115 +452,48 @@ footer{border-top:1px solid var(--b);padding:40px 0}
         <div class="supp-ico" style="background:rgba(88,101,242,.1);border-color:rgba(88,101,242,.22)">💬</div>
         <div class="supp-title">Discord Server</div>
         <p class="supp-desc">Join for real-time help, updates, and community chat.</p>
-        <a href="https://discord.gg/Gz3dEH9VpJ" class="btn btn-discord btn-sm" target="_blank">Join Server</a>
+        <a href="https://discord.gg/7jMYgba96B" class="btn btn-discord btn-sm" target="_blank">Join Server</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LEGAL -->
 <section class="legal-section" id="legal">
   <div class="wrap">
     <div class="sec-eyebrow">Legal</div>
     <h2>Terms &amp; <span>Privacy</span></h2>
     <p class="sec-sub" style="margin-bottom:0">Effective June 10, 2026 · XD Bot by notcassal</p>
-
     <div style="margin-top:32px">
       <div class="legal-tabs">
         <div class="legal-tab active" onclick="switchLegal('tos')">Terms of Service</div>
         <div class="legal-tab" onclick="switchLegal('privacy')">Privacy Policy</div>
       </div>
-
       <div class="legal-page active" id="lp-tos">
         <div class="legal-grid">
           <div class="legal-col">
-            <div class="l-section">
-              <h3>Acceptance</h3>
-              <p>By using XD Bot in any Discord server or direct message, you agree to these Terms. If you do not agree, do not use the Bot.</p>
-            </div>
-            <div class="l-section">
-              <h3>Eligibility</h3>
-              <p>You must comply with Discord's Terms of Service and be of the minimum age required in your country to use Discord.</p>
-            </div>
-            <div class="l-section">
-              <h3>Permitted Use</h3>
-              <p>You agree not to:</p>
-              <ul>
-                <li>Exploit bugs or glitches for unfair advantages</li>
-                <li>Use automated tools or macros to interact with the Bot</li>
-                <li>Attempt to reverse-engineer or redistribute the Bot's code</li>
-                <li>Use the Bot to harass or harm other users</li>
-                <li>Manipulate or corrupt data belonging to other users</li>
-              </ul>
-            </div>
+            <div class="l-section"><h3>Acceptance</h3><p>By using XD Bot in any Discord server or direct message, you agree to these Terms. If you do not agree, do not use the Bot.</p></div>
+            <div class="l-section"><h3>Eligibility</h3><p>You must comply with Discord's Terms of Service and be of the minimum age required in your country to use Discord.</p></div>
+            <div class="l-section"><h3>Permitted Use</h3><p>You agree not to:</p><ul><li>Exploit bugs or glitches for unfair advantages</li><li>Use automated tools or macros to interact with the Bot</li><li>Attempt to reverse-engineer or redistribute the Bot's code</li><li>Use the Bot to harass or harm other users</li><li>Manipulate or corrupt data belonging to other users</li></ul></div>
           </div>
           <div class="legal-col">
-            <div class="l-section">
-              <h3>Virtual Items</h3>
-              <p>All in-bot currency (Primogems), characters, and items are virtual goods with no real-world monetary value. They cannot be sold for real money or exchanged for any goods or services.</p>
-            </div>
-            <div class="l-section">
-              <h3>Service Availability</h3>
-              <p>XD Bot is provided as-is and may be unavailable at any time for maintenance. We reserve the right to modify, suspend, or discontinue any feature without prior notice.</p>
-            </div>
-            <div class="l-section">
-              <h3>Account Actions</h3>
-              <p>We reserve the right to reset, suspend, or permanently ban any user's Bot data for violations of these terms or abuse.</p>
-            </div>
-            <div class="l-callout">
-              Questions? Contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">discord.gg/Gz3dEH9VpJ</a>
-            </div>
+            <div class="l-section"><h3>Virtual Items</h3><p>All in-bot currency (Primogems), characters, and items are virtual goods with no real-world monetary value. They cannot be sold for real money or exchanged for any goods or services.</p></div>
+            <div class="l-section"><h3>Service Availability</h3><p>XD Bot is provided as-is and may be unavailable at any time for maintenance. We reserve the right to modify, suspend, or discontinue any feature without prior notice.</p></div>
+            <div class="l-section"><h3>Account Actions</h3><p>We reserve the right to reset, suspend, or permanently ban any user's Bot data for violations of these terms or abuse.</p></div>
+            <div class="l-callout">Questions? Contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/7jMYgba96B" target="_blank">discord.gg/7jMYgba96B</a></div>
           </div>
         </div>
       </div>
-
       <div class="legal-page" id="lp-privacy">
         <div class="legal-grid">
           <div class="legal-col">
-            <div class="l-section">
-              <h3>Data We Collect</h3>
-              <p>When you interact with XD Bot, the following is stored:</p>
-              <ul>
-                <li>Discord User ID and username</li>
-                <li>Primogem balance</li>
-                <li>Gacha character collection</li>
-                <li>XP, level, and achievement progress</li>
-                <li>Marriage status (partner's User ID)</li>
-                <li>Daily claim and vote timestamps</li>
-                <li>AFK status (in-memory only, not persisted)</li>
-              </ul>
-            </div>
-            <div class="l-section">
-              <h3>Server Data</h3>
-              <ul>
-                <li>Discord Guild (Server) ID</li>
-                <li>Level-up announcement channel ID</li>
-                <li>Invite tracking channel ID</li>
-                <li>Invite usage records</li>
-              </ul>
-            </div>
+            <div class="l-section"><h3>Data We Collect</h3><p>When you interact with XD Bot, the following is stored:</p><ul><li>Discord User ID and username</li><li>Primogem balance</li><li>Gacha character collection</li><li>XP, level, and achievement progress</li><li>Marriage status (partner's User ID)</li><li>Daily claim and vote timestamps</li><li>Team and exploration state</li><li>AFK status (in-memory only, not persisted)</li></ul></div>
+            <div class="l-section"><h3>Server Data</h3><ul><li>Discord Guild (Server) ID</li><li>Level-up announcement channel ID</li><li>Invite tracking channel ID</li><li>Invite usage records</li></ul></div>
           </div>
           <div class="legal-col">
-            <div class="l-section">
-              <h3>How We Use It</h3>
-              <p>All data is used exclusively to operate the Bot's features. We do not sell, share, or use your data for advertising. We do not store message content.</p>
-            </div>
-            <div class="l-section">
-              <h3>Third-Party Services</h3>
-              <ul>
-                <li><strong>Top.gg</strong> — vote tracking</li>
-                <li><strong>nekos.best / otakugifs.xyz</strong> — GIFs (no user data sent)</li>
-                <li><strong>meme-api.com</strong> — meme content (no user data sent)</li>
-                <li><strong>MongoDB Atlas</strong> — secure data storage</li>
-              </ul>
-            </div>
-            <div class="l-section">
-              <h3>Data Deletion</h3>
-              <p>You may request deletion of your data at any time. All data tied to your Discord User ID will be removed within a reasonable timeframe.</p>
-            </div>
-            <div class="l-callout">
-              Data requests: contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">discord.gg/Gz3dEH9VpJ</a>
-            </div>
+            <div class="l-section"><h3>How We Use It</h3><p>All data is used exclusively to operate the Bot's features. We do not sell, share, or use your data for advertising. We do not store message content.</p></div>
+            <div class="l-section"><h3>Third-Party Services</h3><ul><li><strong>Top.gg</strong> — vote tracking</li><li><strong>nekos.best / otakugifs.xyz</strong> — GIFs (no user data sent)</li><li><strong>meme-api.com</strong> — meme content (no user data sent)</li><li><strong>MongoDB Atlas</strong> — secure data storage</li></ul></div>
+            <div class="l-section"><h3>Data Deletion</h3><p>You may request deletion of your data at any time. All data tied to your Discord User ID will be removed within a reasonable timeframe.</p></div>
+            <div class="l-callout">Data requests: contact <strong>notcassal</strong> on Discord or join <a href="https://discord.gg/7jMYgba96B" target="_blank">discord.gg/7jMYgba96B</a></div>
           </div>
         </div>
       </div>
@@ -670,7 +501,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </section>
 
-<!-- CTA -->
 <div class="wrap">
   <div class="cta">
     <h2>Ready to start pulling your favourite Genshin character?</h2>
@@ -682,13 +512,12 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="footer-inner">
       <div class="footer-logo">✦ XD Bot</div>
       <div class="footer-links">
-        <a href="https://discord.gg/Gz3dEH9VpJ" target="_blank">Support</a>
+        <a href="https://discord.gg/7jMYgba96B" target="_blank">Support</a>
         <a href="https://top.gg/bot/1305780094937337906/vote" target="_blank">Vote</a>
         <a href="https://discord.com/oauth2/authorize?client_id=1305780094937337906&permissions=8&integration_type=0&scope=bot+applications.commands" target="_blank">Invite</a>
         <a href="#legal" onclick="switchLegal('tos')">Terms</a>
@@ -699,7 +528,6 @@ footer{border-top:1px solid var(--b);padding:40px 0}
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <div class="modal-x" onclick="closeModal()">✕</div>
@@ -708,7 +536,7 @@ footer{border-top:1px solid var(--b);padding:40px 0}
       <p class="m-sub" id="mSub">Describe what went wrong and we'll fix it.</p>
       <div class="f-row"><label>Discord Username</label><input type="text" id="fUser" placeholder="username"></div>
       <div class="f-row"><label>Type</label><select id="fType"><option value="bug">🐛 Bug Report</option><option value="feature">💡 Feature Request</option></select></div>
-      <div class="f-row"><label>Command / Area</label><input type="text" id="fCmd" placeholder="/pull, economy, social..."></div>
+      <div class="f-row"><label>Command / Area</label><input type="text" id="fCmd" placeholder="/wish, economy, social..."></div>
       <div class="f-row"><label>Description</label><textarea id="fDesc" placeholder="Describe in detail..."></textarea></div>
       <div class="f-row" id="fStepsRow"><label>Steps to Reproduce</label><textarea id="fSteps" placeholder="1. Did X&#10;2. Expected Y&#10;3. Got Z"></textarea></div>
       <button class="btn btn-gold m-submit" onclick="submitReport()">Submit Report →</button>
@@ -725,17 +553,18 @@ footer{border-top:1px solid var(--b);padding:40px 0}
 <script>
 const DATA = {
   gacha: [
-    {n:'/wish',a:'xd wish / !wish',t:'both',d:'Pull a random Genshin character from the banner.',cost:'160 💎'},
+    {n:'/wish',a:'xd wish / !wish',t:'both',d:'Pull a random Genshin character. 5★ or 4★ only.',cost:'160 💎'},
     {n:'/wish10',a:'xd wish10 / !wish10',t:'both',d:'Wish 10 characters at once.',cost:'1,600 💎'},
-    {n:'/profile',a:'xd profile',t:'both',d:'View your gacha profile — total pulls, pity counter, top 5★ characters.'},
-    {n:'/inventory',a:'xd inv / !inventory',t:'both',d:'Browse your full character collection with pagination, rarity sorting, and duplicate tracking.'},
+    {n:'/banner',a:'xd banner',t:'both',d:'View the current limited banner and select which featured character to pull on.'},
+    {n:'/profile',a:'xd profile',t:'both',d:'View your gacha profile — total pulls, pity counter, featured characters, top 5★.'},
+    {n:'/inventory',a:'xd inv / !inventory',t:'both',d:'Browse your full character collection with pagination and rarity sorting.'},
     {n:'/view',a:null,t:'slash',d:'View detailed info about a specific character in your collection.'},
-    {n:'/character',a:'xd ch / !ch',t:'both',d:'View Genshin character info — element, weapon, region, birthday and release date.'},
+    {n:'/character',a:'xd ch / !ch',t:'both',d:'View Genshin character info — element, weapon, region and more.'},
     {n:'/balance',a:'xd b / !balance',t:'both',d:'Check your current Primogem balance.'},
     {n:'/shop',a:'xd s / !shop',t:'both',d:'View the Primogem shop and your current pity info.'},
-    {n:'/buy',a:'xd buy / !buy / amount',t:'both',d:'Purchase Primogems. 2,000 per day limit.',cost:'2,000/day max'},
-    {n:'/sell',a:null,t:'slash',d:'Sell a duplicate character back for Primogems.'},
-    {n:'/sellall',a:null,t:'slash',d:'Sell all duplicate characters at once.'},
+    {n:'/buy',a:'xd buy / !buy',t:'both',d:'Purchase Primogems. 5,000 per day limit.',cost:'5,000/day max'},
+    {n:'/sell',a:null,t:'slash',d:'Sell a duplicate character for Primogems.'},
+    {n:'/sellall',a:null,t:'slash',d:'Sell all duplicate characters at once. Optionally filter by 4★ or 5★.'},
     {n:'/trade',a:null,t:'slash',d:'Trade a character with another user. Both must agree.'},
     {n:'/leaderboard',a:'xd lb / !lb',t:'both',d:'Top 5 richest players and most 5★ character collectors.'},
     {n:'/daily',a:'xd daily / !daily',t:'both',d:'Claim your daily Primogem reward.',cost:'+60 💎'},
@@ -743,23 +572,27 @@ const DATA = {
     {n:'/rank',a:'xd rank / !rank',t:'both',d:'View your level, XP progress bar and rank title.'},
     {n:'/ranklb',a:'xd ranklb / !ranklb',t:'both',d:'Top 10 players by level and XP.'},
     {n:'/achievements',a:'xd ach / !ach',t:'both',d:'View your achievements and stats — pulls, trades, level and more.'},
-    {n:'/transfer',a:'xd transfer / !transfer',t:'both',d:'Transfer Primogems to another user 💸'},
+    {n:'/transfer',a:'xd transfer / !transfer',t:'both',d:'Transfer Primogems to another user. 20,000/day limit. 💸'},
     {n:'/rob',a:'xd rob / !rob',t:'both',d:'Rob someone for Primogems — 50/50 chance, 5 attempts per day 🎯'},
     {n:'/codes',a:null,t:'slash',d:'Share up to 3 Genshin redeem codes with clickable buttons.'},
-    {n:'/ascend',a:'xd ascend / !ascend / character name',t:'both',d:'Ascend a character using duplicate copies.'},
-    {n:'/explore',a:'xd explore / !explore',t:'both',d:'🗺️ Send your team on an exploration mission'},
-    {n:'/setteam',a:'xd st / !st / characters name',t:'both',d:'⚔️ Set your team for duels and exploration'},
-    {n:'/duel',a:'xd duel / !duel / @user amount',t:'both',d:'⚔️ Duel another player for Primogems'},
+    {n:'/ascend',a:'xd ascend',t:'both',d:'Ascend a character using duplicate copies to unlock constellation bonuses.'},
+    {n:'/wishwuwa',a:'xd wishwuwa',t:'prefix',d:'Pull a Wuthering Waves resonator! Card-style reveal.',cost:'160 💎'},
+    {n:'/invwuwa',a:'xd invwuwa',t:'prefix',d:'View your Wuthering Waves resonator collection.'},
+  ],
+  battle: [
+    {n:'/setteam',a:'xd st',t:'both',d:'Set your active team of up to 4 characters for duels and exploration.'},
+    {n:'/duel',a:'xd duel / !duel',t:'both',d:'Challenge another player to a turn-based battle for Primogems. Teams fight with element bonuses! ⚔️'},
+    {n:'/explore',a:'xd explore / !explore',t:'both',d:'Send your team on a timed expedition. Random events, rewards on return. 1hr cooldown after collecting.'},
+    {n:'/quiz',a:'xd quiz / !quiz',t:'both',d:'Guess the blurred Genshin character. Reply to the message to answer. Win 300 💎!'},
   ],
   social: [
-    {n:'/interact',a:null,t:'slash',d:'Use a roleplay action with one slash command',},
     {n:'xd kiss',a:'!kiss',t:'prefix',d:'Kiss someone with an anime GIF 💋'},
     {n:'xd hug',a:'!hug',t:'prefix',d:'Hug someone warmly 🤗'},
     {n:'xd pat',a:'!pat',t:'prefix',d:'Pat someone on the head 🐾'},
     {n:'xd cuddle',a:'!cuddle',t:'prefix',d:'Cuddle up with someone 🥰'},
     {n:'xd nom',a:'!nom',t:'prefix',d:'Nom nom someone 😋'},
     {n:'xd bite',a:'!bite',t:'prefix',d:'Bite someone playfully 😼'},
-    {n:'xd bonk',a:'!bonk',t:'prefix',d:'Bonked someone 😁'},
+    {n:'xd bonk',a:'!bonk',t:'prefix',d:'Bonk someone 😁'},
     {n:'xd slap',a:'!slap',t:'prefix',d:'Slap someone 👋'},
     {n:'xd punch',a:'!punch',t:'prefix',d:'Punch someone 👊'},
     {n:'xd kill',a:'!kill',t:'prefix',d:'Dramatically eliminate someone 💀'},
@@ -782,19 +615,21 @@ const DATA = {
   utility: [
     {n:'/userinfo',a:'xd user / !user',t:'both',d:'View detailed info about any Discord user.'},
     {n:'/serverinfo',a:'xd server / !server',t:'both',d:'View server statistics and member counts.'},
-    {n:'/botinfo',a:'!xd',t:'both',d:'View bot stats — uptime, ping, memory usage.'},
+    {n:'/botinfo',a:'!xd',t:'both',d:'View bot stats — uptime, ping, memory usage, server count.'},
     {n:'/avatar',a:'xd avatar / !avatar',t:'both',d:"Display any user's avatar in full resolution."},
-    {n:'/afk',a:'xd afk / !afk',t:'both',d:'Set AFK with a reason. Bot notifies when you are mentioned. Includes update reason button.'},
-    {n:'/setlevelchannel',a:null,t:'slash',d:'Set a channel for level up announcements. Admin/Mod only.'},
-    {n:'/removelevelchannel',a:null,t:'slash',d:'Remove the level up announcement channel. Admin/Mod only.'},
+    {n:'/afk',a:'xd afk / !afk',t:'both',d:'Set AFK with a reason. Bot notifies when you are mentioned.'},
+    {n:'/setlevelchannel',a:null,t:'slash',d:'Set a channel for level up announcements. Admin only.'},
+    {n:'/removelevelchannel',a:null,t:'slash',d:'Remove the level up announcement channel. Admin only.'},
     {n:'/help',a:'xd help / !help',t:'both',d:'Browse all commands with interactive category dropdown.'},
     {n:'/say',a:null,t:'slash',d:'Make the bot send a message in the channel.'},
-    {n:'/vote',a:'xd vote / !vote',t:'both',d:'Get the Top.gg link to vote and earn 3,000 Primogems.'},
+    {n:'/vote',a:'xd vote / !vote',t:'both',d:'Get the Top.gg voting link. Earn 6,000 💎, or 12,000 💎 on weekends!'},
   ],
   fun: [
-    {n:'/coinflip',a:'!cf T or H bet / xd cf T or H bet',t:'both',d:'Flip a coin with bet primogems + T or H🪙'},
+    {n:'/coinflip',a:'xd cf / !cf',t:'both',d:'Flip a coin with Pikachu animation. Bet Primogems on heads or tails 🪙'},
     {n:'/meme',a:'pls meme',t:'both',d:'Fetch a random meme from Reddit 😂'},
     {n:'/love',a:null,t:'slash',d:'Calculate love compatibility between two users ❤️'},
+    {n:'/8ball',a:'xd 8ball / !8ball',t:'both',d:'Ask Paimon\'s magic 8-ball a question. Animated thinking response! 🔮'},
+    {n:'/quiz',a:'xd quiz / !quiz',t:'both',d:'Blurred character guessing game. Reply with the name to win 300 💎 🔍'},
   ],
   owner: [
     {n:'/gift',a:null,t:'slash',owner:true,d:'Gift any amount of Primogems to a user.'},
@@ -817,6 +652,7 @@ function tagHTML(c){
 }
 Object.keys(DATA).forEach(cat => {
   const wrap = document.getElementById('cc-'+cat);
+  if(!wrap) return;
   DATA[cat].forEach(c => {
     const el = document.createElement('div');
     el.className = 'cmd-card';
